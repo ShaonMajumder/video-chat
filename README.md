@@ -1,6 +1,6 @@
 # Video Chat
 
-![Laravel CI](https://github.com/ShaonMajumder/video-chat/actions/workflows/laravel.yml/badge.svg)
+![Laravel CI](https://github.com/ShaonMajumder/video-chat/actions/workflows/ci.yml/badge.svg)
 [![codecov](https://codecov.io/gh/ShaonMajumder/video-chat/branch/main/graph/badge.svg)](https://codecov.io/gh/ShaonMajumder/video-chat)
 
 A scalable, secure, and feature-rich real-time video chat platform built for seamless one-on-one communication, designed to handle 200M+ users with up to 2M concurrent connections.
