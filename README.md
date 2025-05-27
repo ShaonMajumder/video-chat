@@ -9,15 +9,15 @@ A scalable, secure, and feature-rich real-time video chat platform built for sea
 
 ### 📹 Full Platform Walkthrough
 **YouTube Video:** Real-time chat, authentication, and online users in action  
-[![Video Chat Application Demo](https://img.youtube.com/vi/ZIC_A7jSB-E/maxresdefault.jpg)](https://www.youtube.com/watch?v=ZIC_A7jSB-E)
+Link - https://www.youtube.com/watch?v=ZIC_A7jSB-E
 
 ### 🛠️ Real-Time Messaging Overview
 **Figure:** Sending and receiving messages in real-time
-![Chat Demo](screenshots/chat-demo-2025-05-27.gif)
+![Chat Demo](screenshots/chat.gif)
 
 ### 🔒 Secure Authentication
 **Figure:** JWT-based login with encrypted cookie storage
-![Auth Demo](screenshots/auth-demo-2025-05-27.gif)
+![Auth Demo](screenshots/authentication.gif)
 
 ### ✅ Continuous Integration (CI) with GitHub Actions
 **Figure:** GitHub Actions running PHPUnit tests on push to main

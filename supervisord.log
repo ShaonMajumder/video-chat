@@ -700,3 +700,9 @@
 2025-05-27 07:56:59,110 INFO reaped unknown pid 227 (terminated by SIGKILL)
 2025-05-27 07:56:59,112 INFO reaped unknown pid 218 (terminated by SIGKILL)
 2025-05-27 08:23:17,045 INFO reaped unknown pid 264 (exit status 0)
+2025-05-27 12:35:06,960 WARN received SIGQUIT indicating exit request
+2025-05-27 12:35:06,960 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 12:35:07,963 INFO stopped: websockets (exit status 0)
+2025-05-27 12:35:08,966 INFO stopped: queue (exit status 0)
+2025-05-27 12:35:08,971 INFO stopped: php-fpm (exit status 0)
+2025-05-27 12:35:08,998 INFO stopped: nginx (exit status 0)
