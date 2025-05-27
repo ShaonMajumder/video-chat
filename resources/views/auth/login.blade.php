@@ -95,13 +95,20 @@ document.getElementById('loginForm').addEventListener('submit', async function (
 
     errorContainer.style.display = 'none';
     errorContainer.innerHTML = '';
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+    if (!csrfToken) {
+        errorContainer.innerHTML = `<p>CSRF token not found. Ensure meta tag is present.</p>`;
+        errorContainer.style.display = 'block';
+        return;
+    }
+    console.log('CSRF Token:', csrfToken);
 
     try {
         const response = await fetch('/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'X-CSRF-TOKEN': csrfToken,
             },
             body: JSON.stringify({ email, password }),
             credentials: 'same-origin' // allow Laravel to set the HttpOnly cookie

@@ -16,7 +16,8 @@ class NewMessageTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->seed(UserSeeder::class); // Seed users (id=1, id=2)
+        $this->artisan('migrate', ['--database' => 'sqlite']);
+        $this->artisan('db:seed', ['--class' => 'AdminSeeder']);
     }
 
     public function test_new_message_event_broadcasts_correctly()

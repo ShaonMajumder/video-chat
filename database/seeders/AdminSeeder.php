@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\App;
 
-class UserSeeder extends Seeder
+class AdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,8 +16,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        if (!App::environment('local')) {
-            $this->command->info('UserSeeder skipped: not in local environment.');
+        if (!App::environment(['local', 'testing'])) {
+            $this->command->info('AdminSeeder skipped: not in local/testing environment.');
             return;
         }
 
@@ -39,11 +39,11 @@ class UserSeeder extends Seeder
                 ['email' => $userData['email']],
                 [
                     'name' => $userData['name'],
-                    'password' => Hash::make($userData['password']),
+                    'password' => $userData['password'],
                 ]
             );
         }
 
-        $this->command->info('UserSeeder ran successfully.');
+        // $this->command->info('AdminSeeder ran successfully.');
     }
 }

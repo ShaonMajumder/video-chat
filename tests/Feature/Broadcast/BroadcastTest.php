@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Database\Seeders\UserSeeder;
+use Illuminate\Support\Facades\Event;
 
 class BroadcastTest extends TestCase
 {
@@ -18,30 +19,36 @@ class BroadcastTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->seed(UserSeeder::class);
+        $this->artisan('migrate', ['--database' => 'sqlite']);
+        $this->artisan('db:seed', ['--class' => 'AdminSeeder']);
     }
 
     public function test_broadcast_auth_endpoint()
     {
-        // Use seeded user
-        $user = User::find(2);
-        $this->assertNotNull($user, 'User with id = 2 not found');
+        Event::fake();
 
-        // Generate and encrypt JWT token
-        try {
-            $token = JWTAuth::fromUser($user);
-            Log::debug('Generated JWT token', ['token' => $token]);
-            $encryptedToken = Crypt::encryptString($token); // Use encryptString
-            Log::debug('Encrypted token', ['encrypted_token' => $encryptedToken]);
-        } catch (\Exception $e) {
-            Log::error('Token generation error', ['error' => $e->getMessage()]);
-            $this->fail('Failed to generate token: ' . $e->getMessage());
-        }
+        $user = User::find(1);
+        $receiver = User::find(2);
+        // $token = JWTAuth::fromUser($user);
+        // $encryptedToken = Crypt::encrypt($token);
 
-        // Test authorized channel
-        $response = $this->withCookies(['token' => $encryptedToken])
+        $response = $this->postJson('/api/login', [
+            'email' => 'admin@admin.com',
+            'password' => '123456',
+        ]);
+
+        $response->assertStatus(200);
+
+        $cookie = $response->getCookie('token');
+        $token = $cookie->getValue();
+
+        
+
+        $response = $this->withHeaders([
+                'Authorization' => 'Bearer ' . $token,
+            ])
             ->postJson('/broadcasting/auth', [
-                'channel_name' => 'private-message-box.2',
+                'channel_name' => "private-message-box.$user->id",
             ]);
 
         $response->assertStatus(200)

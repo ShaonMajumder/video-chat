@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:login')->name('login.submit');
+Route::post('/login', [AuthController::class, 'login'])->middleware(['throttle:login','cors'])->name('login.submit');
 Route::middleware(['auth.cookie','throttle:api'])->group(function () {
     Route::get('me', [AuthController::class, 'me']);
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');

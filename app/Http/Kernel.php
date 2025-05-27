@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
 
         'auth.cookie' => \App\Http\Middleware\AuthenticateWithCookie::class,
         'websocket.limit' => \App\Http\Middleware\LimitWebSocketConnections::class,
+        'cors' => \App\Http\Middleware\CorsMiddleware::class,
     ];
 }
