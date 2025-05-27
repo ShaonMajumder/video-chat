@@ -21,6 +21,15 @@ class AuthControllerTest extends TestCase
     }
 
     /** @test */
+    public function it_displays_the_login_form()
+    {
+        $response = $this->get('/login'); // Adjust this route if different
+
+        $response->assertStatus(200);
+        $response->assertViewIs('auth.login');
+    }
+
+    /** @test */
     public function user_can_login_with_valid_credentials()
     {
         $response = $this->postJson('/api/login', [
