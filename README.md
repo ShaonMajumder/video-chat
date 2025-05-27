@@ -9,7 +9,7 @@ A scalable, secure, and feature-rich real-time video chat platform built for sea
 
 ### 📹 Full Platform Walkthrough
 **YouTube Video:** Real-time chat, authentication, and online users in action  
-[![Watch the Video](https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg)](https://www.youtube.com/watch?v=ZIC_A7jSB-E)
+[![Video Chat Application Demo](https://img.youtube.com/vi/ZIC_A7jSB-E/maxresdefault.jpg)](https://www.youtube.com/watch?v=ZIC_A7jSB-E)
 
 ### 🛠️ Real-Time Messaging Overview
 **Figure:** Sending and receiving messages in real-time
