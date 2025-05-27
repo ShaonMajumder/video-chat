@@ -22,6 +22,38 @@ class ChatControllerTest extends TestCase
     }
 
     /** @test */
+    public function it_displays_the_chat_view_with_receiver_id()
+    {
+        Event::fake();
+
+        $receiverId = 5;
+
+        $user = User::find(1);
+        $receiver = User::find(2);
+        // $token = JWTAuth::fromUser($user);
+        // $encryptedToken = Crypt::encrypt($token);
+
+        $response = $this->postJson('/api/login', [
+            'email' => 'admin@admin.com',
+            'password' => '123456',
+        ]);
+
+        $response->assertStatus(200);
+
+        $cookie = $response->getCookie('token');
+        $token = $cookie->getValue();
+
+        // doesnt work with ->withCookie('token', $tokenValue)
+        $response = $this->withHeaders([
+                            'Authorization' => 'Bearer ' . $token,
+                        ])->get('/?receiver=' . $receiverId);
+
+        $response->assertStatus(200);
+        $response->assertViewIs('chat');
+        $response->assertViewHas('receiverId', $receiverId);
+    }
+
+    /** @test */
     public function authenticated_user_can_send_message()
     {
         Event::fake();
