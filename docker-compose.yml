@@ -1,0 +1,80 @@
+# version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: laravel-app
+    container_name: laravel-app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    ports:
+      - "6001:6001"
+    volumes:
+      - .:/var/www/html  # Mount whole project
+      - vendor:/var/www/html/vendor # Except vendor
+    environment:
+      - APP_ENV=${APP_ENV}
+      - APP_ENV_FILE=.env.${APP_ENV}
+    networks:
+      - laravel
+
+  nginx:
+    image: nginx:alpine
+    container_name: laravel-nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - laravel
+
+  mysql:
+    image: mysql:5.7
+    container_name: laravel-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - laravel
+
+  redis:
+    image: redis:alpine
+    container_name: laravel-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - laravel
+  
+  # queue:
+  #   build:
+  #     context: .
+  #     dockerfile: docker/Dockerfile
+  #   container_name: laravel-queue
+  #   command: php artisan queue:work --sleep=3 --tries=3
+  #   depends_on:
+  #     - redis
+  #     - app
+  #   networks:
+  #     - laravel
+
+volumes:
+  dbdata:
+  vendor:
+
+networks:
+  laravel:
+    driver: bridge

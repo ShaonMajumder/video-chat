@@ -1,0 +1,702 @@
+2025-05-26 11:18:12,780 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-26 11:18:12,785 INFO supervisord started with pid 1
+2025-05-26 11:18:13,789 INFO spawned: 'nginx' with pid 285
+2025-05-26 11:18:13,794 INFO spawned: 'php-fpm' with pid 286
+2025-05-26 11:18:13,797 INFO spawned: 'queue' with pid 287
+2025-05-26 11:18:13,800 INFO spawned: 'websockets' with pid 288
+2025-05-26 11:18:14,671 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:15,674 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:15,677 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:15,680 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:15,688 INFO spawned: 'websockets' with pid 311
+2025-05-26 11:18:17,061 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:17,062 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:18,063 INFO spawned: 'websockets' with pid 318
+2025-05-26 11:18:19,262 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:19,263 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:20,265 INFO spawned: 'websockets' with pid 325
+2025-05-26 11:18:21,467 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:21,468 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:22,472 INFO spawned: 'websockets' with pid 332
+2025-05-26 11:18:23,767 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:23,769 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:24,773 INFO spawned: 'websockets' with pid 339
+2025-05-26 11:18:26,112 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:26,113 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:27,115 INFO spawned: 'websockets' with pid 346
+2025-05-26 11:18:28,429 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:28,431 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:29,435 INFO spawned: 'websockets' with pid 353
+2025-05-26 11:18:30,693 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:30,694 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:31,698 INFO spawned: 'websockets' with pid 360
+2025-05-26 11:18:32,937 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:32,938 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:33,941 INFO spawned: 'websockets' with pid 367
+2025-05-26 11:18:35,143 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:35,144 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:36,150 INFO spawned: 'websockets' with pid 374
+2025-05-26 11:18:37,429 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:37,431 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:38,440 INFO spawned: 'websockets' with pid 381
+2025-05-26 11:18:39,658 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:39,660 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:40,664 INFO spawned: 'websockets' with pid 388
+2025-05-26 11:18:41,874 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:41,875 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:42,880 INFO spawned: 'websockets' with pid 395
+2025-05-26 11:18:44,154 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:44,156 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:45,163 INFO spawned: 'websockets' with pid 402
+2025-05-26 11:18:46,444 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:46,446 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:47,450 INFO spawned: 'websockets' with pid 409
+2025-05-26 11:18:48,667 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:48,668 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:49,676 INFO spawned: 'websockets' with pid 416
+2025-05-26 11:18:50,898 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:50,900 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:51,907 INFO spawned: 'websockets' with pid 423
+2025-05-26 11:18:53,124 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:53,125 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:54,134 INFO spawned: 'websockets' with pid 436
+2025-05-26 11:18:55,365 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:55,374 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:56,379 INFO spawned: 'websockets' with pid 443
+2025-05-26 11:18:57,705 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:57,705 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:18:58,711 INFO spawned: 'websockets' with pid 450
+2025-05-26 11:18:59,955 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:18:59,957 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:19:00,965 INFO spawned: 'websockets' with pid 457
+2025-05-26 11:19:02,198 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:19:02,199 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:19:03,203 INFO spawned: 'websockets' with pid 464
+2025-05-26 11:19:04,412 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:19:04,414 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:19:05,418 INFO spawned: 'websockets' with pid 471
+2025-05-26 11:19:06,616 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:19:06,617 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:19:07,624 INFO spawned: 'websockets' with pid 478
+2025-05-26 11:19:08,906 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:19:08,909 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:19:09,915 INFO spawned: 'websockets' with pid 485
+2025-05-26 11:19:11,183 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:19:11,184 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:19:12,187 INFO spawned: 'websockets' with pid 492
+2025-05-26 11:19:13,399 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:19:13,400 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:19:14,359 INFO spawned: 'websockets' with pid 499
+2025-05-26 11:19:15,582 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:19:15,583 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:19:16,591 INFO spawned: 'websockets' with pid 506
+2025-05-26 11:19:17,832 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:19:17,832 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:19:18,837 INFO spawned: 'websockets' with pid 513
+2025-05-26 11:19:20,048 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:19:20,050 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:19:21,057 INFO spawned: 'websockets' with pid 520
+2025-05-26 11:19:22,314 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:19:22,315 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:19:23,320 INFO spawned: 'websockets' with pid 527
+2025-05-26 11:19:24,559 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:19:24,562 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:19:25,570 INFO spawned: 'websockets' with pid 534
+2025-05-26 11:19:26,813 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:19:26,814 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:19:27,820 INFO spawned: 'websockets' with pid 546
+2025-05-26 11:19:29,071 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:19:29,071 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:19:30,074 INFO spawned: 'websockets' with pid 567
+2025-05-26 11:19:31,283 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:19:31,286 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:19:32,293 INFO spawned: 'websockets' with pid 582
+2025-05-26 11:19:33,523 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:19:33,523 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:19:34,527 INFO spawned: 'websockets' with pid 661
+2025-05-26 11:19:35,732 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:19:35,732 INFO exited: websockets (exit status 1; not expected)
+2025-05-26 11:19:36,736 INFO spawned: 'websockets' with pid 679
+2025-05-26 11:19:38,379 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 11:19:38,380 INFO reaped unknown pid 668 (exit status 0)
+2025-05-26 11:20:30,403 INFO reaped unknown pid 704 (exit status 0)
+2025-05-26 11:21:36,635 INFO reaped unknown pid 775 (exit status 0)
+2025-05-26 11:31:35,113 INFO reaped unknown pid 799 (terminated by SIGKILL)
+2025-05-26 11:31:35,114 INFO reaped unknown pid 798 (terminated by SIGKILL)
+2025-05-26 11:36:58,127 INFO reaped unknown pid 840 (exit status 0)
+2025-05-26 11:40:47,091 INFO reaped unknown pid 890 (terminated by SIGKILL)
+2025-05-26 11:43:24,793 INFO reaped unknown pid 893 (terminated by SIGKILL)
+2025-05-26 11:43:25,798 INFO reaped unknown pid 896 (terminated by SIGKILL)
+2025-05-26 11:43:26,105 INFO reaped unknown pid 899 (terminated by SIGKILL)
+2025-05-26 11:43:27,607 INFO reaped unknown pid 902 (terminated by SIGKILL)
+2025-05-26 11:43:28,228 INFO reaped unknown pid 905 (terminated by SIGKILL)
+2025-05-26 11:43:29,231 INFO reaped unknown pid 908 (terminated by SIGKILL)
+2025-05-26 11:43:30,679 INFO reaped unknown pid 911 (terminated by SIGKILL)
+2025-05-26 11:43:33,685 INFO reaped unknown pid 914 (terminated by SIGKILL)
+2025-05-26 11:43:33,687 INFO reaped unknown pid 889 (terminated by SIGKILL)
+2025-05-26 11:43:37,406 INFO reaped unknown pid 922 (exit status 0)
+2025-05-26 11:52:46,109 WARN received SIGQUIT indicating exit request
+2025-05-26 11:52:46,111 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-26 11:52:46,419 INFO stopped: websockets (exit status 0)
+2025-05-26 11:52:47,423 INFO stopped: queue (exit status 0)
+2025-05-26 11:52:47,432 INFO stopped: php-fpm (exit status 0)
+2025-05-26 11:52:47,448 INFO stopped: nginx (exit status 0)
+2025-05-26 13:11:30,022 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-26 13:11:30,029 INFO supervisord started with pid 1
+2025-05-26 13:11:31,033 INFO spawned: 'nginx' with pid 10
+2025-05-26 13:11:31,039 INFO spawned: 'php-fpm' with pid 11
+2025-05-26 13:11:31,049 INFO spawned: 'queue' with pid 12
+2025-05-26 13:11:31,051 INFO spawned: 'websockets' with pid 13
+2025-05-26 13:11:32,139 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 13:11:32,140 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 13:11:32,140 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 13:11:32,140 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 13:12:12,522 INFO reaped unknown pid 52 (exit status 0)
+2025-05-26 14:43:34,048 INFO reaped unknown pid 225 (terminated by SIGKILL)
+2025-05-26 14:43:53,344 INFO reaped unknown pid 226 (terminated by SIGKILL)
+2025-05-26 14:45:17,665 INFO reaped unknown pid 229 (terminated by SIGKILL)
+2025-05-26 14:47:23,537 INFO reaped unknown pid 234 (terminated by SIGKILL)
+2025-05-26 14:47:23,538 INFO reaped unknown pid 224 (terminated by SIGKILL)
+2025-05-26 14:50:18,457 INFO reaped unknown pid 251 (terminated by SIGKILL)
+2025-05-26 14:50:19,477 INFO reaped unknown pid 254 (terminated by SIGKILL)
+2025-05-26 14:52:29,027 INFO reaped unknown pid 257 (terminated by SIGKILL)
+2025-05-26 14:52:29,028 INFO reaped unknown pid 250 (terminated by SIGKILL)
+2025-05-26 14:53:44,371 INFO reaped unknown pid 271 (terminated by SIGKILL)
+2025-05-26 14:58:37,045 INFO reaped unknown pid 274 (terminated by SIGKILL)
+2025-05-26 14:58:37,046 INFO reaped unknown pid 270 (terminated by SIGKILL)
+2025-05-26 14:59:37,047 INFO reaped unknown pid 296 (terminated by SIGKILL)
+2025-05-26 14:59:39,297 INFO reaped unknown pid 299 (terminated by SIGKILL)
+2025-05-26 14:59:39,298 INFO reaped unknown pid 295 (terminated by SIGKILL)
+2025-05-26 15:05:55,859 INFO reaped unknown pid 356 (terminated by SIGKILL)
+2025-05-26 15:05:56,451 INFO reaped unknown pid 359 (terminated by SIGKILL)
+2025-05-26 15:05:57,012 INFO reaped unknown pid 362 (terminated by SIGKILL)
+2025-05-26 15:05:58,014 INFO reaped unknown pid 365 (terminated by SIGKILL)
+2025-05-26 15:05:59,443 INFO reaped unknown pid 368 (terminated by SIGKILL)
+2025-05-26 15:06:00,445 INFO reaped unknown pid 371 (terminated by SIGKILL)
+2025-05-26 15:06:11,645 INFO reaped unknown pid 374 (terminated by SIGKILL)
+2025-05-26 15:08:22,246 INFO reaped unknown pid 377 (terminated by SIGKILL)
+2025-05-26 15:08:26,289 INFO reaped unknown pid 380 (terminated by SIGKILL)
+2025-05-26 15:08:33,056 INFO reaped unknown pid 383 (terminated by SIGKILL)
+2025-05-26 15:08:44,451 INFO reaped unknown pid 386 (terminated by SIGKILL)
+2025-05-26 15:19:51,924 INFO reaped unknown pid 389 (terminated by SIGKILL)
+2025-05-26 15:19:55,953 INFO reaped unknown pid 392 (terminated by SIGKILL)
+2025-05-26 15:19:59,810 INFO reaped unknown pid 395 (terminated by SIGKILL)
+2025-05-26 15:21:32,490 INFO reaped unknown pid 398 (terminated by SIGKILL)
+2025-05-26 15:24:00,051 INFO reaped unknown pid 401 (terminated by SIGKILL)
+2025-05-26 15:24:01,173 INFO reaped unknown pid 404 (terminated by SIGKILL)
+2025-05-26 15:24:19,623 INFO reaped unknown pid 407 (terminated by SIGKILL)
+2025-05-26 15:26:07,500 INFO reaped unknown pid 410 (terminated by SIGKILL)
+2025-05-26 15:27:08,418 INFO reaped unknown pid 413 (terminated by SIGKILL)
+2025-05-26 15:27:09,421 INFO reaped unknown pid 416 (terminated by SIGKILL)
+2025-05-26 15:27:12,411 INFO reaped unknown pid 419 (terminated by SIGKILL)
+2025-05-26 15:29:24,857 INFO reaped unknown pid 422 (terminated by SIGKILL)
+2025-05-26 15:32:11,229 INFO reaped unknown pid 425 (terminated by SIGKILL)
+2025-05-26 15:32:14,361 INFO reaped unknown pid 428 (terminated by SIGKILL)
+2025-05-26 15:32:57,576 INFO reaped unknown pid 432 (terminated by SIGKILL)
+2025-05-26 15:33:21,424 INFO reaped unknown pid 435 (terminated by SIGKILL)
+2025-05-26 15:33:28,619 INFO reaped unknown pid 439 (terminated by SIGKILL)
+2025-05-26 15:33:30,106 INFO reaped unknown pid 442 (terminated by SIGKILL)
+2025-05-26 15:35:08,863 INFO reaped unknown pid 445 (terminated by SIGKILL)
+2025-05-26 15:37:09,323 INFO reaped unknown pid 448 (terminated by SIGKILL)
+2025-05-26 15:37:52,469 INFO reaped unknown pid 451 (terminated by SIGKILL)
+2025-05-26 15:45:49,311 INFO reaped unknown pid 454 (terminated by SIGKILL)
+2025-05-26 15:45:57,099 INFO reaped unknown pid 458 (terminated by SIGKILL)
+2025-05-26 16:55:46,925 INFO exited: queue (terminated by SIGKILL; not expected)
+2025-05-26 16:55:46,596 INFO spawned: 'queue' with pid 467
+2025-05-26 16:55:47,600 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 18:03:17,278 INFO exited: queue (terminated by SIGKILL; not expected)
+2025-05-26 18:03:17,249 INFO spawned: 'queue' with pid 478
+2025-05-26 18:03:18,284 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 18:12:02,434 WARN received SIGQUIT indicating exit request
+2025-05-26 18:12:02,587 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-26 18:12:03,795 INFO stopped: websockets (exit status 0)
+2025-05-26 18:12:04,798 INFO reaped unknown pid 463 (terminated by SIGKILL)
+2025-05-26 18:12:04,799 INFO reaped unknown pid 355 (terminated by SIGKILL)
+2025-05-26 18:12:05,802 INFO waiting for nginx, php-fpm, queue to die
+2025-05-26 18:12:07,803 INFO stopped: queue (exit status 0)
+2025-05-26 18:12:07,818 INFO stopped: php-fpm (exit status 0)
+2025-05-26 18:12:07,874 INFO stopped: nginx (exit status 0)
+2025-05-26 18:14:40,962 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-26 18:14:40,972 INFO supervisord started with pid 1
+2025-05-26 18:14:41,974 INFO spawned: 'nginx' with pid 10
+2025-05-26 18:14:41,978 INFO spawned: 'php-fpm' with pid 11
+2025-05-26 18:14:41,994 INFO spawned: 'queue' with pid 12
+2025-05-26 18:14:41,999 INFO spawned: 'websockets' with pid 13
+2025-05-26 18:14:43,399 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 18:14:43,399 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 18:14:43,400 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 18:14:43,400 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 18:25:22,537 INFO reaped unknown pid 48 (exit status 0)
+2025-05-26 18:25:53,524 INFO reaped unknown pid 54 (exit status 0)
+2025-05-26 18:27:43,327 INFO reaped unknown pid 60 (exit status 0)
+2025-05-26 18:28:45,326 INFO reaped unknown pid 70 (exit status 0)
+2025-05-26 18:30:30,519 INFO reaped unknown pid 79 (exit status 0)
+2025-05-26 18:30:58,530 INFO reaped unknown pid 89 (exit status 0)
+2025-05-26 18:31:19,541 INFO reaped unknown pid 98 (exit status 0)
+2025-05-26 18:31:52,532 INFO reaped unknown pid 108 (exit status 0)
+2025-05-26 18:38:40,539 INFO reaped unknown pid 118 (exit status 0)
+2025-05-26 18:40:19,532 INFO reaped unknown pid 128 (exit status 0)
+2025-05-26 18:40:42,319 INFO reaped unknown pid 137 (exit status 0)
+2025-05-26 18:42:37,524 INFO reaped unknown pid 146 (exit status 0)
+2025-05-26 18:58:43,294 WARN received SIGQUIT indicating exit request
+2025-05-26 18:58:43,295 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-26 18:58:44,299 INFO stopped: websockets (exit status 0)
+2025-05-26 18:58:45,304 INFO stopped: queue (exit status 0)
+2025-05-26 18:58:45,313 INFO stopped: php-fpm (exit status 0)
+2025-05-26 18:58:45,318 INFO stopped: nginx (exit status 0)
+2025-05-26 18:59:52,871 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-26 18:59:52,878 INFO supervisord started with pid 1
+2025-05-26 18:59:53,882 INFO spawned: 'nginx' with pid 9
+2025-05-26 18:59:53,884 INFO spawned: 'php-fpm' with pid 10
+2025-05-26 18:59:53,888 INFO spawned: 'queue' with pid 11
+2025-05-26 18:59:53,892 INFO spawned: 'websockets' with pid 12
+2025-05-26 18:59:55,226 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 18:59:55,228 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 18:59:55,230 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 18:59:55,232 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 19:05:05,813 WARN received SIGQUIT indicating exit request
+2025-05-26 19:05:05,814 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-26 19:05:06,816 INFO stopped: websockets (exit status 0)
+2025-05-26 19:05:07,824 INFO stopped: queue (exit status 0)
+2025-05-26 19:05:07,903 INFO stopped: php-fpm (exit status 0)
+2025-05-26 19:05:07,925 INFO stopped: nginx (exit status 0)
+2025-05-26 19:06:54,521 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-26 19:06:54,527 INFO supervisord started with pid 1
+2025-05-26 19:06:55,533 INFO spawned: 'nginx' with pid 9
+2025-05-26 19:06:55,545 INFO spawned: 'php-fpm' with pid 10
+2025-05-26 19:06:55,553 INFO spawned: 'queue' with pid 11
+2025-05-26 19:06:55,558 INFO spawned: 'websockets' with pid 12
+2025-05-26 19:06:56,761 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 19:06:56,763 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 19:06:56,764 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 19:06:56,767 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 19:26:13,341 INFO reaped unknown pid 159 (terminated by SIGKILL)
+2025-05-26 19:26:13,343 INFO reaped unknown pid 158 (terminated by SIGKILL)
+2025-05-26 19:28:26,508 WARN received SIGQUIT indicating exit request
+2025-05-26 19:28:26,509 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-26 19:28:27,512 INFO stopped: websockets (exit status 0)
+2025-05-26 19:28:29,515 INFO waiting for nginx, php-fpm, queue to die
+2025-05-26 19:28:31,517 INFO stopped: queue (exit status 0)
+2025-05-26 19:28:31,522 INFO stopped: php-fpm (exit status 0)
+2025-05-26 19:28:31,526 INFO stopped: nginx (exit status 0)
+2025-05-26 19:28:58,246 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-26 19:28:58,251 INFO supervisord started with pid 1
+2025-05-26 19:28:59,253 INFO spawned: 'nginx' with pid 9
+2025-05-26 19:28:59,256 INFO spawned: 'php-fpm' with pid 10
+2025-05-26 19:28:59,258 INFO spawned: 'queue' with pid 11
+2025-05-26 19:28:59,262 INFO spawned: 'websockets' with pid 12
+2025-05-26 19:29:00,603 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 19:29:00,604 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 19:29:00,604 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 19:29:00,605 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-26 23:19:44,821 INFO exited: queue (terminated by SIGKILL; not expected)
+2025-05-26 23:19:44,863 INFO spawned: 'queue' with pid 149
+2025-05-26 23:19:45,959 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 00:50:58,086 INFO exited: queue (terminated by SIGKILL; not expected)
+2025-05-27 00:50:58,146 INFO spawned: 'queue' with pid 158
+2025-05-27 00:50:59,446 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 03:55:06,061 INFO exited: queue (terminated by SIGKILL; not expected)
+2025-05-27 03:55:06,102 INFO spawned: 'queue' with pid 165
+2025-05-27 03:55:07,587 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 04:11:59,144 WARN received SIGQUIT indicating exit request
+2025-05-27 04:11:59,144 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 04:12:00,149 INFO stopped: websockets (exit status 0)
+2025-05-27 04:12:01,154 INFO stopped: queue (exit status 0)
+2025-05-27 04:12:01,158 INFO stopped: php-fpm (exit status 0)
+2025-05-27 04:12:01,174 INFO stopped: nginx (exit status 0)
+2025-05-27 04:23:58,493 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-27 04:23:58,506 INFO supervisord started with pid 1
+2025-05-27 04:23:59,509 INFO spawned: 'nginx' with pid 10
+2025-05-27 04:23:59,511 INFO spawned: 'php-fpm' with pid 11
+2025-05-27 04:23:59,539 INFO spawned: 'queue' with pid 12
+2025-05-27 04:23:59,543 INFO spawned: 'websockets' with pid 13
+2025-05-27 04:24:00,768 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 04:24:00,768 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 04:24:00,769 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 04:24:00,770 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 04:24:34,407 WARN received SIGQUIT indicating exit request
+2025-05-27 04:24:34,407 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 04:24:35,420 INFO stopped: websockets (exit status 0)
+2025-05-27 04:24:37,422 INFO waiting for nginx, php-fpm, queue to die
+2025-05-27 04:24:39,425 INFO stopped: queue (exit status 0)
+2025-05-27 04:24:39,428 INFO stopped: php-fpm (exit status 0)
+2025-05-27 04:24:39,452 INFO stopped: nginx (exit status 0)
+2025-05-27 04:30:18,890 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-27 04:30:18,896 INFO supervisord started with pid 1
+2025-05-27 04:30:19,901 INFO spawned: 'nginx' with pid 10
+2025-05-27 04:30:19,910 INFO spawned: 'php-fpm' with pid 11
+2025-05-27 04:30:19,918 INFO spawned: 'queue' with pid 12
+2025-05-27 04:30:19,923 INFO spawned: 'websockets' with pid 13
+2025-05-27 04:30:21,210 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 04:30:21,211 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 04:30:21,211 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 04:30:21,212 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 04:40:22,285 WARN received SIGQUIT indicating exit request
+2025-05-27 04:40:22,286 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 04:40:23,289 INFO stopped: websockets (exit status 0)
+2025-05-27 04:40:25,292 INFO waiting for nginx, php-fpm, queue to die
+2025-05-27 04:40:27,294 INFO stopped: queue (exit status 0)
+2025-05-27 04:40:27,298 INFO stopped: php-fpm (exit status 0)
+2025-05-27 04:40:27,301 INFO stopped: nginx (exit status 0)
+2025-05-27 04:41:16,533 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-27 04:41:16,538 INFO supervisord started with pid 1
+2025-05-27 04:41:17,544 INFO spawned: 'nginx' with pid 10
+2025-05-27 04:41:17,555 INFO spawned: 'php-fpm' with pid 11
+2025-05-27 04:41:17,564 INFO spawned: 'queue' with pid 12
+2025-05-27 04:41:17,570 INFO spawned: 'websockets' with pid 13
+2025-05-27 04:41:18,772 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 04:41:18,774 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 04:41:18,775 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 04:41:18,777 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 04:53:44,927 WARN received SIGQUIT indicating exit request
+2025-05-27 04:53:44,928 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 04:53:45,931 INFO stopped: websockets (exit status 0)
+2025-05-27 04:53:46,934 INFO stopped: queue (exit status 0)
+2025-05-27 04:53:46,940 INFO stopped: php-fpm (exit status 0)
+2025-05-27 04:53:46,948 INFO stopped: nginx (exit status 0)
+2025-05-27 05:08:21,248 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-27 05:08:21,255 INFO supervisord started with pid 1
+2025-05-27 05:08:22,261 INFO spawned: 'nginx' with pid 167
+2025-05-27 05:08:22,272 INFO spawned: 'php-fpm' with pid 168
+2025-05-27 05:08:22,281 INFO spawned: 'queue' with pid 169
+2025-05-27 05:08:22,286 INFO spawned: 'websockets' with pid 170
+2025-05-27 05:08:23,523 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:08:23,524 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:08:23,525 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:08:23,526 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:17:54,611 WARN received SIGQUIT indicating exit request
+2025-05-27 05:17:54,612 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 05:17:54,618 INFO stopped: websockets (exit status 0)
+2025-05-27 05:17:55,622 INFO stopped: queue (exit status 0)
+2025-05-27 05:17:55,627 INFO stopped: php-fpm (exit status 0)
+2025-05-27 05:17:55,632 INFO stopped: nginx (exit status 0)
+2025-05-27 05:19:07,824 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-27 05:19:07,830 INFO supervisord started with pid 1
+2025-05-27 05:19:08,834 INFO spawned: 'nginx' with pid 10
+2025-05-27 05:19:08,837 INFO spawned: 'php-fpm' with pid 11
+2025-05-27 05:19:08,842 INFO spawned: 'queue' with pid 12
+2025-05-27 05:19:08,846 INFO spawned: 'websockets' with pid 13
+2025-05-27 05:19:10,073 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:19:10,074 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:19:10,075 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:19:10,078 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:21:36,120 WARN received SIGQUIT indicating exit request
+2025-05-27 05:21:36,120 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 05:21:37,121 INFO stopped: websockets (exit status 0)
+2025-05-27 05:21:39,125 INFO waiting for nginx, php-fpm, queue to die
+2025-05-27 05:21:41,126 INFO stopped: queue (exit status 0)
+2025-05-27 05:21:41,130 INFO stopped: php-fpm (exit status 0)
+2025-05-27 05:21:41,134 INFO stopped: nginx (exit status 0)
+2025-05-27 05:23:11,323 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-27 05:23:11,329 INFO supervisord started with pid 1
+2025-05-27 05:23:12,335 INFO spawned: 'nginx' with pid 9
+2025-05-27 05:23:12,342 INFO spawned: 'php-fpm' with pid 10
+2025-05-27 05:23:12,354 INFO spawned: 'queue' with pid 11
+2025-05-27 05:23:12,358 INFO spawned: 'websockets' with pid 12
+2025-05-27 05:23:13,620 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:23:13,621 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:23:13,621 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:23:13,622 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:26:13,642 WARN received SIGQUIT indicating exit request
+2025-05-27 05:26:13,643 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 05:26:14,646 INFO stopped: websockets (exit status 0)
+2025-05-27 05:26:15,651 INFO stopped: queue (exit status 0)
+2025-05-27 05:26:15,655 INFO stopped: php-fpm (exit status 0)
+2025-05-27 05:26:15,659 INFO stopped: nginx (exit status 0)
+2025-05-27 05:27:08,636 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-27 05:27:08,643 INFO supervisord started with pid 1
+2025-05-27 05:27:09,649 INFO spawned: 'nginx' with pid 10
+2025-05-27 05:27:09,659 INFO spawned: 'php-fpm' with pid 11
+2025-05-27 05:27:09,665 INFO spawned: 'queue' with pid 12
+2025-05-27 05:27:09,668 INFO spawned: 'websockets' with pid 13
+2025-05-27 05:27:10,929 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:27:10,931 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:27:10,932 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:27:10,934 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:30:28,960 WARN received SIGQUIT indicating exit request
+2025-05-27 05:30:28,962 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 05:30:29,971 INFO stopped: websockets (exit status 0)
+2025-05-27 05:30:30,979 INFO stopped: queue (exit status 0)
+2025-05-27 05:30:30,996 INFO stopped: php-fpm (exit status 0)
+2025-05-27 05:30:31,006 INFO stopped: nginx (exit status 0)
+2025-05-27 05:30:32,110 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-27 05:30:32,116 INFO supervisord started with pid 1
+2025-05-27 05:30:33,123 INFO spawned: 'nginx' with pid 10
+2025-05-27 05:30:33,140 INFO spawned: 'php-fpm' with pid 11
+2025-05-27 05:30:33,145 INFO spawned: 'queue' with pid 12
+2025-05-27 05:30:33,149 INFO spawned: 'websockets' with pid 13
+2025-05-27 05:30:34,342 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:30:34,344 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:30:34,346 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:30:34,350 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:32:25,432 WARN received SIGQUIT indicating exit request
+2025-05-27 05:32:25,433 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 05:32:26,437 INFO stopped: websockets (exit status 0)
+2025-05-27 05:32:27,442 INFO stopped: queue (exit status 0)
+2025-05-27 05:32:27,446 INFO stopped: php-fpm (exit status 0)
+2025-05-27 05:32:27,451 INFO stopped: nginx (exit status 0)
+2025-05-27 05:33:15,079 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-27 05:33:15,087 INFO supervisord started with pid 1
+2025-05-27 05:33:16,090 INFO spawned: 'nginx' with pid 10
+2025-05-27 05:33:16,092 INFO spawned: 'php-fpm' with pid 11
+2025-05-27 05:33:16,095 INFO spawned: 'queue' with pid 12
+2025-05-27 05:33:16,098 INFO spawned: 'websockets' with pid 13
+2025-05-27 05:33:17,310 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:33:17,312 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:33:17,313 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:33:17,315 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:34:28,125 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-27 05:34:28,129 INFO supervisord started with pid 43
+2025-05-27 05:34:29,133 INFO spawned: 'nginx' with pid 44
+2025-05-27 05:34:29,136 INFO spawned: 'php-fpm' with pid 45
+2025-05-27 05:34:29,140 INFO spawned: 'queue' with pid 46
+2025-05-27 05:34:29,142 INFO spawned: 'websockets' with pid 47
+2025-05-27 05:34:29,162 INFO exited: php-fpm (exit status 78; not expected)
+2025-05-27 05:34:29,652 INFO exited: websockets (exit status 1; not expected)
+2025-05-27 05:34:30,152 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:34:30,153 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:34:30,653 INFO spawned: 'php-fpm' with pid 60
+2025-05-27 05:34:30,657 INFO spawned: 'websockets' with pid 61
+2025-05-27 05:34:30,682 INFO exited: php-fpm (exit status 78; not expected)
+2025-05-27 05:34:31,154 INFO exited: websockets (exit status 1; not expected)
+2025-05-27 05:34:31,655 INFO exited: nginx (exit status 1; not expected)
+2025-05-27 05:34:32,660 INFO spawned: 'nginx' with pid 68
+2025-05-27 05:34:32,684 INFO spawned: 'php-fpm' with pid 69
+2025-05-27 05:34:32,707 INFO exited: php-fpm (exit status 78; not expected)
+2025-05-27 05:34:33,189 INFO spawned: 'websockets' with pid 70
+2025-05-27 05:34:33,685 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:34:33,687 INFO exited: websockets (exit status 1; not expected)
+2025-05-27 05:34:35,190 INFO exited: nginx (exit status 1; not expected)
+2025-05-27 05:34:36,194 INFO spawned: 'nginx' with pid 77
+2025-05-27 05:34:36,198 INFO spawned: 'php-fpm' with pid 78
+2025-05-27 05:34:36,224 INFO exited: php-fpm (exit status 78; not expected)
+2025-05-27 05:34:36,712 INFO gave up: php-fpm entered FATAL state, too many start retries too quickly
+2025-05-27 05:34:36,719 INFO spawned: 'websockets' with pid 79
+2025-05-27 05:34:37,212 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:34:37,213 INFO exited: websockets (exit status 1; not expected)
+2025-05-27 05:34:37,712 INFO gave up: websockets entered FATAL state, too many start retries too quickly
+2025-05-27 05:34:37,713 WARN received SIGINT indicating exit request
+2025-05-27 05:34:37,713 INFO waiting for nginx, queue to die
+2025-05-27 05:34:38,716 INFO stopped: queue (exit status 0)
+2025-05-27 05:34:38,717 INFO exited: nginx (exit status 1; not expected)
+2025-05-27 05:34:38,719 WARN received SIGINT indicating exit request
+2025-05-27 05:35:33,357 WARN received SIGQUIT indicating exit request
+2025-05-27 05:35:33,358 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 05:35:34,361 INFO stopped: websockets (exit status 0)
+2025-05-27 05:35:35,364 INFO stopped: queue (exit status 0)
+2025-05-27 05:35:35,368 INFO stopped: php-fpm (exit status 0)
+2025-05-27 05:35:35,372 INFO stopped: nginx (exit status 0)
+2025-05-27 05:36:19,791 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-27 05:36:19,800 INFO supervisord started with pid 1
+2025-05-27 05:36:20,805 INFO spawned: 'nginx' with pid 9
+2025-05-27 05:36:20,823 INFO spawned: 'php-fpm' with pid 10
+2025-05-27 05:36:20,827 INFO spawned: 'queue' with pid 11
+2025-05-27 05:36:20,847 INFO spawned: 'websockets' with pid 12
+2025-05-27 05:36:22,465 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:36:22,466 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:36:22,468 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:36:22,469 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:40:26,484 WARN received SIGQUIT indicating exit request
+2025-05-27 05:40:26,485 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 05:40:26,491 INFO stopped: websockets (exit status 0)
+2025-05-27 05:40:29,495 INFO waiting for nginx, php-fpm, queue to die
+2025-05-27 05:40:30,502 INFO stopped: queue (exit status 0)
+2025-05-27 05:40:30,507 INFO stopped: php-fpm (exit status 0)
+2025-05-27 05:40:30,511 INFO stopped: nginx (exit status 0)
+2025-05-27 05:41:24,425 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-27 05:41:24,430 INFO supervisord started with pid 1
+2025-05-27 05:41:25,433 INFO spawned: 'nginx' with pid 10
+2025-05-27 05:41:25,438 INFO spawned: 'php-fpm' with pid 11
+2025-05-27 05:41:25,443 INFO spawned: 'queue' with pid 12
+2025-05-27 05:41:25,448 INFO spawned: 'websockets' with pid 13
+2025-05-27 05:41:26,679 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:41:26,681 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:41:26,682 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:41:26,685 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:43:12,131 WARN received SIGQUIT indicating exit request
+2025-05-27 05:43:12,131 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 05:43:13,135 INFO stopped: websockets (exit status 0)
+2025-05-27 05:43:14,139 INFO stopped: queue (exit status 0)
+2025-05-27 05:43:14,144 INFO stopped: php-fpm (exit status 0)
+2025-05-27 05:43:14,148 INFO stopped: nginx (exit status 0)
+2025-05-27 05:43:59,105 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-05-27 05:43:59,110 INFO supervisord started with pid 1
+2025-05-27 05:44:00,113 INFO spawned: 'nginx' with pid 10
+2025-05-27 05:44:00,115 INFO spawned: 'php-fpm' with pid 11
+2025-05-27 05:44:00,118 INFO spawned: 'queue' with pid 12
+2025-05-27 05:44:00,122 INFO spawned: 'websockets' with pid 13
+2025-05-27 05:44:01,117 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:44:01,118 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:44:01,118 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:44:01,324 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:46:25,127 WARN received SIGQUIT indicating exit request
+2025-05-27 05:46:25,127 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 05:46:26,132 INFO stopped: websockets (exit status 0)
+2025-05-27 05:46:27,136 INFO stopped: queue (exit status 0)
+2025-05-27 05:46:27,140 INFO stopped: php-fpm (exit status 0)
+2025-05-27 05:46:27,144 INFO stopped: nginx (exit status 0)
+2025-05-27 05:47:17,399 INFO Set uid to user 0 succeeded
+2025-05-27 05:47:17,426 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2025-05-27 05:47:17,431 INFO supervisord started with pid 1
+2025-05-27 05:47:18,434 INFO spawned: 'nginx' with pid 10
+2025-05-27 05:47:18,437 INFO spawned: 'php-fpm' with pid 11
+2025-05-27 05:47:18,441 INFO spawned: 'queue' with pid 12
+2025-05-27 05:47:18,445 INFO spawned: 'websockets' with pid 13
+2025-05-27 05:47:19,654 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:47:19,656 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:47:19,658 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:47:19,660 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:49:23,661 WARN received SIGQUIT indicating exit request
+2025-05-27 05:49:23,662 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 05:49:24,665 INFO stopped: websockets (exit status 0)
+2025-05-27 05:49:25,669 INFO stopped: queue (exit status 0)
+2025-05-27 05:49:25,673 INFO stopped: php-fpm (exit status 0)
+2025-05-27 05:49:25,676 INFO stopped: nginx (exit status 0)
+2025-05-27 05:50:14,140 INFO Set uid to user 0 succeeded
+2025-05-27 05:50:14,146 INFO RPC interface 'supervisor' initialized
+2025-05-27 05:50:14,147 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2025-05-27 05:50:14,150 INFO supervisord started with pid 1
+2025-05-27 05:50:15,153 INFO spawned: 'nginx' with pid 16
+2025-05-27 05:50:15,157 INFO spawned: 'php-fpm' with pid 17
+2025-05-27 05:50:15,161 INFO spawned: 'queue' with pid 18
+2025-05-27 05:50:15,164 INFO spawned: 'websockets' with pid 19
+2025-05-27 05:50:16,397 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:50:16,398 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:50:16,399 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:50:16,400 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:50:24,258 INFO waiting for websockets to stop
+2025-05-27 05:50:24,263 INFO stopped: websockets (exit status 0)
+2025-05-27 05:50:24,266 INFO spawned: 'websockets' with pid 43
+2025-05-27 05:50:25,491 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:50:47,527 WARN received SIGQUIT indicating exit request
+2025-05-27 05:50:47,528 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 05:50:48,534 INFO stopped: websockets (exit status 0)
+2025-05-27 05:50:49,538 INFO stopped: queue (exit status 0)
+2025-05-27 05:50:49,541 INFO stopped: php-fpm (exit status 0)
+2025-05-27 05:50:49,544 INFO stopped: nginx (exit status 0)
+2025-05-27 05:51:26,612 INFO Set uid to user 33 succeeded
+2025-05-27 05:51:27,804 INFO Set uid to user 33 succeeded
+2025-05-27 05:51:29,016 INFO Set uid to user 33 succeeded
+2025-05-27 05:51:30,081 INFO Set uid to user 33 succeeded
+2025-05-27 05:51:31,432 INFO Set uid to user 33 succeeded
+2025-05-27 05:51:33,582 INFO Set uid to user 33 succeeded
+2025-05-27 05:51:37,319 INFO Set uid to user 33 succeeded
+2025-05-27 05:51:44,293 INFO Set uid to user 33 succeeded
+2025-05-27 05:51:57,611 INFO Set uid to user 33 succeeded
+2025-05-27 05:52:10,899 INFO Set uid to user 33 succeeded
+2025-05-27 05:52:12,039 INFO Set uid to user 33 succeeded
+2025-05-27 05:52:13,179 INFO Set uid to user 33 succeeded
+2025-05-27 05:52:14,300 INFO Set uid to user 33 succeeded
+2025-05-27 05:52:15,681 INFO Set uid to user 33 succeeded
+2025-05-27 05:52:17,859 INFO Set uid to user 33 succeeded
+2025-05-27 05:52:21,816 INFO Set uid to user 33 succeeded
+2025-05-27 05:52:28,718 INFO Set uid to user 33 succeeded
+2025-05-27 05:52:42,460 INFO Set uid to user 33 succeeded
+2025-05-27 05:53:26,425 INFO Set uid to user 0 succeeded
+2025-05-27 05:53:26,430 INFO supervisord started with pid 1
+2025-05-27 05:53:27,433 INFO spawned: 'nginx' with pid 10
+2025-05-27 05:53:27,434 INFO spawned: 'php-fpm' with pid 11
+2025-05-27 05:53:27,438 INFO spawned: 'queue' with pid 12
+2025-05-27 05:53:27,441 INFO spawned: 'websockets' with pid 13
+2025-05-27 05:53:28,643 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:53:28,645 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:53:28,647 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:53:28,649 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:54:29,637 WARN received SIGQUIT indicating exit request
+2025-05-27 05:54:29,637 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 05:54:29,642 INFO stopped: websockets (exit status 0)
+2025-05-27 05:54:30,645 INFO stopped: queue (exit status 0)
+2025-05-27 05:54:30,650 INFO stopped: php-fpm (exit status 0)
+2025-05-27 05:54:30,655 INFO stopped: nginx (exit status 0)
+2025-05-27 05:55:08,353 INFO Set uid to user 0 succeeded
+2025-05-27 05:55:08,358 INFO supervisord started with pid 1
+2025-05-27 05:55:09,360 INFO spawned: 'nginx' with pid 10
+2025-05-27 05:55:09,363 INFO spawned: 'php-fpm' with pid 11
+2025-05-27 05:55:09,366 INFO spawned: 'queue' with pid 12
+2025-05-27 05:55:09,371 INFO spawned: 'websockets' with pid 13
+2025-05-27 05:55:10,632 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:55:10,633 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:55:10,635 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:55:10,637 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:56:26,646 WARN received SIGQUIT indicating exit request
+2025-05-27 05:56:26,646 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 05:56:27,650 INFO stopped: websockets (exit status 0)
+2025-05-27 05:56:28,654 INFO stopped: queue (exit status 0)
+2025-05-27 05:56:28,660 INFO stopped: php-fpm (exit status 0)
+2025-05-27 05:56:28,664 INFO stopped: nginx (exit status 0)
+2025-05-27 05:57:10,642 INFO Set uid to user 0 succeeded
+2025-05-27 05:57:10,647 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2025-05-27 05:57:10,650 INFO supervisord started with pid 1
+2025-05-27 05:57:11,653 INFO spawned: 'nginx' with pid 10
+2025-05-27 05:57:11,655 INFO spawned: 'php-fpm' with pid 11
+2025-05-27 05:57:11,658 INFO spawned: 'queue' with pid 12
+2025-05-27 05:57:11,661 INFO spawned: 'websockets' with pid 13
+2025-05-27 05:57:12,932 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:57:12,933 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:57:12,935 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:57:12,937 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:57:53,393 WARN received SIGQUIT indicating exit request
+2025-05-27 05:57:53,394 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 05:57:54,399 INFO stopped: websockets (exit status 0)
+2025-05-27 05:57:56,403 INFO waiting for nginx, php-fpm, queue to die
+2025-05-27 05:57:58,405 INFO stopped: queue (exit status 0)
+2025-05-27 05:57:58,410 INFO stopped: php-fpm (exit status 0)
+2025-05-27 05:57:58,414 INFO stopped: nginx (exit status 0)
+2025-05-27 05:58:35,547 INFO Set uid to user 0 succeeded
+2025-05-27 05:58:35,556 INFO RPC interface 'supervisor' initialized
+2025-05-27 05:58:35,557 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2025-05-27 05:58:35,564 INFO supervisord started with pid 1
+2025-05-27 05:58:36,567 INFO spawned: 'nginx' with pid 10
+2025-05-27 05:58:36,570 INFO spawned: 'php-fpm' with pid 11
+2025-05-27 05:58:36,573 INFO spawned: 'queue' with pid 12
+2025-05-27 05:58:36,576 INFO spawned: 'websockets' with pid 13
+2025-05-27 05:58:37,900 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:58:37,902 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:58:37,904 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 05:58:37,906 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 06:00:15,515 WARN received SIGQUIT indicating exit request
+2025-05-27 06:00:15,515 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 06:00:16,518 INFO stopped: websockets (exit status 0)
+2025-05-27 06:00:18,521 INFO waiting for nginx, php-fpm, queue to die
+2025-05-27 06:00:20,524 INFO stopped: queue (exit status 0)
+2025-05-27 06:00:20,528 INFO stopped: php-fpm (exit status 0)
+2025-05-27 06:00:20,532 INFO stopped: nginx (exit status 0)
+2025-05-27 06:01:02,182 INFO Set uid to user 0 succeeded
+2025-05-27 06:01:02,187 INFO RPC interface 'supervisor' initialized
+2025-05-27 06:01:02,191 INFO supervisord started with pid 1
+2025-05-27 06:01:03,194 INFO spawned: 'nginx' with pid 10
+2025-05-27 06:01:03,198 INFO spawned: 'php-fpm' with pid 11
+2025-05-27 06:01:03,202 INFO spawned: 'queue' with pid 12
+2025-05-27 06:01:03,206 INFO spawned: 'websockets' with pid 13
+2025-05-27 06:01:04,454 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 06:01:04,456 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 06:01:04,457 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 06:01:04,459 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 06:01:29,934 INFO waiting for websockets to stop
+2025-05-27 06:01:29,940 INFO stopped: websockets (exit status 0)
+2025-05-27 06:01:29,944 INFO spawned: 'websockets' with pid 44
+2025-05-27 06:01:31,170 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 06:14:57,110 WARN received SIGQUIT indicating exit request
+2025-05-27 06:14:57,111 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-27 06:14:58,115 INFO stopped: websockets (exit status 0)
+2025-05-27 06:14:59,119 INFO stopped: queue (exit status 0)
+2025-05-27 06:14:59,123 INFO stopped: php-fpm (exit status 0)
+2025-05-27 06:14:59,127 INFO stopped: nginx (exit status 0)
+2025-05-27 06:16:14,017 INFO Set uid to user 0 succeeded
+2025-05-27 06:16:14,026 INFO RPC interface 'supervisor' initialized
+2025-05-27 06:16:14,031 INFO supervisord started with pid 1
+2025-05-27 06:16:15,034 INFO spawned: 'nginx' with pid 11
+2025-05-27 06:16:15,042 INFO spawned: 'php-fpm' with pid 12
+2025-05-27 06:16:15,047 INFO spawned: 'queue' with pid 13
+2025-05-27 06:16:15,053 INFO spawned: 'websockets' with pid 14
+2025-05-27 06:16:16,187 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 06:16:16,188 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 06:16:16,189 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 06:16:16,190 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-27 06:31:55,142 INFO reaped unknown pid 219 (terminated by SIGKILL)
+2025-05-27 06:32:21,731 INFO reaped unknown pid 220 (terminated by SIGKILL)
+2025-05-27 06:32:52,232 INFO reaped unknown pid 221 (terminated by SIGKILL)
+2025-05-27 06:33:01,726 INFO reaped unknown pid 224 (terminated by SIGKILL)
+2025-05-27 07:56:59,110 INFO reaped unknown pid 227 (terminated by SIGKILL)
+2025-05-27 07:56:59,112 INFO reaped unknown pid 218 (terminated by SIGKILL)
+2025-05-27 08:23:17,045 INFO reaped unknown pid 264 (exit status 0)
