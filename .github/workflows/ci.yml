@@ -36,12 +36,11 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
-          extensions: pdo, pdo_mysql, mbstring, exif, pcntl, bcmath, gd, zip, redis, xdebug
+          extensions: pdo, pdo_mysql, mbstring, exif, pcntl, bcmath, gd, zip, redis
           tools: composer:v2
-          coverage: xdebug
 
       - name: Cache Composer dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: vendor
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -62,7 +61,7 @@ jobs:
       - name: Run migrations
         env:
           DB_CONNECTION: mysql
-          DB_HOST: 127.0.1
+          DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_DATABASE: laravel
           DB_USERNAME: laravel
@@ -97,7 +96,25 @@ jobs:
       - name: Compile assets
         run: npm run production
 
-      - name: Run PHPUnit tests with coverage
+      - name: Run PHPUnit tests
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: laravel
+          DB_USERNAME: laravel
+          DB_PASSWORD: laravel
+          REDIS_HOST: 127.0.0.1
+          REDIS_PORT: 6379
+          REDIS_PASSWORD: null
+          CACHE_DRIVER: redis
+          PUSHER_APP_ID: 1234
+          PUSHER_APP_KEY: asfsdfsdgs
+          PUSHER_APP_SECRET: sdgdghdggdf
+          PUSHER_APP_CLUSTER: mt1
+          PUSHER_SCHEME: http
+          PUSHER_HOST: 127.0.0.1
+          PUSHER_PORT: 6001
         run: vendor/bin/phpunit --verbose --coverage-clover clover.xml
 
       - name: Upload coverage to Codecov
