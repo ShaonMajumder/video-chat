@@ -15,7 +15,7 @@ use App\Http\Controllers\ChatController;
 |
 */
 
-Route::middleware(['auth.cookie', 'throttle:global'])->group(function () {
+Route::middleware([ 'throttle:global'])->group(function () {
 
     Route::get('/', function () {
         return view('welcome');
