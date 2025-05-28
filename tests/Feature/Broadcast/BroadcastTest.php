@@ -42,8 +42,6 @@ class BroadcastTest extends TestCase
         $cookie = $response->getCookie('token');
         $token = $cookie->getValue();
 
-        
-
         $response = $this->withHeaders([
                 'Authorization' => 'Bearer ' . $token,
             ])

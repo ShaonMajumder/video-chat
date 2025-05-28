@@ -28,6 +28,7 @@ class AuthenticateWithCookie
                 return response()->json(['message' => 'Unauthorized: No token found'], 401);   
             }
             $decryptedToken = Crypt::decrypt($token);
+            Log::info($decryptedToken);
             $user = JWTAuth::setToken($decryptedToken)->authenticate();
 
             if (!$user) {
