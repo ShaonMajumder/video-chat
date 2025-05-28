@@ -34,6 +34,12 @@ class RateLimitingTest extends TestCase
         });
     }
 
+    protected function tearDown(): void
+    {
+        RateLimiter::clear('global');
+        parent::tearDown();
+    }
+
     /** @test */
     public function login_is_rate_limited()
     {
