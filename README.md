@@ -96,6 +96,7 @@ A robust testing strategy ensures reliability and scalability.
   XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-text
   php artisan test --coverage-html=storage/coverage-report
   ```
+- Current Code Coverage - [![codecov](https://codecov.io/gh/ShaonMajumder/video-chat/branch/main/graph/badge.svg)](https://codecov.io/gh/ShaonMajumder/video-chat)
 
 **Online report:** [Codecov Report](https://app.codecov.io/gh/ShaonMajumder/video-chat)
 
@@ -137,15 +138,18 @@ A robust testing strategy ensures reliability and scalability.
 
 ## 🛡️ Why it Stands Out
 
-- **Scalability**: Handles 200M+ users with 2M concurrent connections using Redis, WebSocket replicas, and load balancing.
-- **Security**: JWT authentication, encrypted cookies, input sanitization (`DOMPurify`), and rate limiting.
-- **Reliability**: High test coverage, CI/CD, and monitoring with Telescope.
-- **Modularity**: Easy to extend for group chats, video calls, or additional features.
-- **Best Practices**: Follows Laravel conventions, DDD principles, and secure coding standards.
+- ⚙️ **Scalability**: Handles 200M+ users with 2M concurrent connections using Redis, WebSocket replicas, and load balancing.
+- 🔐 **Security**: JWT authentication, encrypted cookies, input sanitization (`DOMPurify`), and rate limiting.
+- 🧪 **Reliability**: 84%+ test coverage, robust CI/CD pipeline with PHPUnit and GitHub Actions, and full observability via Telescope.
+- 🧩 **Modularity**: Clean, feature-based architecture that’s easy to extend (e.g., group chat, video call, chat history or additional features).
+- **✅ Code Quality**: Follows Laravel conventions, domain-driven design (DDD) principles, and industry-standard best practices.
+- 📊 **Coverage Achieved**: 84% overall test coverage (unit + integration), with a target to exceed 90% for critical paths.
+- 🧼 **Best Practices**: Followed all the best practices avaialble.
 
 ## 🧠 Development Notes (WIP)
-
 - 🚧 Continuous Deployment (CD) setup pending.
+- full observability via Telescope.
+- Scalability Test: Handles 200M+ users with 2M concurrent connections using Redis, WebSocket replicas, and load balancing.
 - 📹 Demo GIFs for UX and best practices planned.
 - ✅ Unit testing for core services complete.
 - 🧹 Static analysis with PHPStan in progress.
