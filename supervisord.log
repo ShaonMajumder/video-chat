@@ -968,3 +968,52 @@
 2025-05-28 06:12:26,132 INFO reaped unknown pid 452 (exit status 0)
 2025-05-28 06:13:27,128 INFO reaped unknown pid 461 (exit status 0)
 2025-05-28 06:13:48,104 INFO reaped unknown pid 470 (exit status 0)
+2025-05-28 06:17:13,151 INFO reaped unknown pid 479 (exit status 0)
+2025-05-28 06:18:00,120 INFO reaped unknown pid 488 (exit status 0)
+2025-05-28 06:18:45,735 INFO reaped unknown pid 497 (exit status 0)
+2025-05-28 06:19:09,137 INFO reaped unknown pid 507 (exit status 0)
+2025-05-28 06:20:41,719 INFO reaped unknown pid 517 (exit status 0)
+2025-05-28 06:21:22,147 INFO reaped unknown pid 526 (exit status 0)
+2025-05-28 06:21:35,704 INFO reaped unknown pid 532 (exit status 0)
+2025-05-28 06:21:40,714 INFO reaped unknown pid 542 (exit status 0)
+2025-05-28 06:21:56,741 INFO reaped unknown pid 551 (exit status 0)
+2025-05-28 06:24:39,127 WARN received SIGQUIT indicating exit request
+2025-05-28 06:24:39,128 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-28 06:24:40,312 INFO stopped: websockets (exit status 0)
+2025-05-28 06:24:42,317 INFO waiting for nginx, php-fpm, queue to die
+2025-05-28 06:24:44,319 INFO stopped: queue (exit status 0)
+2025-05-28 06:24:44,333 INFO stopped: php-fpm (exit status 0)
+2025-05-28 06:24:44,344 INFO stopped: nginx (exit status 0)
+2025-05-28 06:36:33,507 INFO Set uid to user 0 succeeded
+2025-05-28 06:36:33,514 INFO RPC interface 'supervisor' initialized
+2025-05-28 06:36:33,517 INFO supervisord started with pid 1
+2025-05-28 06:36:34,520 INFO spawned: 'nginx' with pid 10
+2025-05-28 06:36:34,523 INFO spawned: 'php-fpm' with pid 11
+2025-05-28 06:36:34,526 INFO spawned: 'queue' with pid 12
+2025-05-28 06:36:34,529 INFO spawned: 'websockets' with pid 13
+2025-05-28 06:36:36,351 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 06:36:36,353 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 06:36:36,354 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 06:36:36,356 INFO success: websockets entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 06:36:40,363 INFO reaped unknown pid 46 (exit status 0)
+2025-05-28 06:36:46,372 INFO reaped unknown pid 55 (exit status 0)
+2025-05-28 06:37:01,393 INFO reaped unknown pid 61 (exit status 0)
+2025-05-28 06:37:24,428 INFO reaped unknown pid 70 (exit status 0)
+2025-05-28 06:38:42,329 INFO reaped unknown pid 79 (exit status 0)
+2025-05-28 06:38:47,336 INFO reaped unknown pid 89 (exit status 0)
+2025-05-28 06:39:12,147 INFO reaped unknown pid 99 (exit status 0)
+2025-05-28 06:40:22,113 INFO reaped unknown pid 110 (exit status 0)
+2025-05-28 06:41:14,126 INFO reaped unknown pid 119 (exit status 0)
+2025-05-28 06:41:22,138 INFO reaped unknown pid 129 (exit status 0)
+2025-05-28 06:41:49,363 INFO reaped unknown pid 138 (exit status 0)
+2025-05-28 06:44:48,364 INFO reaped unknown pid 147 (exit status 0)
+2025-05-28 06:44:48,365 INFO reaped unknown pid 148 (terminated by SIGINT)
+2025-05-28 06:46:27,120 INFO reaped unknown pid 156 (exit status 0)
+2025-05-28 06:46:27,121 INFO reaped unknown pid 157 (terminated by SIGINT)
+2025-05-28 06:46:31,125 INFO reaped unknown pid 165 (exit status 0)
+2025-05-28 06:47:02,371 INFO reaped unknown pid 174 (exit status 0)
+2025-05-28 06:50:38,396 INFO reaped unknown pid 183 (exit status 0)
+2025-05-28 06:50:46,137 INFO reaped unknown pid 193 (exit status 0)
+2025-05-28 06:51:40,409 INFO reaped unknown pid 203 (exit status 0)
+2025-05-28 06:53:37,419 INFO reaped unknown pid 212 (exit status 0)
+2025-05-28 06:54:03,137 INFO reaped unknown pid 222 (exit status 0)

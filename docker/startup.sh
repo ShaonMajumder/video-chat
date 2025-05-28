@@ -44,6 +44,10 @@ else
     fi
 fi
 
+echo "Copying .env.testing from environment directory and setting permission..."
+cp environment/.env.testing ./.env
+chmod 644 .env.testing
+
 echo "Setting correct permissions for the storage directory..."
 chown -R www-data:www-data /var/www/html/storage
 chmod -R 775 /var/www/html/storage
