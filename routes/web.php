@@ -15,13 +15,17 @@ use App\Http\Controllers\ChatController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::middleware(['auth.cookie', 'throttle:global'])->group(function () {
 
-Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    
+    Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
+    
+    Route::middleware(['auth.cookie'])->group(function () {
+        Route::get('/', [ChatController::class, 'index']);
+        Route::post('/send-message', [ChatController::class, 'sendMessage'])->name('chat.send')->middleware('throttle:chat');
+    });
 
-Route::middleware(['auth.cookie'])->group(function () {
-    Route::get('/', [ChatController::class, 'index']);
-    Route::post('/send-message', [ChatController::class, 'sendMessage'])->name('chat.send')->middleware('throttle:chat');
 });
