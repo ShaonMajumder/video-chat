@@ -192,6 +192,21 @@ Choose the plan that fits your use case—from casual one-to-one chats to full-f
 📞 **Need custom deployment or support?**  
 Reach out via [LinkedIn](https://linkedin.com/in/shaonmajumder) or check the [GitHub issues](https://github.com/ShaonMajumder/video-chat/issues) for discussions.
 
+## <a id="license"></a>📜 License
+
+The Video Chat platform operates under a freemium model with dual licensing to balance open-source accessibility with business protection:
+
+- **Free Tier (Open Source)**:  
+  The core features—One-to-One Live Chat, Real-Time Messaging, and Online User Indicator—are licensed under the [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE). This ensures the source code is freely available for use, modification, and distribution. If you deploy the Free tier as a service (e.g., via a web application), any modifications must be shared under AGPL-3.0, fostering community contributions while preventing proprietary forks without reciprocation.
+
+- **Premium Tier (Proprietary)**:  
+  Premium features—Message History (Persistent Storage), Group Chat Support, Video Call Integration, and Custom WebSocket Scaling Support—are proprietary and not open-source. These features are protected to support the business model and are accessible only through a paid subscription or commercial license. Unauthorized use, modification, or distribution of Premium features is prohibited without a commercial agreement.
+
+- **Commercial License**:  
+  For businesses seeking to use the entire platform (Free + Premium features) without AGPL-3.0 obligations, deploy proprietary versions, or require custom integrations (e.g., white-labeling, dedicated clusters), a commercial license is available. Contact [Shaon Majumder](https://linkedin.com/in/shaonmajumder) for pricing and terms.
+
+Community contributions to the Free tier are encouraged under AGPL-3.0 terms. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on contributing to the open-source core.
+
 ## <a id="credit"></a>👨‍💻 Built & Maintained By
 
 👔 Ready to join a team building high-impact systems
