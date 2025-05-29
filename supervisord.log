@@ -1023,3 +1023,16 @@
 2025-05-28 06:56:03,112 INFO reaped unknown pid 260 (exit status 0)
 2025-05-28 06:56:44,466 INFO reaped unknown pid 270 (exit status 0)
 2025-05-28 07:03:10,114 INFO reaped unknown pid 286 (exit status 0)
+2025-05-28 08:00:20,622 INFO exited: queue (terminated by SIGKILL; not expected)
+2025-05-28 08:00:20,629 INFO spawned: 'queue' with pid 291
+2025-05-28 08:00:21,678 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 09:59:11,239 INFO exited: queue (terminated by SIGKILL; not expected)
+2025-05-28 09:59:11,243 INFO spawned: 'queue' with pid 299
+2025-05-28 09:59:12,728 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-05-28 11:01:54,136 WARN received SIGQUIT indicating exit request
+2025-05-28 11:01:54,137 INFO waiting for nginx, php-fpm, queue, websockets to die
+2025-05-28 11:01:55,366 INFO stopped: websockets (exit status 0)
+2025-05-28 11:01:57,369 INFO waiting for nginx, php-fpm, queue to die
+2025-05-28 11:01:59,384 INFO stopped: queue (exit status 0)
+2025-05-28 11:01:59,391 INFO stopped: php-fpm (exit status 0)
+2025-05-28 11:01:59,412 INFO stopped: nginx (exit status 0)

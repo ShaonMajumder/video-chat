@@ -5,15 +5,27 @@
 
 A scalable, secure, and feature-rich real-time video chat platform built for seamless one-on-one communication, designed to handle 200M+ users with up to 2M concurrent connections.
 
+<p align="center">
+  <a href="#demo">Demo</a> •
+  <a href="#features">Features</a> •
+  <a href="#tech-stack">Tech Stack</a> •
+  <a href="#testing">Well Tested</a> •
+  <a href="#system-design">System Design</a> •
+  <a href="#why-it-stands-out">Why it Stands Out</a> •
+  <a href="#notes">Notes</a> •
+  <a href="#credit">credit</a>
+</p>
+
 ## 🚀 Demo
 
 ### 📹 Full Platform Walkthrough
 **YouTube Video:** Real-time chat, authentication, and online users in action  
 Link - https://www.youtube.com/watch?v=ZIC_A7jSB-E
 
-### 🛠️ Real-Time Messaging Overview
+### <a id="demo"></a>🛠️ Real-Time Messaging Overview
 **Figure:** Sending and receiving messages in real-time
 ![Chat Demo](screenshots/chat.gif)
+- Online Presence Indicator, Realtime Chat
 
 ### 🔒 Secure Authentication
 **Figure:** JWT-based login with encrypted cookie storage
@@ -28,7 +40,7 @@ Link - https://www.youtube.com/watch?v=ZIC_A7jSB-E
 ➡️ Config: `.github/workflows/laravel.yml`
 ---
 
-## 🎯 Features for Users
+## <a id="features"></a>🎯 Features for Users
 
 - **📨 Real-Time Messaging**  
   Send and receive messages instantly using **Laravel WebSockets** and **Redis** for broadcasting.
@@ -47,7 +59,7 @@ Link - https://www.youtube.com/watch?v=ZIC_A7jSB-E
 
 ---
 
-## 🧰 Tech Stack
+## <a id="tech-stack"></a>🧰 Tech Stack
 
 | Area                | Technologies Used                                |
 |---------------------|------------------------------------------------|
@@ -62,7 +74,7 @@ Link - https://www.youtube.com/watch?v=ZIC_A7jSB-E
 | **Deployment**      | Docker, Nginx, PHP-FPM                          |
 | **CI/CD**           | GitHub Actions (CI Done, CD Planned)            |
 
-## 🧪 Testing Strategy
+## <a id="testing"></a>🧪 Testing Strategy
 
 A robust testing strategy ensures reliability and scalability.
 
@@ -102,7 +114,7 @@ A robust testing strategy ensures reliability and scalability.
 
 ---
 
-## System Design & Architecture
+## <a id="system-design"></a>System Design & Architecture
 
 > **🎯 Main Goal:** Scalability, Security, and Real-Time Performance  
 > Designed for 200M+ users with 2M concurrent connections, ensuring low latency, high availability, and secure communication.
@@ -136,7 +148,7 @@ A robust testing strategy ensures reliability and scalability.
   - Rate limiting (`login`, `chat`, `api`, `global`) prevents abuse.
   - Load-balanced WebSocket servers for high concurrency.
 
-## 🛡️ Why it Stands Out
+## <a id="why-it-stands-out"></a>🛡️ Why it Stands Out
 
 - ⚙️ **Scalability**: Handles 200M+ users with 2M concurrent connections using Redis, WebSocket replicas, and load balancing.
 - 🔐 **Security**: JWT authentication, encrypted cookies, input sanitization (`DOMPurify`), and rate limiting.
@@ -146,7 +158,7 @@ A robust testing strategy ensures reliability and scalability.
 - 📊 **Coverage Achieved**: 84% overall test coverage (unit + integration), with a target to exceed 90% for critical paths.
 - 🧼 **Best Practices**: Followed all the best practices avaialble.
 
-## 🧠 Development Notes (WIP)
+## <a id="notes"></a>🧠 Development Notes (WIP)
 - 🚧 Continuous Deployment (CD) setup pending.
 - full observability via Telescope.
 - Scalability Test: Handles 200M+ users with 2M concurrent connections using Redis, WebSocket replicas, and load balancing.
@@ -167,7 +179,7 @@ A robust testing strategy ensures reliability and scalability.
   - Observability (Prometheus, Grafana for metrics).
   - Leaderboards for chat activity.
   
-## 👨‍💻 Built & Maintained By
+## <a id="credit"></a>👨‍💻 Built & Maintained By
 
 👔 Ready to join a team building high-impact systems
 📨 Let’s connect for backend, DevOps, or system design roles

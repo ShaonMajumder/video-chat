@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Middleware;
 
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Route;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tests\TestCase;
