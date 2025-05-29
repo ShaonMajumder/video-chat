@@ -13,6 +13,7 @@ A scalable, secure, and feature-rich real-time video chat platform built for sea
   <a href="#system-design">System Design</a> •
   <a href="#why-it-stands-out">Why it Stands Out</a> •
   <a href="#notes">Notes</a> •
+  <a href="#pricing">Pricing</a> •
   <a href="#credit">credit</a>
 </p>
 
@@ -162,10 +163,10 @@ A robust testing strategy ensures reliability and scalability.
 - 🚧 Continuous Deployment (CD) setup pending.
 - full observability via Telescope.
 - Scalability Test: Handles 200M+ users with 2M concurrent connections using Redis, WebSocket replicas, and load balancing.
-- 📹 Demo GIFs for UX and best practices planned.
-- ✅ Unit testing for core services complete.
-- 🧹 Static analysis with PHPStan in progress.
+- Integration Testing, End-to-End Testing
 - 🛠️ Integration testing ongoing (DB and Redis setup).
+- 🧹 Static analysis with PHPStan in progress.
+- 📹 Demo GIFs for UX and best practices planned.
 - 🔄 End-to-end WebSocket simulation partially complete.
 - 📊 Code coverage badge support implemented.
 - 🔒 Planned Security Enhancements:
@@ -178,7 +179,19 @@ A robust testing strategy ensures reliability and scalability.
   - Message history and search.
   - Observability (Prometheus, Grafana for metrics).
   - Leaderboards for chat activity.
-  
+
+## <a id="pricing"></a>💸 Pricing
+
+Choose the plan that fits your use case—from casual one-to-one chats to full-featured communication platforms.
+
+| Plan     | Features                                                                                                                       | Price          |
+|----------|--------------------------------------------------------------------------------------------------------------------------------|----------------|
+| **Free** | ✅ One-to-One Live Chat  <br> ✅ Real-Time Messaging  <br> ✅ Online User Indicator                                              | **$0/month**   |
+| **Premium** | ✅ Everything in Free Plan  <br> ✅ Message History (Persistent Storage)  <br> ✅ Group Chat Support  <br> ✅ Video Call Integration  <br> ✅ Custom WebSocket Scaling Support | **Contact for Pricing** |
+
+📞 **Need custom deployment or support?**  
+Reach out via [LinkedIn](https://linkedin.com/in/shaonmajumder) or check the [GitHub issues](https://github.com/ShaonMajumder/video-chat/issues) for discussions.
+
 ## <a id="credit"></a>👨‍💻 Built & Maintained By
 
 👔 Ready to join a team building high-impact systems
