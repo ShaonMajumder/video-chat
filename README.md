@@ -14,7 +14,9 @@ A scalable, secure, and feature-rich real-time video chat platform built for sea
   <a href="#why-it-stands-out">Why it Stands Out</a> •
   <a href="#notes">Notes</a> •
   <a href="#pricing">Pricing</a> •
-  <a href="#credit">credit</a>
+  <a href="#license">License</a> •
+  <a href="#contribute">Contribute</a> •
+  <a href="#credit">Credit</a>
 </p>
 
 ## 🚀 Demo
@@ -197,14 +199,15 @@ Reach out via [LinkedIn](https://linkedin.com/in/shaonmajumder) or check the [Gi
 The Video Chat platform operates under a freemium model with dual licensing to balance open-source accessibility with business protection:
 
 - **Free Tier (Open Source)**:  
-  The core features—One-to-One Live Chat, Real-Time Messaging, and Online User Indicator—are licensed under the [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE). This ensures the source code is freely available for use, modification, and distribution. If you deploy the Free tier as a service (e.g., via a web application), any modifications must be shared under AGPL-3.0, fostering community contributions while preventing proprietary forks without reciprocation.
+  The core features—**One-to-One Live Chat, Real-Time Messaging, and Online User Indicator**—are licensed under the [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE). This ensures the source code is freely available for use, modification, and distribution. If you deploy the Free tier as a service (e.g., via a web application), any modifications must be shared under AGPL-3.0, fostering community contributions while preventing proprietary forks without reciprocation.
 
 - **Premium Tier (Proprietary)**:  
-  Premium features—Message History (Persistent Storage), Group Chat Support, Video Call Integration, and Custom WebSocket Scaling Support—are proprietary and not open-source. These features are protected to support the business model and are accessible only through a paid subscription or commercial license. Unauthorized use, modification, or distribution of Premium features is prohibited without a commercial agreement.
+  Premium features—**Message History (Persistent Storage), Group Chat Support, Video Call Integration, and Custom WebSocket Scaling Support**—are proprietary and not open-source. These features are protected to support the business model and are accessible only through a paid subscription or commercial license. Unauthorized use, modification, or distribution of Premium features is prohibited without a commercial agreement.
 
 - **Commercial License**:  
   For businesses seeking to use the entire platform (Free + Premium features) without AGPL-3.0 obligations, deploy proprietary versions, or require custom integrations (e.g., white-labeling, dedicated clusters), a commercial license is available. Contact [Shaon Majumder](https://linkedin.com/in/shaonmajumder) for pricing and terms.
 
+<a id="contribute"></a>
 Community contributions to the Free tier are encouraged under AGPL-3.0 terms. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on contributing to the open-source core.
 
 ## <a id="credit"></a>👨‍💻 Built & Maintained By
