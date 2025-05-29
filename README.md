@@ -16,6 +16,7 @@ A scalable, secure, and feature-rich real-time video chat platform built for sea
   <a href="#pricing">Pricing</a> •
   <a href="#license">License</a> •
   <a href="#contribute">Contribute</a> •
+  <a href="#revenue">Revenue Model</a> •
   <a href="#credit">Credit</a>
 </p>
 
@@ -205,6 +206,16 @@ The Video Chat platform operates under a freemium model with dual licensing to b
 
 <a id="contribute"></a>
 Community contributions to the Free tier are encouraged under AGPL-3.0 terms. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on contributing to the open-source core.
+
+## <a id="revenue"></a>💰 Revenue Model
+
+The Video Chat platform leverages a freemium model to generate sustainable revenue while fostering an open-source community:
+
+- **Premium Subscriptions**: Revenue is primarily driven by subscriptions to the Premium tier, which includes premium features like Message History, Group Chat Support, Video Call Integration, and Custom WebSocket Scaling Support. These features cater to businesses, teams, and power users seeking enhanced functionality, with pricing tailored to scale with usage (contact [Shaon Majumder](https://linkedin.com/in/shaonmajumder) for details).
+- **Commercial Licensing**: Enterprises requiring proprietary deployments, white-labeling, or custom integrations (e.g., dedicated clusters, compliance with HIPAA or SOC 2) can opt for a commercial license, providing flexibility without AGPL-3.0 obligations. This targets large-scale organizations and generates significant revenue through one-time or recurring fees.
+- **Future Monetization**: Planned additions include premium add-ons (e.g., advanced analytics, user badges, leaderboards) and API access for developers, further diversifying income streams while maintaining the Free tier’s accessibility.
+
+By offering a robust Free tier under AGPL-3.0, the platform attracts a wide user base, driving conversions to Premium subscriptions and commercial licenses, ensuring long-term growth and sustainability.
 
 ## <a id="credit"></a>👨‍💻 Built & Maintained By
 
