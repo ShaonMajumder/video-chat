@@ -1,0 +1,1 @@
+Delete .env and then if docker automatically copying it from environment/.env.local
