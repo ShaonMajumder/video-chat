@@ -733,3 +733,18 @@ return [
 ];
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------- please fix previous lines ------------------
+composer require filament/filament
+php artisan filament:install --panels
