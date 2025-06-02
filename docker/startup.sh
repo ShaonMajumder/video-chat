@@ -11,7 +11,7 @@ fi
 # If artisan not found, assume Laravel not present
 if [ ! -f artisan ]; then
     echo "Laravel not found. Creating Laravel in /tmp/laravel..."
-    composer create-project --prefer-dist laravel/laravel /tmp/laravel
+    composer create-project --prefer-dist laravel/laravel:^12.0 /tmp/laravel
     if [ $? -ne 0 ]; then
         echo "Error: Failed to create Laravel project"
         exit 1
@@ -26,7 +26,7 @@ if [ ! -f artisan ]; then
         echo "Copying .env.local from environment directory..."
         cp environment/.env.local /tmp/laravel/.env
     fi
-
+    
     php artisan config:clear
 
     echo "Copying Laravel to current directory..."
@@ -43,10 +43,6 @@ else
         cp environment/.env.local ./.env
     fi
 fi
-
-echo "Copying .env.testing from environment directory and setting permission..."
-cp environment/.env.testing ./.env
-chmod 644 .env.testing
 
 echo "Setting correct permissions for the storage directory..."
 chown -R www-data:www-data /var/www/html/storage

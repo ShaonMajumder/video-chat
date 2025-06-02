@@ -9,8 +9,6 @@ services:
     container_name: laravel-app
     restart: unless-stopped
     working_dir: /var/www/html
-    ports:
-      - "6001:6001"
     volumes:
       - .:/var/www/html  # Mount whole project
       - vendor:/var/www/html/vendor # Except vendor
@@ -58,7 +56,32 @@ services:
       - "6379:6379"
     networks:
       - laravel
-  
+
+  soketi:
+    image: quay.io/soketi/soketi:latest
+    container_name: soketi-server
+    restart: unless-stopped
+    environment:
+      SOKETI_DEBUG: '1'
+      SOKETI_METRICS_SERVER_PORT: '9601'
+      SOKETI_DEFAULT_APP_ID: ${PUSHER_APP_ID}
+      SOKETI_DEFAULT_APP_KEY: ${PUSHER_APP_KEY}
+      SOKETI_DEFAULT_APP_SECRET: ${PUSHER_APP_SECRET}
+      SOKETI_DEFAULT_APP_ENABLED: 'true'
+
+      SOKETI_DEFAULT_APP_ENABLE_CLIENT_MESSAGES: 'false'
+      SOKETI_DEFAULT_APP_ENABLE_STATISTICS: 'true'
+
+      # Enable JWT authentication
+      SOKETI_DEFAULT_APP_ENABLE_AUTHENTICATION: 'true'
+      SOKETI_DEFAULT_APP_AUTH_JWT_SECRET: ${JWT_SECRET}
+      SOKETI_DEFAULT_APP_AUTH_JWT_ALGO: HS256
+    ports:
+      - '6001:6001'
+      - '9601:9601'
+    networks:
+      - laravel
+
   # queue:
   #   build:
   #     context: .

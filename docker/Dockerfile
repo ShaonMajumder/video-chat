@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:8.3-fpm
 
 RUN apt-get update && apt-get install -y \
     nginx \
@@ -14,12 +14,15 @@ RUN apt-get update && apt-get install -y \
     redis-server \
     supervisor \
     dos2unix \
-    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip sockets intl
 
 RUN pecl install redis && docker-php-ext-enable redis
 
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
-RUN apt-get install -y nodejs
+# Install Node.js and npm (v18 LTS recommended)
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs && \
+    node -v && npm -v
 
 WORKDIR /var/www/html
 
@@ -43,14 +46,25 @@ RUN [ -d /var/www/html/storage ] && chown -R www-data:www-data /var/www/html/sto
 # 0.484
 # 0.484   git config --global --add safe.directory /var/www/html
 
+# RUN composer install --no-interaction --prefer-dist --optimize-autoloader \
+#     && composer dump-autoload -o \
+#     && php artisan package:discover
 RUN if [ -f artisan ] && [ -f composer.json ]; then \
     composer install --no-interaction --prefer-dist --optimize-autoloader && \
     composer dump-autoload -o && \
-    php artisan package:discover; \
+    php artisan package:discover && \
+    echo "Running npm install..." && \
+    npm install && \
+    echo "Running npm run dev..." && \
+    npm run build; \
     else \
     echo "Laravel not found. Skipping composer install and artisan commands."; \
     fi
 
+
+# RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+# RUN php artisan key:generate
 RUN if [ -f artisan ]; then \
     chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache && \
     chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache && \
