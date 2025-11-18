@@ -219,10 +219,17 @@ By offering a robust Free tier under AGPL-3.0, the platform attracts a wide user
 
 ## <a id="credit"></a>👨‍💻 Built & Maintained By
 
-👔 Ready to join a team building high-impact systems
-📨 Let’s connect for backend, DevOps, or system design roles
+👔 Actively exploring CTO-track, Staff/Principal Engineer, System Architect, and Engineering Leadership roles  
+📨 Let’s connect for high-impact backend, AI, platform, or architecture-led positions
 
 **Shaon Majumder**  
-Senior Software Engineer  
-Open source contributor | Laravel ecosystem expert | System design advocate  
-🔗 [LinkedIn](https://linkedin.com/in/shaonmajumder) • [Portfolio](https://github.com/ShaonMajumder)
+Senior Software Engineer / Engineering Manager → CTO-Track | AI & Scalability  
+Open source contributor | Laravel ecosystem expert | System design & architecture advocate  
+
+- Email:      `smazoomder@gmail.com`  
+- Portfolio:  https://shaonresume.netlify.app  
+- LinkedIn:   https://linkedin.com/in/shaonmajumder  
+- Medium:     https://medium.com/@shaonmajumder  
+- GitHub:     https://github.com/ShaonMajumder
+
+Specialized in scalable APIs, distributed systems, and AI integration (OpenAI, Gemini, MCP), with a track record of leading engineering teams and shipping high-impact platforms across healthcare, fintech, telecom, logistics, garments, and e-commerce.
