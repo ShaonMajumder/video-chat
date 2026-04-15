@@ -19,6 +19,9 @@ Route::middleware([AuthenticateWithCookie::class, 'throttle:api'])->group(functi
 
     Route::get('/session', [AuthController::class, 'session'])->name('api.session');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
+
+Route::middleware([AuthenticateWithCookie::class, 'throttle:signaling'])->group(function () {
     Route::get('/call-state', [ChatController::class, 'callState'])->name('api.call.state');
     Route::post('/call-offer', [ChatController::class, 'createOffer'])->name('api.call.offer');
     Route::post('/call-answer', [ChatController::class, 'createAnswer'])->name('api.call.answer');

@@ -1,4 +1,4 @@
-﻿import './bootstrap';
+import './bootstrap';
 import './utils';
 
 const page = document.body.dataset.page;
@@ -251,6 +251,98 @@ function initWorkspace() {
 
     function canCaptureLocalMedia() {
         return canUseMedia();
+    }
+
+    function sanitizeSessionDescription(description) {
+        if (!description || typeof description.sdp !== 'string') {
+            return description;
+        }
+
+        const normalizedSdp = description.sdp.replace(/\r?\n/g, '\r\n');
+        const lines = normalizedSdp.split('\r\n');
+        const blockedCodecNames = new Set(['rtx', 'red', 'ulpfec', 'flexfec']);
+        const sanitizedLines = [];
+        let currentSection = null;
+
+        function flushSection() {
+            if (!currentSection) {
+                return;
+            }
+
+            const payloads = currentSection.mediaLineParts.slice(3);
+            const codecByPayload = new Map();
+
+            currentSection.lines.forEach((line) => {
+                const match = line.match(/^a=rtpmap:(\d+)\s+([^/\s]+)/i);
+
+                if (match) {
+                    codecByPayload.set(match[1], match[2].toLowerCase());
+                }
+            });
+
+            const blockedPayloads = new Set(
+                payloads.filter((payloadType) => blockedCodecNames.has(codecByPayload.get(payloadType)))
+            );
+
+            const allowedPayloads = payloads.filter((payloadType) => !blockedPayloads.has(payloadType));
+
+            sanitizedLines.push('m=' + [
+                currentSection.mediaLineParts[0],
+                currentSection.mediaLineParts[1],
+                currentSection.mediaLineParts[2],
+                ...allowedPayloads,
+            ].join(' '));
+
+            currentSection.lines.forEach((line) => {
+                if (line.startsWith('a=ssrc:') || line.startsWith('a=ssrc-group:')) {
+                    return;
+                }
+
+                const payloadMatch = line.match(/^a=(?:fmtp|rtpmap|rtcp-fb):(\d+)\b/i);
+
+                if (payloadMatch) {
+                    const payloadType = payloadMatch[1];
+
+                    if (!allowedPayloads.includes(payloadType)) {
+                        return;
+                    }
+
+                    if (/^a=fmtp:\d+\s+repair-window=\d+$/i.test(line)) {
+                        return;
+                    }
+                }
+
+                sanitizedLines.push(line);
+            });
+
+            currentSection = null;
+        }
+
+        for (const rawLine of lines) {
+            const line = rawLine.trimEnd();
+
+            if (line.startsWith('m=')) {
+                flushSection();
+                currentSection = {
+                    mediaLineParts: line.slice(2).trim().split(/\s+/),
+                    lines: [],
+                };
+                continue;
+            }
+
+            if (currentSection) {
+                currentSection.lines.push(line);
+            } else {
+                sanitizedLines.push(line);
+            }
+        }
+
+        flushSection();
+
+        return {
+            type: description.type,
+            sdp: `${sanitizedLines.join('\r\n')}\r\n`,
+        };
     }
 
     function updateMediaNotice(message = '') {
@@ -563,7 +655,9 @@ function initWorkspace() {
         if (call.answer && call.answer.from === peer.id && call.answer.updated_at !== state.signaling.answerAt && state.peerConnection) {
             state.signaling.answerAt = call.answer.updated_at;
             clearIncomingCall();
-            await state.peerConnection.setRemoteDescription(new RTCSessionDescription(call.answer.sdp));
+            await state.peerConnection.setRemoteDescription(
+                new RTCSessionDescription(sanitizeSessionDescription(call.answer.sdp)),
+            );
             updateCallStatus('Connected', 'live');
         }
 
@@ -655,7 +749,7 @@ function initWorkspace() {
         await connection.setLocalDescription(offer);
         await sendJson(urls.offer, 'POST', {
             peer_id: peer.id,
-            sdp: offer,
+            sdp: sanitizeSessionDescription(connection.localDescription ?? offer),
         });
 
         updateCallStatus('Ringing', 'ringing');
@@ -692,12 +786,14 @@ function initWorkspace() {
 
         const connection = await ensurePeerConnection();
         await syncLocalTracks();
-        await connection.setRemoteDescription(new RTCSessionDescription(incoming.offer.sdp));
+        await connection.setRemoteDescription(
+            new RTCSessionDescription(sanitizeSessionDescription(incoming.offer.sdp)),
+        );
         const answer = await connection.createAnswer();
         await connection.setLocalDescription(answer);
         await sendJson(urls.answer, 'POST', {
             peer_id: incoming.peerId,
-            sdp: answer,
+            sdp: sanitizeSessionDescription(connection.localDescription ?? answer),
         });
         updateCallStatus('Answering', 'warn');
     }

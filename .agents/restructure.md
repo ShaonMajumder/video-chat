@@ -112,7 +112,34 @@ now even if one pc don't have mic and camera, still it will receive video and au
 no ringing mechanism when called
 
 ---
+when try to receive call-
 
-when tried to receive call : Failed to execute 'setRemoteDescription' on 'RTCPeerConnection': Failed to parse SessionDescription. a=ssrc:2269663669 label:b4c106ce-5455-4c63-b5f6-5205910e31ea Invalid SDP line.
+Failed to execute 'setRemoteDescription' on 'RTCPeerConnection': Failed to parse SessionDescription. a=fmtp:49 repair-window=10000000 Invalid SDP line.
 
 ---
+
+
+https://192.168.50.104:8080/api/call-state?peer_id=1
+Request Method:
+GET
+Status Code:
+429 Too Many Requests
+
+---
+
+when try to receive call-
+
+Failed to execute 'setRemoteDescription' on 'RTCPeerConnection': Failed to parse SessionDescription. a=rtcp-fb:49 transport-cc Invalid SDP line.
+
+---
+
+when tried to receive call - Failed to execute 'setRemoteDescription' on 'RTCPeerConnection': Failed to parse SessionDescription. a=ssrc:1195093803 label:9fd31aa3-8044-49ff-b6df-434b47e19195 Invalid SDP line.
+
+---
+
+when try to receive call-
+Failed to execute 'setRemoteDescription' on 'RTCPeerConnection': Failed to parse SessionDescription. a=rtpmap:127 ulpfec/90000 Invalid SDP line.
+
+---
+
+Failed to execute 'setRemoteDescription' on 'RTCPeerConnection': Failed to parse SessionDescription. audio 9 UDP/TLS/RTP/SAVPF 111 103 9 0 8 105 13 110 113 126 Expects m line.

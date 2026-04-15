@@ -43,6 +43,16 @@ class RouteServiceProvider extends ServiceProvider
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
         });
 
+        RateLimiter::for('signaling', function (Request $request) {
+            $key = optional($request->user())->id ?: $request->ip();
+
+            return Limit::perMinute(240)->by("signaling:{$key}")->response(function () {
+                return response()->json([
+                    'error' => 'Too many signaling requests. Please retry in a moment.',
+                ], 429);
+            });
+        });
+
         // Global rate limit
         RateLimiter::for('global', function (Request $request) {
             return Limit::perMinute(100000)->by('global')->response(function () {
