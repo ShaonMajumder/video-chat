@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Log;
@@ -29,6 +30,9 @@ class AuthenticateWithCookie
                 return $this->unauthorizedResponse($request, 'Unauthorized: Invalid token');
             }
 
+            // Presence / private channel authorization resolves the current user
+            // from Laravel's auth manager, not only from the request instance.
+            Auth::setUser($user);
             $request->attributes->set('user', $user);
             $request->setUserResolver(static fn () => $user);
         } catch (JWTException $e) {

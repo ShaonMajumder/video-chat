@@ -389,3 +389,106 @@
 2026-04-15 03:44:29,186 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2026-04-15 03:44:29,202 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2026-04-15 03:58:34,422 INFO reaped unknown pid 59 (exit status 0)
+2026-04-15 05:13:00,019 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2026-04-15 05:13:00,021 INFO supervisord started with pid 1
+2026-04-15 05:13:01,023 INFO spawned: 'nginx' with pid 10
+2026-04-15 05:13:01,024 INFO spawned: 'php-fpm' with pid 11
+2026-04-15 05:13:01,026 INFO spawned: 'queue' with pid 12
+2026-04-15 05:13:01,387 WARN exited: queue (exit status 1; not expected)
+2026-04-15 05:13:02,388 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 05:13:02,388 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 05:13:02,389 INFO spawned: 'queue' with pid 23
+2026-04-15 05:13:02,709 WARN exited: queue (exit status 1; not expected)
+2026-04-15 05:13:04,712 INFO spawned: 'queue' with pid 28
+2026-04-15 05:13:05,049 WARN exited: queue (exit status 1; not expected)
+2026-04-15 05:13:08,053 INFO spawned: 'queue' with pid 33
+2026-04-15 05:13:08,359 WARN exited: queue (exit status 1; not expected)
+2026-04-15 05:13:09,361 INFO gave up: queue entered FATAL state, too many start retries too quickly
+2026-04-15 05:18:20,668 WARN received SIGQUIT indicating exit request
+2026-04-15 05:18:20,669 INFO waiting for nginx, php-fpm to die
+2026-04-15 05:18:21,681 INFO stopped: php-fpm (exit status 0)
+2026-04-15 05:18:21,684 INFO stopped: nginx (exit status 0)
+2026-04-15 05:18:22,232 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2026-04-15 05:18:22,234 INFO supervisord started with pid 1
+2026-04-15 05:18:23,235 INFO spawned: 'nginx' with pid 10
+2026-04-15 05:18:23,237 INFO spawned: 'php-fpm' with pid 11
+2026-04-15 05:18:23,238 INFO spawned: 'queue' with pid 12
+2026-04-15 05:18:23,489 WARN exited: queue (exit status 1; not expected)
+2026-04-15 05:18:24,490 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 05:18:24,490 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 05:18:24,492 INFO spawned: 'queue' with pid 23
+2026-04-15 05:18:24,660 WARN exited: queue (exit status 1; not expected)
+2026-04-15 05:18:26,663 INFO spawned: 'queue' with pid 28
+2026-04-15 05:18:26,830 WARN exited: queue (exit status 1; not expected)
+2026-04-15 05:18:29,835 INFO spawned: 'queue' with pid 33
+2026-04-15 05:18:30,000 WARN exited: queue (exit status 1; not expected)
+2026-04-15 05:18:31,001 INFO gave up: queue entered FATAL state, too many start retries too quickly
+2026-04-15 05:23:15,872 WARN received SIGQUIT indicating exit request
+2026-04-15 05:23:15,872 INFO waiting for nginx, php-fpm to die
+2026-04-15 05:23:16,886 INFO stopped: php-fpm (exit status 0)
+2026-04-15 05:23:16,889 INFO stopped: nginx (exit status 0)
+2026-04-15 05:23:17,499 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2026-04-15 05:23:17,502 INFO supervisord started with pid 1
+2026-04-15 05:23:18,504 INFO spawned: 'nginx' with pid 10
+2026-04-15 05:23:18,505 INFO spawned: 'php-fpm' with pid 11
+2026-04-15 05:23:18,506 INFO spawned: 'queue' with pid 12
+2026-04-15 05:23:19,547 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 05:23:19,547 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 05:23:19,547 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 05:24:06,404 WARN received SIGQUIT indicating exit request
+2026-04-15 05:24:06,404 INFO waiting for nginx, php-fpm, queue to die
+2026-04-15 05:24:06,414 INFO stopped: queue (exit status 0)
+2026-04-15 05:24:06,429 INFO stopped: php-fpm (exit status 0)
+2026-04-15 05:24:06,433 INFO stopped: nginx (exit status 0)
+2026-04-15 05:24:06,849 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2026-04-15 05:24:06,850 INFO supervisord started with pid 1
+2026-04-15 05:24:07,851 INFO spawned: 'nginx' with pid 10
+2026-04-15 05:24:07,853 INFO spawned: 'php-fpm' with pid 11
+2026-04-15 05:24:07,855 INFO spawned: 'queue' with pid 12
+2026-04-15 05:24:08,962 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 05:24:08,962 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 05:24:08,962 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 05:26:36,474 WARN received SIGQUIT indicating exit request
+2026-04-15 05:26:36,475 INFO waiting for nginx, php-fpm, queue to die
+2026-04-15 05:26:39,478 INFO waiting for nginx, php-fpm, queue to die
+2026-04-15 05:26:39,493 INFO stopped: queue (exit status 0)
+2026-04-15 05:26:39,508 INFO stopped: php-fpm (exit status 0)
+2026-04-15 05:26:39,526 INFO stopped: nginx (exit status 0)
+2026-04-15 05:26:40,044 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2026-04-15 05:26:40,047 INFO supervisord started with pid 1
+2026-04-15 05:26:41,051 INFO spawned: 'nginx' with pid 10
+2026-04-15 05:26:41,054 INFO spawned: 'php-fpm' with pid 11
+2026-04-15 05:26:41,056 INFO spawned: 'queue' with pid 12
+2026-04-15 05:26:42,143 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 05:26:42,143 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 05:26:42,143 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 05:26:45,146 WARN received SIGQUIT indicating exit request
+2026-04-15 05:26:45,146 INFO waiting for nginx, php-fpm, queue to die
+2026-04-15 05:26:45,159 INFO stopped: queue (exit status 0)
+2026-04-15 05:26:45,164 INFO stopped: php-fpm (exit status 0)
+2026-04-15 05:26:45,169 INFO stopped: nginx (exit status 0)
+2026-04-15 05:26:53,904 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2026-04-15 05:26:53,906 INFO supervisord started with pid 1
+2026-04-15 05:26:54,912 INFO spawned: 'nginx' with pid 9
+2026-04-15 05:26:54,917 INFO spawned: 'php-fpm' with pid 10
+2026-04-15 05:26:54,918 INFO spawned: 'queue' with pid 11
+2026-04-15 05:26:55,970 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 05:26:55,970 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 05:26:55,970 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 05:34:15,392 INFO reaped unknown pid 111 (exit status 0)
+2026-04-15 05:40:33,621 INFO reaped unknown pid 168 (exit status 0)
+2026-04-15 05:44:41,209 INFO reaped unknown pid 264 (exit status 0)
+2026-04-15 05:45:11,678 WARN received SIGQUIT indicating exit request
+2026-04-15 05:45:11,689 INFO waiting for nginx, php-fpm, queue to die
+2026-04-15 05:45:11,968 INFO stopped: queue (exit status 0)
+2026-04-15 05:45:13,056 INFO stopped: php-fpm (exit status 0)
+2026-04-15 05:45:14,088 INFO stopped: nginx (exit status 0)
+2026-04-15 05:45:15,197 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2026-04-15 05:45:15,201 INFO supervisord started with pid 1
+2026-04-15 05:45:16,203 INFO spawned: 'nginx' with pid 10
+2026-04-15 05:45:16,205 INFO spawned: 'php-fpm' with pid 11
+2026-04-15 05:45:16,209 INFO spawned: 'queue' with pid 12
+2026-04-15 05:45:17,369 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 05:45:17,369 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 05:45:17,369 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 05:47:16,962 INFO reaped unknown pid 117 (exit status 0)

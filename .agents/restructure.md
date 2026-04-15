@@ -82,3 +82,15 @@ self-signed HTTPS in Nginx/Docker
 Caddy with local TLS
 mkcert-based trusted LAN certificate
 The cleanest option for Windows + LAN is mkcert + Nginx/Caddy.
+
+
+---
+
+
+in new pc : docker compose up --build -d
+failed to solve: process "/bin/sh -c apt-get update && apt-get install -y     nginx     git     unzip     curl     libpng-dev     libonig-dev     libxml2-dev     zip     libzip-dev     libssl-dev     redis-server     supervisor     dos2unix     && docker-php-ext-configure intl     && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip sockets intl" did not complete successfully: exit code: 1
+
+
+---
+
+allow https on Lan http://192.168.0.104:8080/ and localhost:8080 
