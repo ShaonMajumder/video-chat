@@ -1,132 +1,68 @@
 @extends('layouts.app')
 
-@section('title', 'Login')
-
-@section('styles')
-<style>
-    .login-container {
-        background: white;
-        padding: 2.5rem 2rem;
-        border-radius: 12px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        max-width: 400px;
-        margin: 3rem auto;
-    }
-
-    h1 {
-        font-weight: 700;
-        margin-bottom: 1.5rem;
-        color: #111827;
-        text-align: center;
-    }
-
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 1.2rem;
-    }
-
-    input[type="email"],
-    input[type="password"] {
-        padding: 0.75rem 1rem;
-        border-radius: 8px;
-        border: 1px solid #d1d5db;
-        font-size: 1rem;
-        transition: border-color 0.2s ease;
-    }
-
-    input[type="email"]:focus,
-    input[type="password"]:focus {
-        outline: none;
-        border-color: #2563eb;
-        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
-    }
-
-    button[type="submit"] {
-        background-color: #2563eb;
-        color: white;
-        font-weight: 700;
-        padding: 0.75rem 1rem;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 1.1rem;
-        transition: background-color 0.3s ease;
-    }
-
-    button[type="submit"]:hover {
-        background-color: #1e40af;
-    }
-
-    .error-messages {
-        background: #fee2e2;
-        color: #b91c1c;
-        padding: 1rem;
-        border-radius: 8px;
-        margin-top: 1rem;
-        font-weight: 600;
-    }
-</style>
-@endsection
+@section('title', 'LanCast | Sign In')
+@section('page', 'login')
+@section('body_class', 'shell-body auth-body')
 
 @section('content')
-<div class="login-container" role="main" aria-labelledby="login-title">
-    <h1 id="login-title">Login to Your Account</h1>
+<div class="auth-shell">
+    <section class="auth-promo">
+        <a class="brand" href="{{ route('landing') }}">
+            <span class="brand-mark">LC</span>
+            <span>LanCast</span>
+        </a>
+        <p class="eyebrow">Secure access</p>
+        <h1>Enter the LAN workspace.</h1>
+        <p>
+            Built for direct internal communication: lightweight, fast to scan, and tuned for real-time chat plus browser-based video.
+        </p>
+        <div class="auth-feature-list">
+            <div>
+                <strong>Focused workspace</strong>
+                <span>Roster, call stage, and chat without dashboard noise.</span>
+            </div>
+            <div>
+                <strong>Peer-to-peer call path</strong>
+                <span>Local signaling for quick LAN setup and low-friction meetings.</span>
+            </div>
+            <div>
+                <strong>Modern visual system</strong>
+                <span>Soft contrast, measured motion, and production-oriented spacing.</span>
+            </div>
+        </div>
+    </section>
 
-    <form id="loginForm" novalidate>
-        <input type="email" name="email" placeholder="Email address" required autocomplete="email" />
-        <input type="password" name="password" placeholder="Password" required autocomplete="current-password" />
-        <button type="submit">Login</button>
-    </form>
+    <section class="auth-card-wrap">
+        <div class="auth-card">
+            <div>
+                <p class="eyebrow">Sign in</p>
+                <h2>Use your internal account</h2>
+            </div>
 
-    <div id="error-container" class="error-messages" style="display: none;" role="alert" aria-live="assertive"></div>
+            <form id="login-form" class="auth-form" action="/api/login" method="post" novalidate>
+                @csrf
+                <label>
+                    <span>Email</span>
+                    <input type="email" name="email" placeholder="admin@admin.com" autocomplete="email" required>
+                </label>
+                <label>
+                    <span>Password</span>
+                    <input type="password" name="password" placeholder="Enter password" autocomplete="current-password" required>
+                </label>
+                <button class="button-primary" type="submit">Enter workspace</button>
+            </form>
+
+            <div id="login-error" class="form-alert" hidden></div>
+
+            <div class="auth-hint">
+                <span>Local seed account</span>
+                <strong>admin@admin.com / 123456</strong>
+            </div>
+
+            <p class="auth-note">
+                Text chat works on LAN IP over HTTP. Browser camera and mic access usually require `https://your-lan-ip` or `http://localhost`.
+            </p>
+        </div>
+    </section>
 </div>
-@endsection
-
-@section('scripts')
-<script>
-document.getElementById('loginForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
-
-    const form = e.target;
-    const email = form.email.value;
-    const password = form.password.value;
-    const errorContainer = document.getElementById('error-container');
-
-    errorContainer.style.display = 'none';
-    errorContainer.innerHTML = '';
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
-    if (!csrfToken) {
-        errorContainer.innerHTML = `<p>CSRF token not found. Ensure meta tag is present.</p>`;
-        errorContainer.style.display = 'block';
-        return;
-    }
-    console.log('CSRF Token:', csrfToken);
-
-    try {
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': csrfToken,
-            },
-            body: JSON.stringify({ email, password }),
-            credentials: 'same-origin' // allow Laravel to set the HttpOnly cookie
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-            window.location.href = '/';
-        } else {
-            const message = data.message || 'Login failed';
-            errorContainer.innerHTML = `<p>${message}</p>`;
-            errorContainer.style.display = 'block';
-        }
-    } catch (error) {
-        errorContainer.innerHTML = `<p>Something went wrong. Please try again.</p>`;
-        errorContainer.style.display = 'block';
-    }
-});
-
-</script>
 @endsection

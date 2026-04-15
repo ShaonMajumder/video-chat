@@ -16,18 +16,34 @@ class CorsMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $allowedOrigin = env('APP_FRONTEND_URL');
+        $configuredOrigin = env('APP_FRONTEND_URL');
+        $requestOrigin = $request->getSchemeAndHttpHost();
         $origin = $request->headers->get('origin');
         $referer = $request->headers->get('referer');
+        $allowedOrigins = array_filter([
+            $configuredOrigin,
+            $requestOrigin,
+        ]);
 
-        if ($origin && $origin !== $allowedOrigin) {
+        if ($origin && !in_array($origin, $allowedOrigins, true)) {
             return response()->json(['message' => 'Blocked: Invalid origin'], 403);
         }
 
-        if ($referer && !str_starts_with($referer, $allowedOrigin)) {
+        if ($referer && !$this->startsWithAny($referer, $allowedOrigins)) {
             return response()->json(['message' => 'Blocked: Invalid referer'], 403);
         }
         
         return $next($request);
+    }
+
+    protected function startsWithAny(string $value, array $prefixes): bool
+    {
+        foreach ($prefixes as $prefix) {
+            if (str_starts_with($value, $prefix)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

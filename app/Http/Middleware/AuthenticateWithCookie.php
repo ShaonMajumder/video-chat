@@ -4,57 +4,61 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-
-use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthenticateWithCookie
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
-     */
     public function handle(Request $request, Closure $next)
     {
         try {
-            $token = $request->cookie('token') ?? $request->bearerToken();
-            if(!$token) {
-                return response()->json(['message' => 'Unauthorized: No token found'], 401);   
+            $cookieToken = $request->cookie('token');
+            $bearerToken = $request->bearerToken();
+
+            if (! $cookieToken && ! $bearerToken) {
+                return $this->unauthorizedResponse($request, 'Unauthorized: No token found');
             }
-            $decryptedToken = Crypt::decrypt($token);
-            Log::info($decryptedToken);
-            $user = JWTAuth::setToken($decryptedToken)->authenticate();
+
+            $token = $cookieToken ? Crypt::decryptString($cookieToken) : $bearerToken;
+            $user = JWTAuth::setToken($token)->authenticate();
 
             if (!$user) {
-                return response()->json(['message' => 'Unauthorized: Invalid token'], 401);
+                return $this->unauthorizedResponse($request, 'Unauthorized: Invalid token');
             }
 
-            $request->merge(['user' => $user]);
-            
+            $request->attributes->set('user', $user);
+            $request->setUserResolver(static fn () => $user);
         } catch (JWTException $e) {
             Log::warning('JWT authentication failed', [
                 'error' => $e->getMessage(),
                 'ip' => $request->ip(),
-                'url' => $request->fullUrl()
+                'url' => $request->fullUrl(),
             ]);
-            return response()->json(['message' => 'Unauthorized: Token error'], Response::HTTP_UNAUTHORIZED);
 
+            return $this->unauthorizedResponse($request, 'Unauthorized: Token error');
         } catch (\Exception $e) {
             Log::error('Authentication middleware exception', [
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString(),
                 'ip' => $request->ip(),
-                'url' => $request->fullUrl()
+                'url' => $request->fullUrl(),
             ]);
-            return response()->json(['message' => 'Unauthorized: Unexpected error'], Response::HTTP_UNAUTHORIZED);
+
+            return $this->unauthorizedResponse($request, 'Unauthorized: Unexpected error');
         }
-        
+
         return $next($request);
+    }
+
+    protected function unauthorizedResponse(Request $request, string $message): Response
+    {
+        if ($request->expectsJson() || $request->is('api/*')) {
+            return response()->json(['message' => $message], Response::HTTP_UNAUTHORIZED);
+        }
+
+        return redirect()->route('login');
     }
 }

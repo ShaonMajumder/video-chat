@@ -86,3 +86,306 @@
 2025-06-02 02:35:02,877 INFO reaped unknown pid 1155 (terminated by SIGKILL)
 2025-06-02 02:35:58,566 INFO reaped unknown pid 1164 (terminated by SIGKILL)
 2025-06-02 02:35:58,567 INFO reaped unknown pid 1163 (terminated by SIGKILL)
+2026-04-15 02:29:28,533 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2026-04-15 02:29:28,547 INFO supervisord started with pid 1
+2026-04-15 02:29:29,553 INFO spawned: 'nginx' with pid 9
+2026-04-15 02:29:29,562 INFO spawned: 'php-fpm' with pid 10
+2026-04-15 02:29:29,573 INFO spawned: 'queue' with pid 11
+2026-04-15 02:29:30,707 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:29:30,708 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:29:30,710 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:29:31,460 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:29:32,470 INFO spawned: 'queue' with pid 26
+2026-04-15 02:29:33,480 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:29:34,978 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:29:35,993 INFO spawned: 'queue' with pid 31
+2026-04-15 02:29:37,008 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:29:40,013 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:29:41,019 INFO spawned: 'queue' with pid 36
+2026-04-15 02:29:42,022 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:29:43,258 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:29:44,264 INFO spawned: 'queue' with pid 41
+2026-04-15 02:29:45,267 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:29:46,621 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:29:47,636 INFO spawned: 'queue' with pid 46
+2026-04-15 02:29:48,640 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:29:48,847 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:29:49,852 INFO spawned: 'queue' with pid 51
+2026-04-15 02:29:50,855 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:29:51,181 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:29:52,191 INFO spawned: 'queue' with pid 56
+2026-04-15 02:29:53,213 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:29:53,640 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:29:54,645 INFO spawned: 'queue' with pid 61
+2026-04-15 02:29:55,653 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:29:58,322 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:29:59,328 INFO spawned: 'queue' with pid 66
+2026-04-15 02:30:00,331 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:00,593 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:01,592 INFO spawned: 'queue' with pid 71
+2026-04-15 02:30:02,597 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:04,230 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:05,250 INFO spawned: 'queue' with pid 76
+2026-04-15 02:30:06,255 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:08,687 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:09,694 INFO spawned: 'queue' with pid 81
+2026-04-15 02:30:10,699 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:11,311 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:11,315 INFO spawned: 'queue' with pid 86
+2026-04-15 02:30:12,318 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:12,638 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:13,643 INFO spawned: 'queue' with pid 91
+2026-04-15 02:30:14,646 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:16,013 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:17,019 INFO spawned: 'queue' with pid 96
+2026-04-15 02:30:18,022 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:18,236 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:19,241 INFO spawned: 'queue' with pid 101
+2026-04-15 02:30:20,244 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:20,605 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:21,612 INFO spawned: 'queue' with pid 106
+2026-04-15 02:30:22,617 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:23,239 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:24,243 INFO spawned: 'queue' with pid 111
+2026-04-15 02:30:25,247 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:26,480 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:27,493 INFO spawned: 'queue' with pid 116
+2026-04-15 02:30:28,497 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:28,988 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:29,994 INFO spawned: 'queue' with pid 121
+2026-04-15 02:30:31,196 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:31,223 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:32,228 INFO spawned: 'queue' with pid 126
+2026-04-15 02:30:33,232 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:33,476 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:34,482 INFO spawned: 'queue' with pid 131
+2026-04-15 02:30:35,487 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:36,801 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:37,807 INFO spawned: 'queue' with pid 136
+2026-04-15 02:30:38,812 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:39,141 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:40,148 INFO spawned: 'queue' with pid 141
+2026-04-15 02:30:41,155 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:42,443 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:43,448 INFO spawned: 'queue' with pid 146
+2026-04-15 02:30:44,475 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:45,500 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:46,507 INFO spawned: 'queue' with pid 151
+2026-04-15 02:30:47,515 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:47,919 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:48,924 INFO spawned: 'queue' with pid 156
+2026-04-15 02:30:49,931 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:50,293 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:51,298 INFO spawned: 'queue' with pid 161
+2026-04-15 02:30:52,306 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:52,677 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:52,681 INFO spawned: 'queue' with pid 166
+2026-04-15 02:30:53,684 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:54,015 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:55,021 INFO spawned: 'queue' with pid 171
+2026-04-15 02:30:56,025 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:30:58,526 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:30:59,534 INFO spawned: 'queue' with pid 176
+2026-04-15 02:31:00,538 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:01,139 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:01,143 INFO spawned: 'queue' with pid 181
+2026-04-15 02:31:02,147 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:02,534 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:03,542 INFO spawned: 'queue' with pid 186
+2026-04-15 02:31:04,547 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:04,789 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:04,793 INFO spawned: 'queue' with pid 191
+2026-04-15 02:31:05,796 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:07,710 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:08,715 INFO spawned: 'queue' with pid 196
+2026-04-15 02:31:09,719 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:10,113 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:11,126 INFO spawned: 'queue' with pid 201
+2026-04-15 02:31:12,137 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:12,387 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:13,393 INFO spawned: 'queue' with pid 206
+2026-04-15 02:31:14,396 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:14,909 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:15,914 INFO spawned: 'queue' with pid 211
+2026-04-15 02:31:16,959 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:17,776 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:18,782 INFO spawned: 'queue' with pid 216
+2026-04-15 02:31:19,785 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:20,038 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:21,044 INFO spawned: 'queue' with pid 221
+2026-04-15 02:31:22,046 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:22,565 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:22,569 INFO spawned: 'queue' with pid 226
+2026-04-15 02:31:23,571 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:23,804 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:24,809 INFO spawned: 'queue' with pid 231
+2026-04-15 02:31:25,825 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:27,745 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:28,751 INFO spawned: 'queue' with pid 236
+2026-04-15 02:31:29,755 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:30,452 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:31,451 INFO spawned: 'queue' with pid 241
+2026-04-15 02:31:32,454 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:32,740 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:33,746 INFO spawned: 'queue' with pid 246
+2026-04-15 02:31:34,748 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:35,289 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:36,341 INFO spawned: 'queue' with pid 251
+2026-04-15 02:31:37,372 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:38,086 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:39,091 INFO spawned: 'queue' with pid 256
+2026-04-15 02:31:40,098 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:40,374 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:41,379 INFO spawned: 'queue' with pid 261
+2026-04-15 02:31:42,384 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:42,526 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:43,532 INFO spawned: 'queue' with pid 266
+2026-04-15 02:31:44,540 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:44,899 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:45,911 INFO spawned: 'queue' with pid 271
+2026-04-15 02:31:46,943 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:47,498 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:48,505 INFO spawned: 'queue' with pid 276
+2026-04-15 02:31:49,508 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:50,986 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:51,995 INFO spawned: 'queue' with pid 281
+2026-04-15 02:31:53,000 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:53,836 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:54,842 INFO spawned: 'queue' with pid 286
+2026-04-15 02:31:55,852 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:57,420 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:57,425 INFO spawned: 'queue' with pid 291
+2026-04-15 02:31:58,431 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:31:58,826 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:31:59,834 INFO spawned: 'queue' with pid 296
+2026-04-15 02:32:00,832 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:32:01,279 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:32:02,285 INFO spawned: 'queue' with pid 301
+2026-04-15 02:32:03,288 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:32:03,949 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:32:04,956 INFO spawned: 'queue' with pid 306
+2026-04-15 02:32:05,960 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:32:08,550 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:32:09,557 INFO spawned: 'queue' with pid 311
+2026-04-15 02:32:10,560 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:32:11,049 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:32:12,055 INFO spawned: 'queue' with pid 316
+2026-04-15 02:32:13,063 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:32:14,550 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:32:15,563 INFO spawned: 'queue' with pid 321
+2026-04-15 02:32:16,595 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:32:17,649 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:32:18,655 INFO spawned: 'queue' with pid 326
+2026-04-15 02:32:19,667 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:32:20,036 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:32:21,044 INFO spawned: 'queue' with pid 331
+2026-04-15 02:32:22,048 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:32:22,943 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:32:23,949 INFO spawned: 'queue' with pid 336
+2026-04-15 02:32:24,967 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:32:27,772 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:32:28,778 INFO spawned: 'queue' with pid 341
+2026-04-15 02:32:29,880 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:32:31,946 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:32:32,951 INFO spawned: 'queue' with pid 346
+2026-04-15 02:32:33,956 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:32:37,784 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:32:38,797 INFO spawned: 'queue' with pid 351
+2026-04-15 02:32:39,942 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:32:42,237 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:32:43,261 INFO spawned: 'queue' with pid 356
+2026-04-15 02:32:44,331 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:32:48,508 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:32:48,748 INFO spawned: 'queue' with pid 362
+2026-04-15 02:32:49,755 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:32:52,427 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:32:53,330 INFO spawned: 'queue' with pid 367
+2026-04-15 02:32:54,343 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:32:57,311 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:32:58,317 INFO spawned: 'queue' with pid 372
+2026-04-15 02:32:59,320 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:33:00,127 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:33:01,127 INFO spawned: 'queue' with pid 377
+2026-04-15 02:33:02,131 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:33:02,812 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:33:03,818 INFO spawned: 'queue' with pid 382
+2026-04-15 02:33:04,822 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:33:05,617 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:33:06,628 INFO spawned: 'queue' with pid 387
+2026-04-15 02:33:07,636 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:33:08,424 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:33:08,430 INFO spawned: 'queue' with pid 392
+2026-04-15 02:33:09,434 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:33:09,832 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:33:10,838 INFO spawned: 'queue' with pid 397
+2026-04-15 02:33:11,842 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:33:12,219 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:33:13,226 INFO spawned: 'queue' with pid 402
+2026-04-15 02:33:14,230 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:33:14,552 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:33:15,560 INFO spawned: 'queue' with pid 407
+2026-04-15 02:33:16,563 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:33:17,441 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:33:18,447 INFO spawned: 'queue' with pid 412
+2026-04-15 02:33:19,451 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:33:19,858 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:33:20,869 INFO spawned: 'queue' with pid 417
+2026-04-15 02:33:21,874 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:33:22,612 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:33:23,619 INFO spawned: 'queue' with pid 422
+2026-04-15 02:33:24,623 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:33:25,117 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:33:26,124 INFO spawned: 'queue' with pid 427
+2026-04-15 02:33:27,129 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:33:28,086 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:33:29,092 INFO spawned: 'queue' with pid 432
+2026-04-15 02:33:30,095 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:33:30,457 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:33:31,456 INFO spawned: 'queue' with pid 437
+2026-04-15 02:33:32,462 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:33:32,938 WARN exited: queue (exit status 1; not expected)
+2026-04-15 02:33:33,943 INFO spawned: 'queue' with pid 449
+2026-04-15 02:33:34,947 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 02:39:03,669 INFO reaped unknown pid 536 (exit status 0)
+2026-04-15 03:01:10,549 WARN received SIGQUIT indicating exit request
+2026-04-15 03:01:10,570 INFO waiting for nginx, php-fpm, queue to die
+2026-04-15 03:01:10,746 INFO stopped: queue (exit status 0)
+2026-04-15 03:01:24,238 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2026-04-15 03:01:24,258 INFO supervisord started with pid 1
+2026-04-15 03:01:25,271 INFO spawned: 'nginx' with pid 10
+2026-04-15 03:01:25,288 INFO spawned: 'php-fpm' with pid 11
+2026-04-15 03:01:25,311 INFO spawned: 'queue' with pid 12
+2026-04-15 03:01:26,596 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 03:01:26,598 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 03:01:26,599 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 03:02:45,169 INFO reaped unknown pid 56 (exit status 0)
+2026-04-15 03:04:45,144 WARN exited: queue (exit status 1; not expected)
+2026-04-15 03:04:46,154 INFO spawned: 'queue' with pid 75
+2026-04-15 03:04:47,158 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 03:08:19,392 INFO reaped unknown pid 134 (exit status 0)
+2026-04-15 03:11:54,434 INFO reaped unknown pid 189 (exit status 0)
+2026-04-15 03:13:55,709 INFO reaped unknown pid 250 (exit status 0)
+2026-04-15 03:14:17,733 WARN received SIGQUIT indicating exit request
+2026-04-15 03:14:17,771 INFO waiting for nginx, php-fpm, queue to die
+2026-04-15 03:14:17,880 INFO stopped: queue (exit status 0)
+2026-04-15 03:14:18,002 INFO stopped: php-fpm (exit status 0)
+2026-04-15 03:14:18,058 INFO stopped: nginx (exit status 0)
+2026-04-15 03:14:20,116 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2026-04-15 03:14:20,126 INFO supervisord started with pid 1
+2026-04-15 03:14:21,130 INFO spawned: 'nginx' with pid 10
+2026-04-15 03:14:21,135 INFO spawned: 'php-fpm' with pid 11
+2026-04-15 03:14:21,140 INFO spawned: 'queue' with pid 12
+2026-04-15 03:14:22,216 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 03:14:22,219 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 03:14:22,220 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 03:22:43,886 INFO reaped unknown pid 57 (exit status 0)
+2026-04-15 03:23:33,541 INFO reaped unknown pid 98 (exit status 0)
+2026-04-15 03:44:26,515 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2026-04-15 03:44:26,770 INFO supervisord started with pid 1
+2026-04-15 03:44:27,835 INFO spawned: 'nginx' with pid 11
+2026-04-15 03:44:27,862 INFO spawned: 'php-fpm' with pid 12
+2026-04-15 03:44:27,890 INFO spawned: 'queue' with pid 13
+2026-04-15 03:44:29,161 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 03:44:29,186 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 03:44:29,202 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2026-04-15 03:58:34,422 INFO reaped unknown pid 59 (exit status 0)

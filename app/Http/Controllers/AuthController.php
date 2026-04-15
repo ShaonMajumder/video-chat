@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
-use Tymon\JWTAuth\Facades\JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Illuminate\Support\Facades\Cache;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -18,65 +16,80 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login(Request $request)
+    public function login(Request $request): JsonResponse
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string'],
+        ]);
 
         try {
-            if (!$token = JWTAuth::attempt($credentials)) {
+            if (! $token = JWTAuth::attempt($credentials)) {
                 return response()->json(['message' => 'Invalid credentials'], 401);
             }
-            $encryptedToken = Crypt::encrypt($token);
 
             $cookie = cookie(
                 'token',
-                $encryptedToken,
-                60,             // 60 minutes
-                '/',            // path
-                null,           // domain
-                false,          // secure: false for HTTP on localhost
-                true,           // HttpOnly
-                false,          // raw
-                'Lax'           // SameSite policy (or 'Strict', 'None')
+                Crypt::encryptString($token),
+                60,
+                '/',
+                null,
+                false,
+                true,
+                false,
+                'Lax'
             );
 
             return response()->json([
                 'message' => 'Login successful',
+                'redirect' => '/home',
             ])->cookie($cookie);
         } catch (JWTException $e) {
-             return response()->json(['message' => 'Could not create token'], 500);
+            return response()->json(['message' => 'Could not create token'], 500);
         }
     }
 
-    public function me(Request $request)
+    public function session(Request $request): JsonResponse
     {
-        $receiver = $request->receiver;
-        if($receiver){
-            $userCacheKey = "user:{$receiver}";
-            $receiverUserData = Cache::store('redis')->get($userCacheKey);
-            if (!$receiverUserData) {
-                $receiverUserData = User::find($receiver);
-                Cache::store('redis')->put($userCacheKey, $receiverUserData, now()->addHours(24));
-            }
-        } else {
-            return response()->json(['error' => 'Receiver not found'], 404);
-        }
-        
+        $currentUser = $request->get('user');
+
+        $contacts = User::query()
+            ->whereKeyNot($currentUser->id)
+            ->orderBy('name')
+            ->get(['id', 'name', 'email'])
+            ->map(function (User $user) {
+                return [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'status' => 'offline',
+                ];
+            })
+            ->values();
+
         return response()->json([
-            'user' => JWTAuth::user(),
-            'receiver' => $receiverUserData,
+            'user' => [
+                'id' => $currentUser->id,
+                'name' => $currentUser->name,
+                'email' => $currentUser->email,
+            ],
+            'contacts' => $contacts,
         ]);
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request): JsonResponse
     {
         try {
-            JWTAuth::invalidate(JWTAuth::getToken());
-            return response()->json(['message' => 'Successfully logged out'])
-                            ->cookie('token', null, -1);
-            // return response()->json(['message' => 'Logged out'])->withCookie(cookie()->forget('token'));
-        } catch (JWTException $e) {
-            return response()->json(['message' => 'Logout failed'], 500);
+            if ($token = $request->bearerToken()) {
+                JWTAuth::setToken($token)->invalidate();
+            } elseif ($cookieToken = $request->cookie('token')) {
+                JWTAuth::setToken(Crypt::decryptString($cookieToken))->invalidate();
+            }
+        } catch (\Throwable $e) {
+            // Ignore invalid token state during logout and still clear the cookie.
         }
+
+        return response()->json(['message' => 'Logged out'])
+            ->cookie(cookie()->forget('token'));
     }
 }

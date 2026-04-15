@@ -1,0 +1,13 @@
+node_modules
+vendor
+.git
+.agents
+storage/logs
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+supervisord.log
+supervisord.pid
+npm-debug.log
+yarn-error.log
+.env.local
