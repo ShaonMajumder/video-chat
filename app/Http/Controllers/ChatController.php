@@ -3,15 +3,40 @@
 namespace App\Http\Controllers;
 
 use App\Events\NewMessage;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class ChatController extends Controller
 {
-    public function index(Request $request)
+    public function dashboard(Request $request)
     {
-        return view('chat');
+        return view('app.dashboard');
+    }
+
+    public function chatHub(Request $request)
+    {
+        return view('app.chat-hub');
+    }
+
+    public function conversation(Request $request, User $user)
+    {
+        abort_if($request->get('user')->id === $user->id, 404);
+
+        return view('app.chat-call', [
+            'selectedPeerId' => $user->id,
+        ]);
+    }
+
+    public function profile(Request $request)
+    {
+        return view('app.profile');
+    }
+
+    public function settings(Request $request)
+    {
+        return view('app.settings');
     }
 
     public function sendMessage(Request $request): JsonResponse

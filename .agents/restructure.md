@@ -156,3 +156,33 @@ Stich : give a available online page where I can find online users
 
 Stich : public home page is not that conversion friendly for signup, comeup with something modern clean and exciting
 
+--- chat gpt :
+
+SRS an app called 'VideoChat' for ui design with ai and update exisng system frontend and backend
+
+Business/Team Workspace app like Google Meet, but meant for LAN, ready integrate with other LAN business app or eco system
+Business Empowering and Energetic theme and color
+Modern, clean and simple and friendly user experience
+More is less ui
+
+
+Public home page have to be  conversion friendly for signup and exciting
+after login
+other pages can be settings, available online, user profile, user chat page for directly chat and call
+and suggest other pages as the ui have to be minimalistic, more is less
+
+---
+
+According to new UI design done by SRS
+
+SRS link - documents/video_chat_srs.md
+UI designs - documents/ui/stitch_user_interface_design_system/
+
+the new design has home page, loggedin home page or dashboard, chats, individual chat call page, profile and settings page
+
+now implement the ui to existing system
+
+use existing tech stack of the system, convert or translate the design to the existing stack
+and the final view of the pages has to be exact with the ui design folder pngs
+
+keep the existing functional feature working dont break them

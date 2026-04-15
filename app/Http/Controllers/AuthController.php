@@ -42,7 +42,7 @@ class AuthController extends Controller
 
             return response()->json([
                 'message' => 'Login successful',
-                'redirect' => '/home',
+                'redirect' => '/app',
             ])->cookie($cookie);
         } catch (JWTException $e) {
             return response()->json(['message' => 'Could not create token'], 500);

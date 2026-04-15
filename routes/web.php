@@ -11,7 +11,12 @@ Route::middleware(['throttle:global'])->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 
     Route::middleware([EncryptCookies::class, AuthenticateWithCookie::class])->group(function () {
-        Route::get('/home', [ChatController::class, 'index'])->name('home');
+        Route::redirect('/home', '/app')->name('home');
+        Route::get('/app', [ChatController::class, 'dashboard'])->name('app.dashboard');
+        Route::get('/app/chat', [ChatController::class, 'chatHub'])->name('app.chat');
+        Route::get('/app/chat/{user}', [ChatController::class, 'conversation'])->name('app.chat.show');
+        Route::get('/app/profile', [ChatController::class, 'profile'])->name('app.profile');
+        Route::get('/app/settings', [ChatController::class, 'settings'])->name('app.settings');
         Route::post('/send-message', [ChatController::class, 'sendMessage'])->name('chat.send')->middleware('throttle:chat');
     });
 });

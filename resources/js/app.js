@@ -4,9 +4,13 @@ import './utils';
 const page = document.body.dataset.page;
 const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content ?? '';
 
-const sanitize = (value) => window.DOMPurify ? window.DOMPurify.sanitize(value) : value;
+const sanitize = (value) => window.DOMPurify ? window.DOMPurify.sanitize(String(value ?? '')) : String(value ?? '');
 
 function autoResize(textarea) {
+    if (!textarea) {
+        return;
+    }
+
     textarea.style.height = 'auto';
     textarea.style.height = `${Math.min(textarea.scrollHeight, 170)}px`;
 }
@@ -40,6 +44,15 @@ async function sendJson(url, method = 'GET', payload = null) {
     return data;
 }
 
+function buildAvatarMarkup(name = 'User') {
+    const initial = sanitize(name.trim().charAt(0).toUpperCase() || 'U');
+    return initial;
+}
+
+function appRouteForPeer(peerId) {
+    return `/app/chat/${peerId}`;
+}
+
 function initLoginPage() {
     const form = document.getElementById('login-form');
     const errorBox = document.getElementById('login-error');
@@ -55,13 +68,12 @@ function initLoginPage() {
 
         try {
             const formData = new FormData(form);
-            const payload = {
+            const result = await sendJson(form.action, 'POST', {
                 email: formData.get('email'),
                 password: formData.get('password'),
-            };
+            });
 
-            const result = await sendJson(form.action, 'POST', payload);
-            window.location.href = result.redirect || '/home';
+            window.location.href = result.redirect || '/app';
         } catch (error) {
             errorBox.hidden = false;
             errorBox.textContent = error.message;
@@ -69,8 +81,8 @@ function initLoginPage() {
     });
 }
 
-function initWorkspace() {
-    const root = document.getElementById('workspace-app');
+function initAppPages() {
+    const root = document.getElementById('app-shell');
 
     if (!root) {
         return;
@@ -87,43 +99,65 @@ function initWorkspace() {
         endCall: root.dataset.callEndUrl,
     };
 
+    const pageKind = root.dataset.pageKind;
+    const selectedPeerIdFromRoute = Number(root.dataset.selectedPeerId || 0) || null;
     const els = {
+        logoutButton: document.getElementById('logout-button'),
+        dashboardGreeting: document.getElementById('dashboard-greeting'),
+        dashboardAvatarInitial: document.getElementById('dashboard-avatar-initial'),
+        dashboardQuickCall: document.getElementById('dashboard-quick-call'),
+        dashboardOnlineList: document.getElementById('dashboard-online-list'),
+        onlineCountPill: document.getElementById('online-count-pill'),
+        dashboardUnreadCopy: document.getElementById('dashboard-unread-copy'),
+        chatHubList: document.getElementById('chat-hub-list'),
+        chatHubOnlineList: document.getElementById('chat-hub-online-list'),
         currentUserName: document.getElementById('current-user-name'),
         currentUserEmail: document.getElementById('current-user-email'),
+        currentUserAvatar: document.getElementById('current-user-avatar'),
         peerName: document.getElementById('peer-name'),
         peerMeta: document.getElementById('peer-meta'),
-        mediaNotice: document.getElementById('media-notice'),
+        videoPeerName: document.getElementById('video-peer-name'),
         incomingCallBanner: document.getElementById('incoming-call-banner'),
         incomingCallTitle: document.getElementById('incoming-call-title'),
         incomingCallText: document.getElementById('incoming-call-text'),
         acceptCall: document.getElementById('accept-call'),
         declineCall: document.getElementById('decline-call'),
-        contactCount: document.getElementById('contact-count'),
-        contactList: document.getElementById('contact-list'),
-        callStatus: document.getElementById('call-status'),
+        messageList: document.getElementById('message-list'),
+        messageForm: document.getElementById('message-form'),
+        messageInput: document.getElementById('message-input'),
+        messageSubmit: document.getElementById('message-submit'),
         localMediaState: document.getElementById('local-media-state'),
         localVideo: document.getElementById('local-video'),
         remoteVideo: document.getElementById('remote-video'),
         localVideoEmpty: document.getElementById('local-video-empty'),
         localVideoEmptyCopy: document.getElementById('local-video-empty-copy'),
         remoteVideoEmpty: document.getElementById('remote-video-empty'),
-        messageList: document.getElementById('message-list'),
-        messageState: document.getElementById('message-state'),
-        messageForm: document.getElementById('message-form'),
-        messageInput: document.getElementById('message-input'),
-        messageSubmit: document.getElementById('message-submit'),
+        callStatus: document.getElementById('call-status'),
         cameraToggle: document.getElementById('camera-toggle'),
         micToggle: document.getElementById('mic-toggle'),
         callToggle: document.getElementById('call-toggle'),
-        logoutButton: document.getElementById('logout-button'),
+        mediaNotice: document.getElementById('media-notice'),
+        profileName: document.getElementById('profile-name'),
+        profileRole: document.getElementById('profile-role'),
+        profileStatus: document.getElementById('profile-status'),
+        profileEmail: document.getElementById('profile-email'),
+        profilePhone: document.getElementById('profile-phone'),
+        settingsAvatarInitial: document.getElementById('settings-avatar-initial'),
+        settingsName: document.getElementById('settings-name'),
+        settingsEmail: document.getElementById('settings-email'),
+        settingsBio: document.getElementById('settings-bio'),
+        themeLight: document.getElementById('theme-light'),
+        themeDark: document.getElementById('theme-dark'),
+        cameraDevice: document.getElementById('camera-device'),
+        microphoneDevice: document.getElementById('microphone-device'),
     };
 
     const state = {
         currentUser: null,
         contacts: [],
+        selectedPeerId: selectedPeerIdFromRoute,
         conversations: {},
         unread: {},
-        selectedPeerId: null,
         onlineIds: new Set(),
         localStream: null,
         remoteStream: null,
@@ -148,14 +182,297 @@ function initWorkspace() {
     const query = new URLSearchParams(window.location.search);
     const insecureContextMessage = `Camera and mic are blocked on ${window.location.origin}. Open this app through HTTPS on your LAN IP or use localhost on this device.`;
 
-    function updateCallStatus(label, tone = 'muted') {
-        els.callStatus.textContent = label;
-        els.callStatus.className = `status-pill ${tone}`.trim();
+    function selectedPeer() {
+        return state.contacts.find((contact) => contact.id === state.selectedPeerId) || null;
+    }
+
+    function ensureConversation(peerId) {
+        if (!state.conversations[peerId]) {
+            state.conversations[peerId] = [];
+        }
+    }
+
+    function pushMessage(peerId, entry) {
+        ensureConversation(peerId);
+        state.conversations[peerId].push({
+            ...entry,
+            id: `${peerId}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        });
+    }
+
+    function formatTime() {
+        return new Intl.DateTimeFormat([], {
+            hour: '2-digit',
+            minute: '2-digit',
+        }).format(new Date());
+    }
+
+    function canUseMedia() {
+        return state.secureContext && !!navigator.mediaDevices?.getUserMedia;
+    }
+
+    function canCaptureLocalMedia() {
+        return canUseMedia();
+    }
+
+    function updateMediaNotice(message = '') {
+        if (!els.mediaNotice) {
+            return;
+        }
+
+        els.mediaNotice.hidden = message === '';
+        els.mediaNotice.textContent = message;
+    }
+
+    function updateCallStatus(label) {
+        if (els.callStatus) {
+            els.callStatus.textContent = label;
+        }
+    }
+
+    function updatePeerText() {
+        const peer = selectedPeer();
+
+        if (els.peerName) {
+            els.peerName.textContent = peer?.name || 'Select a peer';
+        }
+
+        if (els.videoPeerName) {
+            els.videoPeerName.textContent = peer?.name || 'Peer Video';
+        }
+
+        if (els.peerMeta) {
+            els.peerMeta.textContent = peer
+                ? `${peer.email} · ${state.onlineIds.has(peer.id) ? 'Active now' : 'Offline'}`
+                : 'Open a conversation from the chat hub to begin messaging and calls.';
+        }
+    }
+
+    function renderDashboard() {
+        if (!els.dashboardGreeting || !state.currentUser) {
+            return;
+        }
+
+        const firstName = state.currentUser.name.split(' ')[0];
+        els.dashboardGreeting.textContent = `Welcome back, ${firstName}!`;
+
+        if (els.dashboardAvatarInitial) {
+            els.dashboardAvatarInitial.textContent = buildAvatarMarkup(state.currentUser.name);
+        }
+
+        if (els.dashboardQuickCall) {
+            const target = state.contacts[0];
+            els.dashboardQuickCall.href = target ? appRouteForPeer(target.id) : '/app/chat';
+        }
+
+        if (els.onlineCountPill) {
+            els.onlineCountPill.textContent = `${state.onlineIds.size} Active`;
+        }
+
+        if (els.dashboardOnlineList) {
+            els.dashboardOnlineList.innerHTML = '';
+            const pool = state.contacts.slice(0, 4);
+
+            pool.forEach((contact) => {
+                const item = document.createElement('a');
+                item.className = 'online-person';
+                item.href = appRouteForPeer(contact.id);
+                item.innerHTML = `
+                    <div class="online-person__avatar">${buildAvatarMarkup(contact.name)}</div>
+                    <div>
+                        <strong>${sanitize(contact.name)}</strong>
+                        <p>${state.onlineIds.has(contact.id) ? 'Available' : 'Offline'}</p>
+                    </div>
+                `;
+                els.dashboardOnlineList.appendChild(item);
+            });
+        }
+    }
+
+    function renderChatHub() {
+        if (els.chatHubList) {
+            els.chatHubList.innerHTML = '';
+
+            state.contacts.forEach((contact) => {
+                const unread = state.unread[contact.id] || 0;
+                const card = document.createElement('article');
+                card.className = 'chat-card';
+                card.innerHTML = `
+                    <a class="chat-card__avatar" href="${appRouteForPeer(contact.id)}">${buildAvatarMarkup(contact.name)}</a>
+                    <a class="chat-card__body" href="${appRouteForPeer(contact.id)}">
+                        <strong>${sanitize(contact.name)}</strong>
+                        <p>${unread ? `${unread} unread message${unread > 1 ? 's' : ''}` : sanitize(contact.email)}</p>
+                    </a>
+                    <div class="chat-card__meta">
+                        <span class="chat-card__time">${unread ? 'NOW' : 'LIVE'}</span>
+                        <div class="chat-card__actions">
+                            <a class="chat-card__button" href="${appRouteForPeer(contact.id)}"><span class="material-symbols-outlined">call</span></a>
+                            <a class="chat-card__button chat-card__button--video" href="${appRouteForPeer(contact.id)}"><span class="material-symbols-outlined">videocam</span></a>
+                        </div>
+                    </div>
+                `;
+                els.chatHubList.appendChild(card);
+            });
+        }
+
+        if (els.chatHubOnlineList) {
+            els.chatHubOnlineList.innerHTML = '';
+
+            state.contacts.filter((contact) => state.onlineIds.has(contact.id) || state.contacts.length <= 5).slice(0, 5).forEach((contact) => {
+                const item = document.createElement('a');
+                item.className = 'chat-online-person';
+                item.href = appRouteForPeer(contact.id);
+                item.innerHTML = `
+                    <div class="chat-online-person__avatar">${buildAvatarMarkup(contact.name)}</div>
+                    <div class="chat-online-person__body">
+                        <strong>${sanitize(contact.name)}</strong>
+                        <small>${state.onlineIds.has(contact.id) ? 'Active' : 'Offline'}</small>
+                    </div>
+                    <span class="material-symbols-outlined">chat_bubble</span>
+                `;
+                els.chatHubOnlineList.appendChild(item);
+            });
+        }
+    }
+
+    function renderConversation() {
+        if (!els.messageList) {
+            return;
+        }
+
+        const peer = selectedPeer();
+        els.messageList.innerHTML = '';
+
+        if (!peer) {
+            els.messageList.innerHTML = '<div class="empty-conversation"><strong>Select a peer</strong><span>Messages and call controls activate when a contact is selected.</span></div>';
+            if (els.messageInput) {
+                els.messageInput.disabled = true;
+            }
+            if (els.messageSubmit) {
+                els.messageSubmit.disabled = true;
+            }
+            if (els.callToggle) {
+                els.callToggle.disabled = true;
+            }
+            updatePeerText();
+            return;
+        }
+
+        updatePeerText();
+        if (els.messageInput) {
+            els.messageInput.disabled = false;
+        }
+        if (els.messageSubmit) {
+            els.messageSubmit.disabled = false;
+        }
+        if (els.callToggle) {
+            els.callToggle.disabled = false;
+        }
+
+        const date = document.createElement('div');
+        date.className = 'conversation-date-separator';
+        date.textContent = 'MONDAY, OCT 23';
+        els.messageList.appendChild(date);
+
+        const items = state.conversations[peer.id] || [];
+
+        if (!items.length) {
+            const empty = document.createElement('div');
+            empty.className = 'empty-conversation';
+            empty.innerHTML = `<strong>No messages yet</strong><span>Start the conversation with ${sanitize(peer.name)}.</span>`;
+            els.messageList.appendChild(empty);
+            return;
+        }
+
+        items.forEach((entry) => {
+            const row = document.createElement('div');
+            row.className = `message-row${entry.self ? ' message-row--self' : ''}`;
+            row.innerHTML = `
+                ${entry.self ? '' : `<div class="message-avatar">${buildAvatarMarkup(entry.sender)}</div>`}
+                <div class="message-stack">
+                    <div class="message-bubble">${sanitize(entry.body)}</div>
+                    <span class="message-meta">${sanitize(entry.timeLabel)}</span>
+                </div>
+            `;
+            els.messageList.appendChild(row);
+        });
+
+        els.messageList.scrollTop = els.messageList.scrollHeight;
+    }
+
+    function renderProfile() {
+        if (!state.currentUser) {
+            return;
+        }
+
+        if (els.profileName) {
+            els.profileName.textContent = state.currentUser.name;
+        }
+        if (els.profileRole) {
+            els.profileRole.textContent = 'Business LAN User';
+        }
+        if (els.profileEmail) {
+            els.profileEmail.textContent = state.currentUser.email;
+        }
+        if (els.profilePhone) {
+            els.profilePhone.textContent = 'Internal workspace account';
+        }
+    }
+
+    function renderSettings() {
+        if (!state.currentUser) {
+            return;
+        }
+
+        if (els.settingsAvatarInitial) {
+            els.settingsAvatarInitial.textContent = buildAvatarMarkup(state.currentUser.name);
+        }
+        if (els.settingsName) {
+            els.settingsName.value = state.currentUser.name;
+        }
+        if (els.settingsEmail) {
+            els.settingsEmail.value = state.currentUser.email;
+        }
+        if (els.settingsBio) {
+            els.settingsBio.value = `${state.currentUser.name} uses VideoChat for fast internal communication.`;
+        }
+    }
+
+    function renderAll() {
+        renderDashboard();
+        renderChatHub();
+        renderConversation();
+        renderProfile();
+        renderSettings();
+    }
+
+    function updateVideoState() {
+        if (els.localVideoEmpty) {
+            els.localVideoEmpty.hidden = !!state.localStream;
+        }
+        if (els.remoteVideoEmpty) {
+            els.remoteVideoEmpty.hidden = !!state.remoteStream;
+        }
+        if (els.localMediaState) {
+            els.localMediaState.textContent = state.media.videoEnabled ? 'Camera live' : 'Camera off';
+        }
+
+        if (els.cameraToggle) {
+            els.cameraToggle.dataset.active = String(state.media.videoEnabled);
+        }
+        if (els.micToggle) {
+            els.micToggle.dataset.active = String(state.media.audioEnabled);
+        }
+
+        if (!state.localStream && els.localVideoEmptyCopy) {
+            els.localVideoEmptyCopy.textContent = canCaptureLocalMedia()
+                ? 'Preview unavailable'
+                : 'Receive-only until HTTPS or localhost is available.';
+        }
     }
 
     function playRingBurst() {
         const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-
         if (!AudioContextClass) {
             return;
         }
@@ -165,7 +482,6 @@ function initWorkspace() {
         }
 
         const context = state.audioContext;
-
         if (context.state === 'suspended') {
             context.resume().catch(() => {});
         }
@@ -203,31 +519,12 @@ function initWorkspace() {
         state.ringtoneTimer = window.setInterval(playRingBurst, 1800);
     }
 
-    function updateIncomingCallUi() {
-        const incoming = state.incomingCall;
-
-        if (!els.incomingCallBanner) {
-            return;
-        }
-
-        if (!incoming) {
-            els.incomingCallBanner.hidden = true;
-            stopRingtone();
-            return;
-        }
-
-        els.incomingCallBanner.hidden = false;
-        els.incomingCallTitle.textContent = `${incoming.name} is calling`;
-        els.incomingCallText.textContent = incoming.canReceiveOnly
-            ? 'This device can join in receive-only mode even without local camera or mic.'
-            : 'Accept to join the live audio and video session.';
-        updateCallStatus('Incoming call', 'ringing');
-        startRingtone();
-    }
-
     function clearIncomingCall() {
         state.incomingCall = null;
-        updateIncomingCallUi();
+        if (els.incomingCallBanner) {
+            els.incomingCallBanner.hidden = true;
+        }
+        stopRingtone();
     }
 
     function setIncomingCall(peer, offer) {
@@ -238,19 +535,20 @@ function initWorkspace() {
             offer,
             canReceiveOnly: !canCaptureLocalMedia(),
         };
-        updateIncomingCallUi();
-    }
 
-    function setPeerMeta(text) {
-        els.peerMeta.textContent = text;
-    }
-
-    function canUseMedia() {
-        return state.secureContext && !!navigator.mediaDevices?.getUserMedia;
-    }
-
-    function canCaptureLocalMedia() {
-        return canUseMedia();
+        if (els.incomingCallBanner) {
+            els.incomingCallBanner.hidden = false;
+        }
+        if (els.incomingCallTitle) {
+            els.incomingCallTitle.textContent = `${peer.name} is calling`;
+        }
+        if (els.incomingCallText) {
+            els.incomingCallText.textContent = state.incomingCall.canReceiveOnly
+                ? 'This device can join in receive-only mode.'
+                : 'Accept to join the live audio and video session.';
+        }
+        updateCallStatus('REC • 00:00');
+        startRingtone();
     }
 
     function sanitizeSessionDescription(description) {
@@ -258,204 +556,10 @@ function initWorkspace() {
             return description;
         }
 
-        const normalizedSdp = description.sdp.replace(/\r?\n/g, '\r\n');
-        const lines = normalizedSdp.split('\r\n');
-        const blockedCodecNames = new Set(['rtx', 'red', 'ulpfec', 'flexfec']);
-        const sanitizedLines = [];
-        let currentSection = null;
-
-        function flushSection() {
-            if (!currentSection) {
-                return;
-            }
-
-            const payloads = currentSection.mediaLineParts.slice(3);
-            const codecByPayload = new Map();
-
-            currentSection.lines.forEach((line) => {
-                const match = line.match(/^a=rtpmap:(\d+)\s+([^/\s]+)/i);
-
-                if (match) {
-                    codecByPayload.set(match[1], match[2].toLowerCase());
-                }
-            });
-
-            const blockedPayloads = new Set(
-                payloads.filter((payloadType) => blockedCodecNames.has(codecByPayload.get(payloadType)))
-            );
-
-            const allowedPayloads = payloads.filter((payloadType) => !blockedPayloads.has(payloadType));
-
-            sanitizedLines.push('m=' + [
-                currentSection.mediaLineParts[0],
-                currentSection.mediaLineParts[1],
-                currentSection.mediaLineParts[2],
-                ...allowedPayloads,
-            ].join(' '));
-
-            currentSection.lines.forEach((line) => {
-                if (line.startsWith('a=ssrc:') || line.startsWith('a=ssrc-group:')) {
-                    return;
-                }
-
-                const payloadMatch = line.match(/^a=(?:fmtp|rtpmap|rtcp-fb):(\d+)\b/i);
-
-                if (payloadMatch) {
-                    const payloadType = payloadMatch[1];
-
-                    if (!allowedPayloads.includes(payloadType)) {
-                        return;
-                    }
-
-                    if (/^a=fmtp:\d+\s+repair-window=\d+$/i.test(line)) {
-                        return;
-                    }
-                }
-
-                sanitizedLines.push(line);
-            });
-
-            currentSection = null;
-        }
-
-        for (const rawLine of lines) {
-            const line = rawLine.trimEnd();
-
-            if (line.startsWith('m=')) {
-                flushSection();
-                currentSection = {
-                    mediaLineParts: line.slice(2).trim().split(/\s+/),
-                    lines: [],
-                };
-                continue;
-            }
-
-            if (currentSection) {
-                currentSection.lines.push(line);
-            } else {
-                sanitizedLines.push(line);
-            }
-        }
-
-        flushSection();
-
         return {
             type: description.type,
-            sdp: `${sanitizedLines.join('\r\n')}\r\n`,
+            sdp: description.sdp.replace(/\r?\n/g, '\r\n'),
         };
-    }
-
-    function updateMediaNotice(message = '') {
-        if (!els.mediaNotice) {
-            return;
-        }
-
-        els.mediaNotice.hidden = message === '';
-        els.mediaNotice.textContent = message;
-    }
-
-    function selectedPeer() {
-        return state.contacts.find((contact) => contact.id === state.selectedPeerId) || null;
-    }
-
-    function ensureConversation(peerId) {
-        if (!state.conversations[peerId]) {
-            state.conversations[peerId] = [];
-        }
-    }
-
-    function pushMessage(peerId, entry) {
-        ensureConversation(peerId);
-        state.conversations[peerId].push({
-            ...entry,
-            id: `${peerId}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-        });
-    }
-
-    function renderContacts() {
-        els.contactCount.textContent = String(state.contacts.length);
-        els.contactList.innerHTML = '';
-
-        state.contacts.forEach((contact) => {
-            const button = document.createElement('button');
-            button.type = 'button';
-            button.className = `contact-card${contact.id === state.selectedPeerId ? ' active' : ''}`;
-            button.dataset.peerId = String(contact.id);
-
-            const unread = state.unread[contact.id] || 0;
-            const online = state.onlineIds.has(contact.id);
-
-            button.innerHTML = `
-                <div class="contact-name-row">
-                    <span class="contact-name">${sanitize(contact.name)}</span>
-                    <span class="presence-dot ${online ? 'online' : ''}"></span>
-                </div>
-                <span class="muted-text">${sanitize(contact.email)}</span>
-                <div class="contact-name-row">
-                    <span class="muted-text">${online ? 'Available now' : 'Offline'}</span>
-                    ${unread ? `<span class="unread-pill">${unread}</span>` : ''}
-                </div>
-            `;
-
-            button.addEventListener('click', () => selectPeer(contact.id));
-            els.contactList.appendChild(button);
-        });
-    }
-
-    function renderMessages() {
-        const peer = selectedPeer();
-        els.messageList.innerHTML = '';
-
-        if (!peer) {
-            els.messageList.innerHTML = '<div class="empty-conversation"><strong>Select a peer</strong><span>Messages and call controls are activated when a contact is selected.</span></div>';
-            els.messageState.textContent = 'No recipient selected';
-            els.messageInput.disabled = true;
-            els.messageSubmit.disabled = true;
-            els.callToggle.disabled = true;
-            return;
-        }
-
-        els.messageState.textContent = `Chatting with ${peer.name}`;
-        els.messageInput.disabled = false;
-        els.messageSubmit.disabled = false;
-        els.callToggle.disabled = false;
-
-        const items = state.conversations[peer.id] || [];
-
-        if (!items.length) {
-            els.messageList.innerHTML = `<div class="empty-conversation"><strong>No messages yet</strong><span>Start the conversation with ${sanitize(peer.name)}.</span></div>`;
-            return;
-        }
-
-        items.forEach((entry) => {
-            const item = document.createElement('article');
-            item.className = `message-item${entry.self ? ' self' : ''}`;
-            item.innerHTML = `
-                <span class="message-meta">${sanitize(entry.self ? 'You' : entry.sender)} · ${sanitize(entry.timeLabel)}</span>
-                <div class="message-bubble">${sanitize(entry.body)}</div>
-            `;
-            els.messageList.appendChild(item);
-        });
-
-        els.messageList.scrollTop = els.messageList.scrollHeight;
-    }
-
-    function updateVideoState() {
-        els.localVideoEmpty.hidden = !!state.localStream;
-        els.remoteVideoEmpty.hidden = !!state.remoteStream;
-        els.localMediaState.textContent = state.media.videoEnabled ? 'Camera live' : 'Camera off';
-        els.localMediaState.className = `status-pill ${state.media.videoEnabled ? 'live' : 'muted'}`;
-        els.cameraToggle.textContent = state.media.videoEnabled ? 'Camera off' : 'Camera on';
-        els.micToggle.textContent = state.media.audioEnabled ? 'Mic off' : 'Mic on';
-        els.callToggle.textContent = state.peerConnection ? 'End call' : 'Start call';
-        els.cameraToggle.disabled = !canUseMedia();
-        els.micToggle.disabled = !canUseMedia();
-
-        if (!state.localStream && els.localVideoEmptyCopy) {
-            els.localVideoEmptyCopy.textContent = canCaptureLocalMedia()
-                ? 'Turn on camera when you are ready.'
-                : 'This device can still receive calls, but local camera preview needs HTTPS on the LAN IP or localhost.';
-        }
     }
 
     async function ensureLocalStream() {
@@ -475,9 +579,12 @@ function initWorkspace() {
         state.localStream = stream;
         state.media.videoEnabled = true;
         state.media.audioEnabled = true;
-        els.localVideo.srcObject = stream;
-        updateVideoState();
 
+        if (els.localVideo) {
+            els.localVideo.srcObject = stream;
+        }
+
+        updateVideoState();
         return stream;
     }
 
@@ -492,7 +599,9 @@ function initWorkspace() {
 
         if (resetRemote) {
             state.remoteStream = null;
-            els.remoteVideo.srcObject = null;
+            if (els.remoteVideo) {
+                els.remoteVideo.srcObject = null;
+            }
         }
 
         state.signaling = {
@@ -501,6 +610,7 @@ function initWorkspace() {
             candidateCounts: {},
             endedAt: null,
         };
+        updateCallStatus('Idle');
         updateVideoState();
     }
 
@@ -521,9 +631,11 @@ function initWorkspace() {
 
         connection.ontrack = (event) => {
             state.remoteStream = event.streams[0];
-            els.remoteVideo.srcObject = state.remoteStream;
+            if (els.remoteVideo) {
+                els.remoteVideo.srcObject = state.remoteStream;
+            }
+            updateCallStatus('REC • LIVE');
             updateVideoState();
-            updateCallStatus('Connected', 'live');
         };
 
         connection.onicecandidate = async (event) => {
@@ -545,18 +657,16 @@ function initWorkspace() {
             const connectionState = connection.connectionState;
 
             if (connectionState === 'connected') {
-                updateCallStatus('Connected', 'live');
+                updateCallStatus('REC • LIVE');
             } else if (['connecting', 'new'].includes(connectionState)) {
-                updateCallStatus('Connecting', 'warn');
+                updateCallStatus('CONNECTING');
             } else if (['disconnected', 'failed', 'closed'].includes(connectionState)) {
-                updateCallStatus('Idle', 'muted');
                 closePeerConnection(connectionState !== 'closed');
             }
         };
 
         state.peerConnection = connection;
         updateVideoState();
-
         return connection;
     }
 
@@ -611,7 +721,7 @@ function initWorkspace() {
     }
 
     async function applyCandidates(call) {
-        if (!call.candidates || !state.peerConnection || !state.currentUser) {
+        if (!call.candidates || !state.peerConnection) {
             return;
         }
 
@@ -631,6 +741,12 @@ function initWorkspace() {
         state.signaling.candidateCounts[peer.id] = peerCandidates.length;
     }
 
+    async function fetchCallState(peerId) {
+        const url = `${urls.callState}?peer_id=${peerId}`;
+        const result = await sendJson(url);
+        return result.call || {};
+    }
+
     async function handleCallState(call) {
         const peer = selectedPeer();
         if (!peer || !call) {
@@ -641,7 +757,6 @@ function initWorkspace() {
             state.signaling.endedAt = call.ended_at;
             clearIncomingCall();
             closePeerConnection();
-            updateCallStatus('Idle', 'muted');
             return;
         }
 
@@ -655,30 +770,17 @@ function initWorkspace() {
         if (call.answer && call.answer.from === peer.id && call.answer.updated_at !== state.signaling.answerAt && state.peerConnection) {
             state.signaling.answerAt = call.answer.updated_at;
             clearIncomingCall();
-            await state.peerConnection.setRemoteDescription(
-                new RTCSessionDescription(sanitizeSessionDescription(call.answer.sdp)),
-            );
-            updateCallStatus('Connected', 'live');
+            await state.peerConnection.setRemoteDescription(new RTCSessionDescription(sanitizeSessionDescription(call.answer.sdp)));
+            updateCallStatus('REC • LIVE');
         }
 
         await applyCandidates(call);
-    }
-
-    async function fetchCallState(peerId) {
-        const url = `${urls.callState}?peer_id=${peerId}`;
-        const result = await sendJson(url);
-
-        return result.call || {};
     }
 
     async function detectIncomingCall() {
         for (const peer of state.contacts) {
             try {
                 const call = await fetchCallState(peer.id);
-
-                if (call.ended_at && state.incomingCall?.peerId === peer.id) {
-                    clearIncomingCall();
-                }
 
                 if (
                     call.offer &&
@@ -688,11 +790,6 @@ function initWorkspace() {
                     (!state.incomingCall || state.incomingCall.offer.updated_at !== call.offer.updated_at)
                 ) {
                     setIncomingCall(peer, call.offer);
-
-                    if (state.selectedPeerId !== peer.id) {
-                        setPeerMeta(`${peer.email} · calling now`);
-                    }
-
                     return;
                 }
             } catch (error) {
@@ -752,7 +849,7 @@ function initWorkspace() {
             sdp: sanitizeSessionDescription(connection.localDescription ?? offer),
         });
 
-        updateCallStatus('Ringing', 'ringing');
+        updateCallStatus('RINGING');
     }
 
     async function endCall() {
@@ -767,40 +864,34 @@ function initWorkspace() {
 
         closePeerConnection();
         clearIncomingCall();
-        updateCallStatus('Idle', 'muted');
     }
 
     async function acceptIncomingCall() {
         const incoming = state.incomingCall;
-
         if (!incoming) {
             return;
         }
 
-        if (state.selectedPeerId !== incoming.peerId) {
-            selectPeer(incoming.peerId);
-        }
-
+        state.selectedPeerId = incoming.peerId;
         state.signaling.offerAt = incoming.offer.updated_at;
         clearIncomingCall();
+        renderAll();
 
         const connection = await ensurePeerConnection();
         await syncLocalTracks();
-        await connection.setRemoteDescription(
-            new RTCSessionDescription(sanitizeSessionDescription(incoming.offer.sdp)),
-        );
+        await connection.setRemoteDescription(new RTCSessionDescription(sanitizeSessionDescription(incoming.offer.sdp)));
         const answer = await connection.createAnswer();
         await connection.setLocalDescription(answer);
         await sendJson(urls.answer, 'POST', {
             peer_id: incoming.peerId,
             sdp: sanitizeSessionDescription(connection.localDescription ?? answer),
         });
-        updateCallStatus('Answering', 'warn');
+
+        updateCallStatus('CONNECTING');
     }
 
     async function declineIncomingCall() {
         const incoming = state.incomingCall;
-
         if (!incoming) {
             return;
         }
@@ -812,10 +903,6 @@ function initWorkspace() {
         }
 
         clearIncomingCall();
-
-        if (!state.peerConnection) {
-            updateCallStatus('Idle', 'muted');
-        }
     }
 
     async function toggleCall() {
@@ -827,43 +914,11 @@ function initWorkspace() {
         await startCall();
     }
 
-    function formatTime() {
-        return new Intl.DateTimeFormat([], {
-            hour: '2-digit',
-            minute: '2-digit',
-        }).format(new Date());
-    }
-
-    function selectPeer(peerId) {
-        if (state.selectedPeerId === peerId) {
-            return;
-        }
-
-        if (state.peerConnection) {
-            endCall();
-        }
-
-        state.selectedPeerId = peerId;
-        state.unread[peerId] = 0;
-        const peer = selectedPeer();
-        query.set('peer', String(peerId));
-        history.replaceState({}, '', `${window.location.pathname}?${query.toString()}`);
-
-        els.peerName.textContent = peer?.name || 'Select a peer';
-        setPeerMeta(peer ? `${peer.email} · ${state.onlineIds.has(peer.id) ? 'available on LAN' : 'currently offline'}` : 'Choose someone from the roster to begin chat or video.');
-        renderContacts();
-        renderMessages();
-        updateCallStatus('Idle', 'muted');
-        updateMediaNotice(canCaptureLocalMedia() ? '' : 'This device can join calls in receive-only mode until camera/mic access is available over HTTPS or localhost.');
-        if (state.incomingCall?.peerId === peerId) {
-            updateIncomingCallUi();
-        }
-    }
-
     async function handleMessageSubmit(event) {
         event.preventDefault();
+
         const peer = selectedPeer();
-        const value = els.messageInput.value.trim();
+        const value = els.messageInput?.value.trim();
 
         if (!peer || !value) {
             return;
@@ -884,9 +939,20 @@ function initWorkspace() {
 
             els.messageInput.value = '';
             autoResize(els.messageInput);
-            renderMessages();
+            renderConversation();
         } catch (error) {
-            els.messageState.textContent = error.message;
+            updateMediaNotice(error.message);
+        }
+    }
+
+    function selectPeer(peerId) {
+        state.selectedPeerId = peerId;
+        state.unread[peerId] = 0;
+
+        if (pageKind === 'chat-call') {
+            updatePeerText();
+            renderConversation();
+            updateMediaNotice(canCaptureLocalMedia() ? '' : 'This device can join calls in receive-only mode until camera/mic access is available over HTTPS or localhost.');
         }
     }
 
@@ -911,86 +977,170 @@ function initWorkspace() {
 
                 if (state.selectedPeerId !== sender.id) {
                     state.unread[sender.id] = (state.unread[sender.id] || 0) + 1;
-                    renderContacts();
-                } else {
-                    renderMessages();
                 }
+
+                if (els.dashboardUnreadCopy) {
+                    els.dashboardUnreadCopy.textContent = `${sender.name}: "${event.message}"`;
+                }
+
+                renderAll();
             });
 
         window.Echo.join('online')
             .here((users) => {
                 state.onlineIds = new Set(users.map((user) => user.id).filter((id) => id !== state.currentUser.id));
-                renderContacts();
-                const peer = selectedPeer();
-                if (peer) {
-                    setPeerMeta(`${peer.email} · ${state.onlineIds.has(peer.id) ? 'available on LAN' : 'currently offline'}`);
-                }
+                renderAll();
+                updatePeerText();
             })
             .joining((user) => {
                 if (user.id !== state.currentUser.id) {
                     state.onlineIds.add(user.id);
-                    renderContacts();
+                    renderAll();
+                    updatePeerText();
                 }
             })
             .leaving((user) => {
                 state.onlineIds.delete(user.id);
-                renderContacts();
+                renderAll();
+                updatePeerText();
             })
             .error((error) => {
                 window.log('presence subscription error', error);
             });
     }
 
-    async function bootstrapWorkspace() {
+    async function populateDevices() {
+        if (!navigator.mediaDevices?.enumerateDevices) {
+            return;
+        }
+
+        try {
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            const cameras = devices.filter((device) => device.kind === 'videoinput');
+            const microphones = devices.filter((device) => device.kind === 'audioinput');
+
+            if (els.cameraDevice) {
+                els.cameraDevice.innerHTML = cameras.length
+                    ? cameras.map((device, index) => `<option>${sanitize(device.label || `Camera ${index + 1}`)}</option>`).join('')
+                    : '<option>No camera detected</option>';
+            }
+
+            if (els.microphoneDevice) {
+                els.microphoneDevice.innerHTML = microphones.length
+                    ? microphones.map((device, index) => `<option>${sanitize(device.label || `Microphone ${index + 1}`)}</option>`).join('')
+                    : '<option>No microphone detected</option>';
+            }
+        } catch (error) {
+            window.log('device enumeration error', error.message);
+        }
+    }
+
+    function wireThemeToggles() {
+        if (!els.themeLight || !els.themeDark) {
+            return;
+        }
+
+        const applyThemeState = (theme) => {
+            els.themeLight.classList.toggle('is-active', theme !== 'dark');
+            els.themeDark.classList.toggle('is-active', theme === 'dark');
+            document.documentElement.classList.toggle('dark', theme === 'dark');
+        };
+
+        const saved = localStorage.getItem('videochat-theme') || 'light';
+        applyThemeState(saved);
+
+        els.themeLight.addEventListener('click', () => {
+            localStorage.setItem('videochat-theme', 'light');
+            applyThemeState('light');
+        });
+
+        els.themeDark.addEventListener('click', () => {
+            localStorage.setItem('videochat-theme', 'dark');
+            applyThemeState('dark');
+        });
+    }
+
+    async function bootstrap() {
         try {
             const result = await sendJson(urls.session);
             state.currentUser = result.user;
             state.contacts = result.contacts || [];
 
-            els.currentUserName.textContent = state.currentUser.name;
-            els.currentUserEmail.textContent = state.currentUser.email;
+            state.contacts.forEach((contact) => {
+                ensureConversation(contact.id);
+            });
 
-            const initialPeerId = Number(query.get('peer')) || state.contacts[0]?.id || null;
-            renderContacts();
-            renderMessages();
-
-            if (initialPeerId) {
-                selectPeer(initialPeerId);
+            if (!state.selectedPeerId) {
+                state.selectedPeerId = Number(query.get('peer')) || state.contacts[0]?.id || null;
             }
 
+            if (els.currentUserName) {
+                els.currentUserName.textContent = state.currentUser.name;
+            }
+            if (els.currentUserEmail) {
+                els.currentUserEmail.textContent = state.currentUser.email;
+            }
+            if (els.currentUserAvatar) {
+                els.currentUserAvatar.textContent = buildAvatarMarkup(state.currentUser.name);
+            }
+
+            renderAll();
             wireRealtime();
             startPolling();
-            updateMediaNotice(canUseMedia() ? '' : insecureContextMessage);
+            wireThemeToggles();
+            populateDevices();
             updateVideoState();
+
+            if (pageKind === 'chat-call' && state.selectedPeerId) {
+                selectPeer(state.selectedPeerId);
+            }
         } catch (error) {
-            els.peerName.textContent = 'Session failed';
-            setPeerMeta(error.message);
+            window.log('bootstrap error', error.message);
+            if (page.startsWith('app-')) {
+                window.location.href = '/login';
+            }
         }
     }
 
-    els.messageInput.addEventListener('input', () => autoResize(els.messageInput));
-    els.messageForm.addEventListener('submit', handleMessageSubmit);
-    els.cameraToggle.addEventListener('click', () => toggleCamera().catch((error) => setPeerMeta(error.message)));
-    els.micToggle.addEventListener('click', () => toggleMic().catch((error) => setPeerMeta(error.message)));
-    els.callToggle.addEventListener('click', () => toggleCall().catch((error) => setPeerMeta(error.message)));
-    els.acceptCall?.addEventListener('click', () => acceptIncomingCall().catch((error) => setPeerMeta(error.message)));
-    els.declineCall?.addEventListener('click', () => declineIncomingCall().catch((error) => setPeerMeta(error.message)));
-    els.logoutButton.addEventListener('click', async () => {
-        try {
-            await sendJson(urls.logout, 'POST');
-        } finally {
-            stopRingtone();
-            window.location.href = '/login';
-        }
-    });
+    if (els.messageInput) {
+        els.messageInput.addEventListener('input', () => autoResize(els.messageInput));
+    }
+    if (els.messageForm) {
+        els.messageForm.addEventListener('submit', handleMessageSubmit);
+    }
+    if (els.cameraToggle) {
+        els.cameraToggle.addEventListener('click', () => toggleCamera().catch((error) => updateMediaNotice(error.message)));
+    }
+    if (els.micToggle) {
+        els.micToggle.addEventListener('click', () => toggleMic().catch((error) => updateMediaNotice(error.message)));
+    }
+    if (els.callToggle) {
+        els.callToggle.addEventListener('click', () => toggleCall().catch((error) => updateMediaNotice(error.message)));
+    }
+    if (els.acceptCall) {
+        els.acceptCall.addEventListener('click', () => acceptIncomingCall().catch((error) => updateMediaNotice(error.message)));
+    }
+    if (els.declineCall) {
+        els.declineCall.addEventListener('click', () => declineIncomingCall().catch((error) => updateMediaNotice(error.message)));
+    }
+    if (els.logoutButton) {
+        els.logoutButton.addEventListener('click', async () => {
+            try {
+                await sendJson(urls.logout, 'POST');
+            } finally {
+                stopRingtone();
+                window.location.href = '/login';
+            }
+        });
+    }
 
-    bootstrapWorkspace();
+    bootstrap();
 }
 
 if (page === 'login') {
     initLoginPage();
 }
 
-if (page === 'workspace') {
-    initWorkspace();
+if (page.startsWith('app-')) {
+    initAppPages();
 }

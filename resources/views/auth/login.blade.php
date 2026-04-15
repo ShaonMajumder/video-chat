@@ -1,45 +1,21 @@
 @extends('layouts.app')
 
-@section('title', 'LanCast | Sign In')
+@section('title', 'VideoChat | Login')
 @section('page', 'login')
-@section('body_class', 'shell-body auth-body')
+@section('body_class', 'site-body auth-body')
 
 @section('content')
-<div class="auth-shell">
-    <section class="auth-promo">
-        <a class="brand" href="{{ route('landing') }}">
-            <span class="brand-mark">LC</span>
-            <span>LanCast</span>
-        </a>
-        <p class="eyebrow">Secure access</p>
-        <h1>Enter the LAN workspace.</h1>
-        <p>
-            Built for direct internal communication: lightweight, fast to scan, and tuned for real-time chat plus browser-based video.
-        </p>
-        <div class="auth-feature-list">
-            <div>
-                <strong>Focused workspace</strong>
-                <span>Roster, call stage, and chat without dashboard noise.</span>
-            </div>
-            <div>
-                <strong>Peer-to-peer call path</strong>
-                <span>Local signaling for quick LAN setup and low-friction meetings.</span>
-            </div>
-            <div>
-                <strong>Modern visual system</strong>
-                <span>Soft contrast, measured motion, and production-oriented spacing.</span>
-            </div>
-        </div>
-    </section>
-
-    <section class="auth-card-wrap">
-        <div class="auth-card">
-            <div>
-                <p class="eyebrow">Sign in</p>
-                <h2>Use your internal account</h2>
+<div class="login-page">
+    <div class="login-card">
+        <div class="login-card__content">
+            <a class="marketing-logo" href="{{ route('landing') }}">VideoChat</a>
+            <div class="login-copy">
+                <span class="hero-pill">SECURE ACCESS</span>
+                <h1>Enter the LAN workspace.</h1>
+                <p>Business communication with fast chat, direct calls, and an interface tuned for focus.</p>
             </div>
 
-            <form id="login-form" class="auth-form" action="/api/login" method="post" novalidate>
+            <form id="login-form" class="login-form" action="/api/login" method="post" novalidate>
                 @csrf
                 <label>
                     <span>Email</span>
@@ -49,20 +25,31 @@
                     <span>Password</span>
                     <input type="password" name="password" placeholder="Enter password" autocomplete="current-password" required>
                 </label>
-                <button class="button-primary" type="submit">Enter workspace</button>
+                <button class="marketing-button marketing-button--primary login-submit" type="submit">Enter Workspace</button>
             </form>
 
-            <div id="login-error" class="form-alert" hidden></div>
+            <div id="login-error" class="login-error" hidden></div>
 
-            <div class="auth-hint">
-                <span>Local seed account</span>
+            <div class="login-hint">
+                <span>Seed account</span>
                 <strong>admin@admin.com / 123456</strong>
             </div>
 
-            <p class="auth-note">
-                Text chat works on LAN IP over HTTP. Browser camera and mic access usually require `https://your-lan-ip` or `http://localhost`.
+            <p class="login-note">
+                Chat works over LAN IP on HTTP. Camera and microphone are most reliable over `https://your-lan-ip` or `http://localhost`.
             </p>
         </div>
-    </section>
+        <div class="login-card__visual" aria-hidden="true">
+            <div class="login-visual__screen">
+                <div class="login-visual__badge">LAN READY</div>
+                <div class="login-visual__panel"></div>
+                <div class="login-visual__row">
+                    <div class="login-visual__tile"></div>
+                    <div class="login-visual__tile"></div>
+                    <div class="login-visual__tile"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
