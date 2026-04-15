@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#c6c5d4",
+                    "on-secondary-container": "#00616d",
+                    "on-primary-fixed": "#000767",
+                    "error": "#ba1a1a",
+                    "on-surface": "#1b1b21",
+                    "on-tertiary-fixed-variant": "#005142",
+                    "inverse-on-surface": "#f2eff8",
+                    "on-error": "#ffffff",
+                    "tertiary": "#002018",
+                    "on-tertiary-fixed": "#002019",
+                    "surface-container-highest": "#e4e1ea",
+                    "primary-container": "#1a237e",
+                    "surface-variant": "#e4e1ea",
+                    "primary-fixed-dim": "#bdc2ff",
+                    "on-secondary-fixed": "#001f24",
+                    "surface-container": "#efecf5",
+                    "secondary": "#006875",
+                    "surface-container-low": "#f5f2fb",
+                    "on-error-container": "#93000a",
+                    "surface-bright": "#fbf8ff",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#38debb",
+                    "inverse-surface": "#303036",
+                    "secondary-container": "#00e3fd",
+                    "outline": "#767683",
+                    "secondary-fixed": "#9cf0ff",
+                    "on-surface-variant": "#454652",
+                    "on-secondary-fixed-variant": "#004f58",
+                    "background": "#fbf8ff",
+                    "primary": "#000666",
+                    "surface-dim": "#dbd9e1",
+                    "surface": "#fbf8ff",
+                    "on-primary-fixed-variant": "#343d96",
+                    "tertiary-container": "#00372c",
+                    "on-background": "#1b1b21",
+                    "inverse-primary": "#bdc2ff",
+                    "secondary-fixed-dim": "#00daf3",
+                    "on-primary-container": "#8690ee",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed": "#5ffbd6",
+                    "primary-fixed": "#e0e0ff",
+                    "surface-tint": "#4c56af",
+                    "surface-container-high": "#eae7ef",
+                    "on-tertiary-container": "#00ab8e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-glass {
+            background: rgba(251, 248, 255, 0.7);
+            backdrop-filter: blur(24px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased flex min-h-screen">
+<!-- SideNavBar Anchor -->
+<aside class="h-screen w-72 fixed left-0 top-0 z-50 bg-[#f5f2fb] dark:bg-slate-900 flex flex-col p-6 font-['Inter'] text-sm font-medium">
+<div class="mb-10 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="videocam">videocam</span>
+</div>
+<div>
+<h1 class="font-['Manrope'] font-extrabold text-[#000666] dark:text-white text-xl leading-tight">VideoChat</h1>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Velocity in Stillness</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Active State: Chats (Determined by Dashboard Context) -->
+<a class="flex items-center gap-4 px-4 py-3 bg-[#ffffff] dark:bg-slate-800 text-[#000666] dark:text-white rounded-xl shadow-sm hover:bg-[#eae7ef] dark:hover:bg-slate-800 transition-all active:scale-[0.98] duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span>Chats</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-[#eae7ef] dark:hover:bg-slate-800 transition-all rounded-xl active:scale-[0.98] duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span>Profile</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-[#eae7ef] dark:hover:bg-slate-800 transition-all rounded-xl active:scale-[0.98] duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto">
+<button class="w-full bg-secondary-fixed text-on-secondary-fixed py-4 rounded-full font-bold flex items-center justify-center gap-2 transition-transform active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="add_call">add_call</span>
+                Start Call
+            </button>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="ml-72 flex-1 flex flex-col min-h-screen">
+<!-- TopNavBar Anchor -->
+<header class="w-full sticky top-0 z-40 bg-[#fbf8ff] dark:bg-slate-950 flex justify-between items-center px-8 py-4 font-['Manrope'] tracking-tight">
+<div class="flex items-center flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-12 py-2.5 text-sm focus:ring-2 focus:ring-secondary/20 transition-all" placeholder="Search messages, people..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6 ml-8">
+<button class="relative p-2 text-slate-500 dark:text-slate-400 hover:bg-[#eae7ef] dark:hover:bg-slate-800 rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-[#eae7ef] dark:hover:bg-slate-800 rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined" data-icon="videocam">videocam</span>
+</button>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-surface-container">
+<img alt="User profile" data-alt="Professional headshot of a smiling man in a business casual shirt with soft natural lighting and blurred office background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJqR7MfyVh78-OrApU4F4hW6wcV2IfafKgCz_OJfci_TzCdTViQk0P7PmSAe8Fsq9N7Esz-t7lPHDoW6ZaqDcKCN9Pcf7jkKO4eoWuUdgzznAG2FQL3FY2uHkuSFg2JK1pOMn_njSjpSwrORytJkhCh3W-63uf4SSw6uHz1dQPO8sh3gvBE91cBn3SgsZMeGU50ujPPTETIlaqRJZgLvz6ZleItjr51K8dsDoafyLjboIhBT92ehGkTTMqDld2JsyaLvV8TKxP9aI"/>
+</div>
+</div>
+</header>
+<!-- Scrollable Dashboard Content -->
+<div class="p-8 space-y-8 flex-1">
+<!-- Welcome Header -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h2 class="text-4xl font-extrabold font-headline text-primary tracking-tighter">Welcome back, Marcus!</h2>
+<p class="text-on-surface-variant mt-2 font-medium">You have 4 new messages and 2 missed video calls since yesterday.</p>
+</div>
+<!-- System Status Card (Asymmetric Placement) -->
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center gap-4 min-w-[240px]">
+<div class="p-2 bg-tertiary-fixed-dim/20 rounded-lg">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="network_check">network_check</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Network Status</span>
+<div class="flex gap-3 text-xs font-semibold text-primary">
+<span>1Gbps</span>
+<span class="text-outline-variant">•</span>
+<span>0.02ms</span>
+</div>
+</div>
+<div class="ml-auto w-2 h-2 bg-on-tertiary-container rounded-full shadow-[0_0_8px_rgba(0,171,142,0.6)]"></div>
+</div>
+</section>
+<!-- Quick Actions & Recent Activity Grid -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Quick Actions Pill Layout -->
+<div class="col-span-12 lg:col-span-4 space-y-4">
+<h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Quick Actions</h3>
+<div class="flex flex-col gap-3">
+<button class="group flex items-center justify-between p-4 bg-primary text-on-primary rounded-full hover:shadow-lg transition-all active:scale-[0.98]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined" data-icon="add_comment">add_comment</span>
+<span class="font-bold">Start New Chat</span>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="group flex items-center justify-between p-4 bg-secondary-fixed text-on-secondary-fixed rounded-full hover:shadow-lg transition-all active:scale-[0.98]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+<span class="font-bold">Quick Call</span>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<!-- Online Now Vertical List -->
+<div class="pt-8 space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Online Now</h3>
+<span class="bg-on-tertiary-container/10 text-on-tertiary-container px-2 py-0.5 rounded text-[10px] font-bold">12 Active</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-3 p-3 rounded-xl hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="relative">
+<img alt="Sarah Connor" class="w-10 h-10 rounded-full" data-alt="Close up portrait of a professional woman with a warm expression in a modern office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDU1m7n6UjQsGbAP4MN3UqNkjRySR2APomv-MSmY3QvKA0WkzM9w6O5ShCjcPvFuhF6isCFJRWbpfo0_QlUwueIQM49ETj0NggTROO9LZGRpztGUuDE9VPcrR-ztS1YB_awl5frIcDggdJdqmwGPDIEt8dHaNti2k_8s1TuukMeb81i_IOp-ROE1m5x7cmcbv_rmyJ8NBXiOGmZmvSSHkr4Kx48AIzPyAx5e1sQm89kZ8q2RmVt-xb__OJxTFfB0EHcfsjKLPGL30I"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-on-tertiary-container border-2 border-surface rounded-full"></div>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-primary group-hover:translate-x-1 transition-transform">Sarah Connor</p>
+<p class="text-[10px] text-slate-500">In a meeting • 2:00 PM</p>
+</div>
+<span class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 transition-opacity" data-icon="videocam">videocam</span>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-xl hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="relative">
+<img alt="James Wilson" class="w-10 h-10 rounded-full" data-alt="Headshot of a creative male designer with glasses and a stylish haircut against a solid neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsrkGfq2x0-Lww5VU2OYlVPVSf9aKIa-ENrR76h2dTrJDZ6sa67fw2Y-WENi5WR8kpAAJiSUH3cTP0wXKt4IXavx6L7jQs6ny9JSgMn7aLtA6-bTETJEdBRClsyESNkF5Sa4X2FIVcRKfqj8UXPHEIaaD8N87F2rWYRAYQBy9UYPu3jhH5VBKXGAICbDKqvBtZmcp0cIDAdaEKiSmQ8DGDEXGSDSWQZcUTSVM3kQL2vfOPtiztrqlOGYz4I3mwIhSLBbGXhCCSoeg"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-on-tertiary-container border-2 border-surface rounded-full"></div>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-primary group-hover:translate-x-1 transition-transform">James Wilson</p>
+<p class="text-[10px] text-slate-500">Available</p>
+</div>
+<span class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 transition-opacity" data-icon="videocam">videocam</span>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-xl hover:bg-surface-container transition-colors cursor-pointer group">
+<div class="relative">
+<img alt="Elena Rodriguez" class="w-10 h-10 rounded-full" data-alt="Portrait of a confident female executive in a sleek dark blazer with minimalist jewelry and professional lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4xhQtfoojKKRZXb-zKe955OdrcVeXG2Y5crnh7kFXouAGfhdKIzPHu63BdzlCquK4LKs0qHIBIFtx10HrFOh8ZR_DPBLiZeNAwNWX6kcJRReGQdNzyoN8NnsAqEhB0zoFWk4S9VYME6WTNgRkqs_ywAeoJVvNCodKrG06Ozeh1c3p6GgAuJBeut3PN4_9Hxw8wJk7gUMQvIkxoF4aqVPKkAN1xsfI9IHmLfeu2qVRSruurMrG3IXcTbXwXGpY91KjyBE7N5YViFQ"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-secondary-fixed-dim border-2 border-surface rounded-full"></div>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-primary group-hover:translate-x-1 transition-transform">Elena Rodriguez</p>
+<p class="text-[10px] text-slate-500">Away • 10m</p>
+</div>
+<span class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 transition-opacity" data-icon="videocam">videocam</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Activity Bento Section -->
+<div class="col-span-12 lg:col-span-8 space-y-6">
+<div class="bg-surface-container-lowest rounded-3xl p-8 shadow-sm h-full">
+<div class="flex items-center justify-between mb-8">
+<h3 class="text-xl font-bold font-headline text-primary">Recent Activity</h3>
+<button class="text-secondary text-xs font-bold hover:underline">Mark all read</button>
+</div>
+<div class="space-y-6">
+<!-- Activity Item: Missed Call -->
+<div class="flex gap-4 p-4 rounded-2xl hover:bg-surface-container-high transition-colors">
+<div class="w-12 h-12 bg-error-container rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-error-container" data-icon="call_missed">call_missed</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<p class="font-bold text-primary">Missed Video Call</p>
+<span class="text-xs text-slate-400">12:45 PM</span>
+</div>
+<p class="text-sm text-on-surface-variant">From <span class="font-semibold">Project Nebula Team</span>. It lasted for about 4 minutes.</p>
+<div class="mt-3 flex gap-2">
+<button class="px-4 py-1.5 bg-primary text-on-primary rounded-full text-xs font-bold transition-transform active:scale-95">Call Back</button>
+<button class="px-4 py-1.5 bg-surface-container text-primary rounded-full text-xs font-bold transition-transform active:scale-95">Message</button>
+</div>
+</div>
+</div>
+<!-- Activity Item: File Share -->
+<div class="flex gap-4 p-4 rounded-2xl hover:bg-surface-container-high transition-colors">
+<div class="w-12 h-12 bg-secondary-container/20 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="upload_file">upload_file</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<p class="font-bold text-primary">New Document Shared</p>
+<span class="text-xs text-slate-400">10:15 AM</span>
+</div>
+<p class="text-sm text-on-surface-variant"><span class="font-semibold text-primary">Sarah Connor</span> shared "Q3_Performance_Review.pdf" in General Chat.</p>
+<div class="mt-3 bg-surface-container-low p-3 rounded-xl flex items-center gap-3">
+<span class="material-symbols-outlined text-error" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span class="text-xs font-medium text-on-surface-variant">Q3_Performance_Review.pdf (2.4 MB)</span>
+<button class="ml-auto material-symbols-outlined text-primary text-lg" data-icon="download">download</button>
+</div>
+</div>
+</div>
+<!-- Activity Item: Message -->
+<div class="flex gap-4 p-4 rounded-2xl bg-surface-container-high/40 transition-colors">
+<div class="w-12 h-12 bg-primary-container/10 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary" data-icon="mark_chat_unread">mark_chat_unread</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<p class="font-bold text-primary">Unread Message</p>
+<span class="text-xs text-slate-400">09:30 AM</span>
+</div>
+<p class="text-sm text-on-surface-variant"><span class="font-semibold text-primary">James Wilson:</span> "Hey Marcus, do you have a minute for the sprint sync?"</p>
+</div>
+<div class="w-2 h-2 bg-secondary rounded-full self-center"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Dashboard Analytics/Video Cards - Editorial Minimalist Style -->
+<section class="pt-4 grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="relative h-64 rounded-3xl overflow-hidden group cursor-pointer">
+<img alt="Meeting space" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Cinematic wide shot of a modern, minimal glass-walled conference room overlooking a city at dusk with warm interior accent lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3MFEAS5_pYov324UCQT6f38_dC3jkjzsC_wY9wRDM1QQj4GhY5hug-RDTokVLQ1Sw0S8b9cttZ1KFFw6wZ64XaxYL1N7R4fb-kuCvIVrzDS2MBptzdy5CCKd6FFtc6NFM1PR3ceu-dGOlQDQwBc7Zh3PmXdNAFW_sFeKdyHZ7TX3gjcD8x1FVwi3pcvsDPw-tgtxKgDxLeJKQU-XiR0_Aa50Wevei-IQudBwh8f01KPeBibBFL1Q-5L9Ut56CIY7_mnCOF4hpSEw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<span class="text-[10px] font-bold uppercase tracking-[0.2em] opacity-70">Upcoming Meeting</span>
+<h4 class="text-2xl font-bold font-headline mt-1">Design System Sync</h4>
+<div class="flex items-center gap-3 mt-4">
+<div class="flex -space-x-2">
+<img alt="Team member" class="w-6 h-6 rounded-full border-2 border-white" data-alt="Portrait of a diverse young professional man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD62tyl4DfYP_oYi8smZR5uqAewRTQsmNkoOf94Ir89BCMb3IvSJ-xFCWW7J_K-h963nZgm95AnI8dm5odGDyhOwZmE8JXjYy94mCrOvdGfvA-2CjuxaAgtPKIjqZnIgaYlzID4GUFR-hY_N_EE92eY2AqZHVWWy6WzUfokoHP2zydxQh2_U9G_EXNm9xZtKsgABKnorzPKjZXHiefdpuD7i4gcZpCb_KL_lYHeKBXNll_lLf0VFLDHXEwxM6-q8mB3bMlpija8ENI"/>
+<img alt="Team member" class="w-6 h-6 rounded-full border-2 border-white" data-alt="Portrait of a professional woman with a high ponytail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRedjAH1wFuSDV6RteT8wKEZhnhes7iNIuO3aEU9wUOyEcKF9PoK2yTj9NUG1-2qFtYJCdEn9cQA4M-BrwQsdUt5vrB21fk_FnaDVXHmozopSuyHo79y41edwbVkMTHChWruavjsyOBk9-t_RTGKgt6CMs2J72C2WhvPJCefmB3qi2WzVZSZFUGeEl4epNrPTytZJtLB3ES0DZ5MNcVAELsXDokXpokekgWJfGwrVCQ0Wcgec3-U4j_Gflbd2bnGK6F_BA6L30xLA"/>
+<div class="w-6 h-6 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center text-[10px] font-bold border-2 border-white">+3</div>
+</div>
+<span class="text-xs font-bold">Starts in 15m</span>
+</div>
+</div>
+</div>
+<div class="bg-primary p-8 rounded-3xl relative overflow-hidden flex flex-col justify-between">
+<!-- Glassmorphism Overlay Texture -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-secondary-container/10 rounded-full blur-[80px] -mr-32 -mt-32"></div>
+<div class="relative z-10">
+<span class="text-[10px] font-bold uppercase tracking-[0.2em] text-primary-fixed-dim">Velocity Insights</span>
+<h4 class="text-2xl font-bold font-headline text-white mt-1">Performance High</h4>
+<p class="text-primary-fixed-dim mt-4 text-sm leading-relaxed max-w-xs">Your call quality has been exceptional this week with 99.8% uptime and ultra-low latency across 24 meetings.</p>
+</div>
+<div class="relative z-10 flex items-end justify-between mt-8">
+<div class="flex gap-1.5 items-end">
+<div class="w-1.5 h-8 bg-secondary-container rounded-full"></div>
+<div class="w-1.5 h-12 bg-secondary-container rounded-full"></div>
+<div class="w-1.5 h-10 bg-secondary-container rounded-full"></div>
+<div class="w-1.5 h-16 bg-secondary-container rounded-full"></div>
+<div class="w-1.5 h-14 bg-secondary-container rounded-full"></div>
+</div>
+<button class="bg-white/10 hover:bg-white/20 text-white px-6 py-2 rounded-full text-xs font-bold backdrop-blur-md transition-all active:scale-95">View Report</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Floating Action Button Suppression Logic applied: No global FAB on dashboard to prioritize the clean side-nav CTAs and bento actions -->
+</body></html>

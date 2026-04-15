@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VideoChat - Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#8690ee",
+                    "surface-container-low": "#f5f2fb",
+                    "tertiary-fixed": "#5ffbd6",
+                    "inverse-surface": "#303036",
+                    "surface-variant": "#e4e1ea",
+                    "on-secondary-fixed": "#001f24",
+                    "surface-bright": "#fbf8ff",
+                    "on-background": "#1b1b21",
+                    "tertiary-container": "#00372c",
+                    "on-tertiary-fixed-variant": "#005142",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#006875",
+                    "on-tertiary-fixed": "#002019",
+                    "primary-fixed": "#e0e0ff",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed": "#000767",
+                    "surface-container-highest": "#e4e1ea",
+                    "secondary-fixed-dim": "#00daf3",
+                    "tertiary": "#002018",
+                    "surface-container-high": "#eae7ef",
+                    "outline": "#767683",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "background": "#fbf8ff",
+                    "primary": "#000666",
+                    "on-primary-fixed-variant": "#343d96",
+                    "surface": "#fbf8ff",
+                    "primary-container": "#1a237e",
+                    "primary-fixed-dim": "#bdc2ff",
+                    "on-tertiary-container": "#00ab8e",
+                    "surface-dim": "#dbd9e1",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#00616d",
+                    "tertiary-fixed-dim": "#38debb",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#c6c5d4",
+                    "secondary-fixed": "#9cf0ff",
+                    "on-surface-variant": "#454652",
+                    "secondary-container": "#00e3fd",
+                    "surface-tint": "#4c56af",
+                    "inverse-primary": "#bdc2ff",
+                    "surface-container": "#efecf5",
+                    "on-secondary-fixed-variant": "#004f58",
+                    "inverse-on-surface": "#f2eff8",
+                    "on-surface": "#1b1b21",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+        .glass-panel {
+            background: rgba(251, 248, 255, 0.7);
+            backdrop-filter: blur(24px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex">
+<!-- SideNavBar Component -->
+<aside class="hidden md:flex flex-col h-screen w-64 bg-[#f5f2fb] dark:bg-slate-900 p-4 gap-2 border-none">
+<!-- Brand Header -->
+<div class="flex items-center gap-3 px-2 mb-8">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="videocam">videocam</span>
+</div>
+<div>
+<h1 class="text-lg font-black text-[#000666] dark:text-white leading-none">VideoChat</h1>
+<p class="text-xs text-slate-600 dark:text-slate-400 font-medium">Business LAN</p>
+</div>
+</div>
+<!-- CTA -->
+<button class="mb-6 w-full py-3 px-4 bg-primary text-on-primary rounded-full font-bold flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+        New Meeting
+    </button>
+<!-- Main Nav Tabs -->
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 font-medium font-manrope text-sm hover:bg-[#eae7ef] dark:hover:bg-slate-800 transition-colors rounded-xl group" href="#">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+            Chats
+        </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 font-medium font-manrope text-sm hover:bg-[#eae7ef] dark:hover:bg-slate-800 transition-colors rounded-xl group" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+            Profile
+        </a>
+<!-- Active State: Settings -->
+<a class="flex items-center gap-3 px-4 py-3 bg-[#eae7ef] dark:bg-slate-800 text-[#000666] dark:text-white font-bold font-manrope text-sm rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="settings" style="font-variation-settings: 'FILL' 1;">settings</span>
+            Settings
+        </a>
+</nav>
+<!-- Footer Tabs -->
+<div class="mt-auto flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 font-medium font-manrope text-sm hover:bg-[#eae7ef] dark:hover:bg-slate-800 transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+            Support
+        </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 font-medium font-manrope text-sm hover:bg-[#eae7ef] dark:hover:bg-slate-800 transition-colors rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+            Sign Out
+        </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 h-screen overflow-y-auto bg-surface p-6 md:p-12 lg:p-16">
+<div class="max-w-5xl mx-auto">
+<!-- Header Section -->
+<header class="mb-12">
+<h2 class="text-display-lg text-4xl md:text-5xl font-extrabold text-primary tracking-tight mb-2">Settings</h2>
+<p class="text-on-surface-variant font-body">Manage your workspace preferences and device connectivity.</p>
+</header>
+<!-- Bento Grid Layout for Settings -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Account Settings (Large Span) -->
+<section class="md:col-span-8 bg-surface-container-lowest rounded-xl p-8 transition-all hover:shadow-sm">
+<div class="flex items-center gap-4 mb-8">
+<div class="w-16 h-16 rounded-full overflow-hidden bg-surface-container">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Professional headshot of a businessman in his 30s with a clean-cut look and neutral studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1DMF1j9qRY1Wegthb4MXBBO1kGFcbgtFRWggWTZTEnCWMYXS56gaFCMAzRN-KFverG2ogdiCt9N95UuCDZZBzwpJK35x9b__28H7TziBlfOxv0oV_Uh7btH9J9gzSGMBhDgVKnWaqwR0-zhNZiyVS4CnzmGyGG3GuF_Hj_lhRSfPmkR8oH0RQ55fB7yupMucN9NP2swG3Qy1jNmkBsCRfh_VjwRy55__dxrhdG4ChoQ8dtD51f0ZE82Ds-Uj2k_hButXwiUMcEkY"/>
+</div>
+<div>
+<h3 class="text-xl font-bold text-on-surface">Account Profile</h3>
+<p class="text-sm text-on-surface-variant">Update your public information</p>
+</div>
+</div>
+<div class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-1">
+<label class="text-xs font-bold text-primary uppercase tracking-widest px-1">Display Name</label>
+<input class="bg-transparent border-b-2 border-surface-variant focus:border-secondary outline-none py-2 px-1 text-on-surface transition-all" type="text" value="Alexander Wright"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-xs font-bold text-primary uppercase tracking-widest px-1">Email Address</label>
+<input class="bg-transparent border-b-2 border-surface-variant focus:border-secondary outline-none py-2 px-1 text-on-surface transition-all" type="email" value="alex.wright@business.lan"/>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-xs font-bold text-primary uppercase tracking-widest px-1">Bio</label>
+<textarea class="bg-transparent border-b-2 border-surface-variant focus:border-secondary outline-none py-2 px-1 text-on-surface transition-all resize-none" rows="2">Senior Project Manager at Visionary Labs. Focused on high-velocity team communications.</textarea>
+</div>
+</div>
+</section>
+<!-- Theme Selector (Small Square) -->
+<section class="md:col-span-4 bg-primary-container rounded-xl p-8 flex flex-col justify-between text-white overflow-hidden relative">
+<div class="relative z-10">
+<h3 class="text-xl font-bold mb-1">Visual Theme</h3>
+<p class="text-primary-fixed-dim text-sm">Personalize your view</p>
+</div>
+<div class="mt-8 flex gap-3 relative z-10">
+<button class="flex-1 aspect-square rounded-xl bg-white/10 backdrop-blur-md flex flex-col items-center justify-center gap-2 border-2 border-white ring-4 ring-white/10 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-white" data-icon="light_mode">light_mode</span>
+<span class="text-xs font-bold">Light</span>
+</button>
+<button class="flex-1 aspect-square rounded-xl bg-black/20 backdrop-blur-md flex flex-col items-center justify-center gap-2 border border-white/20 hover:bg-black/30 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-primary-fixed-dim" data-icon="dark_mode">dark_mode</span>
+<span class="text-xs font-bold text-primary-fixed-dim">Dark</span>
+</button>
+</div>
+<!-- Decorative texture -->
+<div class="absolute -bottom-10 -right-10 w-40 h-40 bg-secondary-container/20 rounded-full blur-3xl"></div>
+</section>
+<!-- Audio & Video Settings (Medium Span) -->
+<section class="md:col-span-7 bg-surface-container-lowest rounded-xl p-8 transition-all hover:shadow-sm">
+<h3 class="text-xl font-bold text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="settings_input_component">settings_input_component</span>
+                    Hardware Configuration
+                </h3>
+<div class="space-y-8">
+<div class="flex flex-col md:flex-row md:items-center gap-4">
+<div class="flex-1">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2 block">Camera Device</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 appearance-none focus:ring-2 focus:ring-secondary text-on-surface font-medium">
+<option>FaceTime HD Camera (Built-in)</option>
+<option>Logitech StreamCam</option>
+<option>OBS Virtual Camera</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<div class="w-32 h-20 bg-black rounded-lg overflow-hidden group relative">
+<img alt="Camera Preview" class="w-full h-full object-cover opacity-60" data-alt="Blurred preview of a modern home office with warm ambient lighting and plants in the background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRoiw8Y6IqY6HEQxrPheyXbDFY3ZPEpM4IMs1zPRGDRfXLrnDqlYofYiatZITBTaLylJcaxLd1dXtAUujU8sffaXwnEM0IXMyw0FkqLK__MIXxfONwKZG8PmfxaLgSXYdNM4LrcnepnEZzdrU41g2bAn1Vx9HJxJCMLTjt9YP5IBcYIT3xpl-XaWQzbtZkmhdj51yLf5YbXqFTGRWNOvn9avuZd1vislE_o01KPZnJr_wJeSJ9RhW3nndc7M5YfPaNGxTC5vHSKiI"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="text-[10px] font-bold text-white uppercase tracking-tighter">Preview</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex-1">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2 block">Microphone Input</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 appearance-none focus:ring-2 focus:ring-secondary text-on-surface font-medium">
+<option>MacBook Pro Microphone</option>
+<option>Yeti Nano USB Microphone</option>
+<option>External Headphones</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<!-- Audio level indicator -->
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden flex gap-0.5 p-0.5">
+<div class="h-full w-12 bg-secondary rounded-full"></div>
+<div class="h-full w-8 bg-secondary rounded-full"></div>
+<div class="h-full w-16 bg-secondary rounded-full"></div>
+<div class="h-full w-4 bg-outline-variant/30 rounded-full flex-1"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Notification Toggles (Small Span) -->
+<section class="md:col-span-5 bg-surface-container-high rounded-xl p-8 flex flex-col gap-6 overflow-y-auto">
+<h3 class="text-xl font-bold text-on-surface">Notifications</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-bold text-sm text-on-surface">Chat Notifications</span>
+<span class="text-xs text-on-surface-variant">Real-time alerts for new messages</span>
+</div>
+<button class="w-12 h-6 bg-secondary rounded-full relative flex items-center px-1 transition-colors">
+<div class="w-4 h-4 bg-white rounded-full translate-x-6"></div>
+</button>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-bold text-sm text-on-surface">Call Invitations</span>
+<span class="text-xs text-on-surface-variant">Play sound for incoming calls</span>
+</div>
+<button class="w-12 h-6 bg-secondary rounded-full relative flex items-center px-1 transition-colors">
+<div class="w-4 h-4 bg-white rounded-full translate-x-6"></div>
+</button>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-bold text-sm text-on-surface">Email Digests</span>
+<span class="text-xs text-on-surface-variant">Weekly activity summaries</span>
+</div>
+<button class="w-12 h-6 bg-outline-variant rounded-full relative flex items-center px-1 transition-colors">
+<div class="w-4 h-4 bg-white rounded-full translate-x-0"></div>
+</button>
+</div>
+</div>
+<div class="pt-6 border-t border-outline-variant/20">
+<h4 class="text-xs font-bold text-primary uppercase tracking-widest mb-4">Sound Settings</h4>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-bold text-sm text-on-surface">Chat Sounds</span>
+<span class="text-xs text-on-surface-variant">Alert tones for messaging</span>
+</div>
+<button class="w-12 h-6 bg-secondary rounded-full relative flex items-center px-1 transition-colors">
+<div class="w-4 h-4 bg-white rounded-full translate-x-6"></div>
+</button>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-bold text-sm text-on-surface">Call Sounds</span>
+<span class="text-xs text-on-surface-variant">Ringtones for incoming calls</span>
+</div>
+<button class="w-12 h-6 bg-secondary rounded-full relative flex items-center px-1 transition-colors">
+<div class="w-4 h-4 bg-white rounded-full translate-x-6"></div>
+</button>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-4">
+<button class="text-xs font-bold text-primary hover:text-on-primary-fixed-variant transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="history">history</span>
+                        Review notification history
+                    </button>
+</div>
+</section>
+</div>
+<!-- Action Footer -->
+<footer class="mt-12 flex items-center justify-end gap-4 border-t border-outline-variant/10 pt-8">
+<button class="px-8 py-3 text-sm font-bold text-on-surface-variant hover:text-on-surface transition-colors">Discard Changes</button>
+<button class="px-10 py-3 bg-secondary text-on-secondary rounded-full font-bold text-sm shadow-lg shadow-secondary/20 active:scale-95 transition-all">Save Preferences</button>
+</footer>
+</div>
+</main>
+<!-- Mobile Nav Anchor -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface-bright flex items-center justify-around px-6 border-t border-outline-variant/10">
+<button class="text-slate-500 flex flex-col items-center">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+</button>
+<button class="text-slate-500 flex flex-col items-center">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</button>
+<button class="text-primary flex flex-col items-center">
+<span class="material-symbols-outlined" data-icon="settings" style="font-variation-settings: 'FILL' 1;">settings</span>
+</button>
+</nav>
+</body></html>

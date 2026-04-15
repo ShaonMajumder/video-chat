@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#8690ee",
+                    "surface-container-low": "#f5f2fb",
+                    "tertiary-fixed": "#5ffbd6",
+                    "inverse-surface": "#303036",
+                    "surface-variant": "#e4e1ea",
+                    "on-secondary-fixed": "#001f24",
+                    "surface-bright": "#fbf8ff",
+                    "on-background": "#1b1b21",
+                    "tertiary-container": "#00372c",
+                    "on-tertiary-fixed-variant": "#005142",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#006875",
+                    "on-tertiary-fixed": "#002019",
+                    "primary-fixed": "#e0e0ff",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed": "#000767",
+                    "surface-container-highest": "#e4e1ea",
+                    "secondary-fixed-dim": "#00daf3",
+                    "tertiary": "#002018",
+                    "surface-container-high": "#eae7ef",
+                    "outline": "#767683",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "background": "#fbf8ff",
+                    "primary": "#000666",
+                    "on-primary-fixed-variant": "#343d96",
+                    "surface": "#fbf8ff",
+                    "primary-container": "#1a237e",
+                    "primary-fixed-dim": "#bdc2ff",
+                    "on-tertiary-container": "#00ab8e",
+                    "surface-dim": "#dbd9e1",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#00616d",
+                    "tertiary-fixed-dim": "#38debb",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#c6c5d4",
+                    "secondary-fixed": "#9cf0ff",
+                    "on-surface-variant": "#454652",
+                    "secondary-container": "#00e3fd",
+                    "surface-tint": "#4c56af",
+                    "inverse-primary": "#bdc2ff",
+                    "surface-container": "#efecf5",
+                    "on-secondary-fixed-variant": "#004f58",
+                    "inverse-on-surface": "#f2eff8",
+                    "on-surface": "#1b1b21",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(251, 248, 255, 0.7);
+            backdrop-filter: blur(24px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen flex overflow-hidden">
+<!-- SideNavBar Anchor -->
+<aside class="hidden md:flex flex-col h-screen w-64 bg-[#f5f2fb] dark:bg-slate-900 font-manrope text-sm font-medium p-4 gap-2 border-none">
+<!-- Header -->
+<div class="flex flex-col gap-1 mb-8 px-2">
+<h1 class="text-lg font-black text-[#000666] dark:text-white tracking-tighter">VideoChat</h1>
+<p class="text-xs text-slate-600 dark:text-slate-400">Business LAN</p>
+</div>
+<!-- CTA -->
+<button class="mb-6 w-full py-3 bg-[#000666] text-white rounded-full font-bold flex items-center justify-center gap-2 active:scale-[0.98] transition-transform shadow-sm">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+            New Meeting
+        </button>
+<!-- Main Tabs -->
+<nav class="flex flex-col gap-1 flex-grow">
+<!-- Chats Tab (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-[#eae7ef] dark:hover:bg-slate-800 rounded-xl transition-colors group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 transition-transform" data-icon="chat">chat</span>
+                Chats
+            </a>
+<!-- Profile Tab (Active - Logic: Map to current page) -->
+<a class="flex items-center gap-3 px-4 py-3 bg-[#eae7ef] dark:bg-slate-800 text-[#000666] dark:text-white rounded-xl active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+                Profile
+            </a>
+<!-- Settings Tab (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-[#eae7ef] dark:hover:bg-slate-800 rounded-xl transition-colors group" href="#">
+<span class="material-symbols-outlined group-active:scale-95 transition-transform" data-icon="settings">settings</span>
+                Settings
+            </a>
+</nav>
+<!-- Footer Tabs -->
+<div class="mt-auto flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-[#eae7ef] dark:hover:bg-slate-800 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                Support
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-[#eae7ef] dark:hover:bg-slate-800 rounded-xl transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Sign Out
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto relative bg-surface">
+<!-- Header Utility Bar (Mobile/Contextual) -->
+<header class="md:hidden flex items-center justify-between px-6 h-16 bg-surface-container-low">
+<span class="text-xl font-bold tracking-tighter text-primary">VideoChat</span>
+<button class="w-10 h-10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</header>
+<section class="max-w-5xl mx-auto px-6 py-12 md:py-20 lg:px-12">
+<!-- Bento Grid Layout for Profile -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Hero Section: Avatar & Branding (Editorial Minimalist) -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<div class="relative group">
+<div class="w-64 h-64 rounded-xl overflow-hidden bg-surface-container shadow-sm border-none">
+<img alt="Alex Sterling Profile" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="Close-up studio portrait of a confident man with short hair in a professional minimalist aesthetic, soft natural lighting, neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNK3c1_cT2gx958KVqXeGrwnlL_bB867wjq3NsRtHuoHmPSQ_duRAE3LzW3tYUQHzC0N0N3gjAioFTFweQ5wCagIxzy3Wod-VDIYmDXlve6lQ9wUNz6bmSR0nWDMHFLr6WDXWhLCqWpM4fIU8SpaKwZiRWjoVJq1zWzyreaJhLIxeHPPUEI4mc5DQtQzbDKChpcuFdGMtADcd2o4aiQ5lQer2d5BW0KdXF9beVmFh9HAB0FouPsCwHLL6hJUNSKTW8ZbRml_QyvM0"/>
+</div>
+<button class="absolute -bottom-4 -right-4 bg-secondary-fixed text-on-secondary-fixed p-4 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-transform flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="photo_camera">photo_camera</span>
+</button>
+</div>
+<div class="mt-4">
+<h2 class="text-5xl font-extrabold font-headline tracking-tighter text-primary mb-2">Alex Sterling</h2>
+<p class="text-xl text-on-surface-variant font-medium">Design Director</p>
+</div>
+<button class="mt-4 flex items-center justify-center gap-2 bg-primary text-on-primary py-4 px-8 rounded-full font-bold text-sm tracking-wide active:scale-95 transition-transform w-fit">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+                        Edit Profile
+                    </button>
+</div>
+<!-- Info Sections (Asymmetric Layout) -->
+<div class="lg:col-span-7 flex flex-col gap-12 pt-8 lg:pt-0">
+<!-- Status Message Section -->
+<div class="flex flex-col gap-4">
+<label class="text-xs font-bold uppercase tracking-widest text-outline">Status Message</label>
+<div class="relative group">
+<input class="w-full bg-transparent border-none border-b-2 border-surface-variant py-4 px-0 text-lg font-medium text-on-surface focus:ring-0 focus:border-secondary transition-colors placeholder:text-outline-variant" placeholder="What's on your mind?" type="text" value="Synthesizing clarity from complexity. Open for design syncs."/>
+<span class="absolute right-0 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline-variant group-hover:text-secondary transition-colors" data-icon="edit_note">edit_note</span>
+</div>
+</div>
+<!-- Meta Info Bento -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Card 1: Contact -->
+<div class="bg-surface-container-lowest p-8 rounded-xl flex flex-col gap-6 shadow-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="alternate_email">alternate_email</span>
+<span class="text-xs font-bold uppercase tracking-widest text-outline">Contact</span>
+</div>
+<div class="flex flex-col gap-2">
+<p class="text-body font-semibold">alex.sterling@velocity.io</p>
+<p class="text-body text-on-surface-variant text-sm">+1 (555) 234-8901</p>
+</div>
+</div>
+<!-- Card 2: Workspace -->
+<!-- Card 3: Recent Activity (Spans full width) -->
+</div>
+</div>
+</div>
+</section>
+<!-- Floating Decorative Element (Velocity in Stillness) -->
+</main>
+<!-- Mobile Bottom Navigation (Only visible on small screens) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface-container-low flex items-center justify-around px-4 border-none shadow-lg z-50">
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</a>
+</nav>
+</body></html>
