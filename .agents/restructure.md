@@ -94,3 +94,13 @@ failed to solve: process "/bin/sh -c apt-get update && apt-get install -y     ng
 ---
 
 allow https on Lan http://192.168.0.104:8080/ and localhost:8080 
+
+---
+
+altough another user is logged in https://192.168.50.104:8080 still shows offline
+
+---
+
+even trying from same pc, still shows offline
+
+---

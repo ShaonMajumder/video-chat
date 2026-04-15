@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Middleware\AuthenticateWithCookie;
 use App\Http\Middleware\CorsMiddleware;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login'])
@@ -11,6 +13,10 @@ Route::post('/login', [AuthController::class, 'login'])
     ->name('login.submit');
 
 Route::middleware([AuthenticateWithCookie::class, 'throttle:api'])->group(function () {
+    Route::match(['get', 'post'], '/realtime/auth', function (Request $request) {
+        return Broadcast::auth($request);
+    })->name('broadcast.auth');
+
     Route::get('/session', [AuthController::class, 'session'])->name('api.session');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/call-state', [ChatController::class, 'callState'])->name('api.call.state');

@@ -633,7 +633,7 @@ function initWorkspace() {
                 }
             });
 
-        window.Echo.join('presence.online')
+        window.Echo.join('online')
             .here((users) => {
                 state.onlineIds = new Set(users.map((user) => user.id).filter((id) => id !== state.currentUser.id));
                 renderContacts();
@@ -651,6 +651,9 @@ function initWorkspace() {
             .leaving((user) => {
                 state.onlineIds.delete(user.id);
                 renderContacts();
+            })
+            .error((error) => {
+                window.log('presence subscription error', error);
             });
     }
 
@@ -704,4 +707,3 @@ if (page === 'login') {
 if (page === 'workspace') {
     initWorkspace();
 }
-

@@ -37,7 +37,7 @@ Broadcast::channel('message-box.{userId}', function ($user, $userId) {
     return $currentUser && (int) $currentUser->id === (int) $userId;
 });
 
-Broadcast::channel('presence.online', function ($user) {
+Broadcast::channel('online', function ($user) {
     $currentUser = resolveBroadcastUser($user);
 
     if (! $currentUser) {
