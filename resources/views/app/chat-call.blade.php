@@ -39,9 +39,15 @@
         <section class="conversation-layout">
             <section class="conversation-panel">
                 <header class="conversation-panel__header">
-                    <div>
+                    <div class="conversation-panel__hero">
                         <h1 id="peer-name">Select a peer</h1>
                         <p id="peer-meta">Open a conversation from the chat hub to begin messaging and calls.</p>
+                    </div>
+                    <div class="conversation-panel__actions">
+                        <button id="call-launch" class="conversation-call-launch" type="button" disabled>
+                            <span class="material-symbols-outlined">videocam</span>
+                            <span>Start Call</span>
+                        </button>
                     </div>
                     <div id="incoming-call-banner" class="incoming-banner" hidden>
                         <div>
@@ -66,7 +72,7 @@
                 </form>
             </section>
 
-            <aside class="call-panel">
+            <aside id="call-panel" class="call-panel is-hidden" aria-hidden="true">
                 <article class="video-stage">
                     <div class="video-stage__badge"><i></i><span id="call-status">Idle</span></div>
                     <video id="remote-video" class="video-stage__media" autoplay playsinline></video>

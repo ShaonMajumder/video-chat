@@ -17,7 +17,7 @@ class CorsMiddleware
     public function handle(Request $request, Closure $next)
     {
         $configuredOrigin = env('APP_FRONTEND_URL');
-        $requestOrigin = $request->getSchemeAndHttpHost();
+        $requestOrigin = $request->getScheme().'://'.$request->getHttpHost();
         $origin = $request->headers->get('origin');
         $referer = $request->headers->get('referer');
         $allowedOrigins = array_filter([

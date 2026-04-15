@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Events\NewMessage;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class ChatController extends Controller
 {
+    protected const OFFER_TTL_SECONDS = 8;
+    protected const CALL_CACHE_MINUTES = 1;
+    protected const ENDED_CALL_TTL_SECONDS = 10;
+
     public function dashboard(Request $request)
     {
         return view('app.dashboard');
@@ -68,7 +73,14 @@ class ChatController extends Controller
     public function callState(Request $request): JsonResponse
     {
         $peerId = $this->validatedPeerId($request);
-        $state = Cache::get($this->callKey($request->get('user')->id, $peerId), []);
+        $key = $this->callKey($request->get('user')->id, $peerId);
+        $state = $this->pruneExpiredCallState(Cache::get($key, []));
+
+        if ($state === []) {
+            Cache::forget($key);
+        } else {
+            Cache::put($key, $state, now()->addMinutes(self::CALL_CACHE_MINUTES));
+        }
 
         return response()->json([
             'call' => $state,
@@ -153,20 +165,20 @@ class ChatController extends Controller
         abort_if($peerId === $userId, 422, 'Peer is invalid.');
 
         $key = $this->callKey($userId, $peerId);
-        $state = Cache::get($key, [
+        $state = $this->pruneExpiredCallState(Cache::get($key, [
             'participants' => [$userId, $peerId],
             'offer' => null,
             'answer' => null,
             'candidates' => [],
             'ended_at' => null,
             'updated_at' => null,
-        ]);
+        ]));
 
         $state = $mutator($state, $userId);
         $state['participants'] = [$userId, $peerId];
         $state['updated_at'] = now()->toIso8601String();
 
-        Cache::put($key, $state, now()->addMinutes(15));
+        Cache::put($key, $state, now()->addMinutes(self::CALL_CACHE_MINUTES));
 
         return response()->json(['call' => $state]);
     }
@@ -188,5 +200,48 @@ class ChatController extends Controller
         [$low, $high] = collect([$a, $b])->sort()->values()->all();
 
         return "call:{$low}:{$high}";
+    }
+
+    protected function pruneExpiredCallState(array $state): array
+    {
+        if ($state === []) {
+            return [];
+        }
+
+        $offerUpdatedAt = data_get($state, 'offer.updated_at');
+        $hasAnswer = !empty($state['answer']);
+        $hasEnded = !empty($state['ended_at']);
+
+        if ($hasEnded) {
+            $endedAt = data_get($state, 'ended_at');
+
+            if (!$endedAt) {
+                return [];
+            }
+
+            try {
+                $endedAgeSeconds = Carbon::parse($endedAt)->diffInSeconds(now());
+            } catch (\Throwable) {
+                $endedAgeSeconds = self::ENDED_CALL_TTL_SECONDS + 1;
+            }
+
+            return $endedAgeSeconds <= self::ENDED_CALL_TTL_SECONDS ? $state : [];
+        }
+
+        if (!$offerUpdatedAt || $hasAnswer) {
+            return $state;
+        }
+
+        try {
+            $offerAgeSeconds = Carbon::parse($offerUpdatedAt)->diffInSeconds(now());
+        } catch (\Throwable) {
+            $offerAgeSeconds = self::OFFER_TTL_SECONDS + 1;
+        }
+
+        if ($offerAgeSeconds <= self::OFFER_TTL_SECONDS) {
+            return $state;
+        }
+
+        return [];
     }
 }

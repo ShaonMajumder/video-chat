@@ -186,3 +186,86 @@ use existing tech stack of the system, convert or translate the design to the ex
 and the final view of the pages has to be exact with the ui design folder pngs
 
 keep the existing functional feature working dont break them
+
+---
+
+[unresolved] 
+
+According to new UI design done by SRS
+
+SRS link - documents/video_chat_srs.md
+UI designs of home page attached
+
+update the public home page,
+
+'Stop waiting and start doing' this section does not match with ui designs
+
+---
+
+https://192.168.50.104:8080/login
+after login page redirecting to
+https://192.168.50.104/app/
+
+but it should https://192.168.50.104:<port>/app/
+
+---
+
+Route::redirect('/home', '/app')->name('home'); instead of this , directly send to /app after login instead of home
+
+---
+
+after login, do not redirect with port. expected https://192.168.50.104:8080/app/
+redirecting to https://192.168.50.104/app/
+
+---
+
+remove app/ complexity from the routes, keep everything functional as previous, just remove app/ from routes
+
+---
+
+call screen is always available, it should appear when called or receive call
+make calling feature functional
+
+---
+
+stil incoming call message appears without calling, it apears on page load. fixit
+
+---
+
+incoming call message should only appear when someone trying to call me, https://192.168.50.104:8080/chat/{id}
+
+---
+
+currently on page load https://192.168.50.104:8080/chat/{id}
+
+"""
+INCOMING CALL
+Someone is calling
+Accept to join the live session.
+"""
+
+this banner appears
+
+but I want it only when some one is calling me, and with their name like - Alex is calling
+
+---
+
+Now the incoming banner does not appear on page load - this is ok now
+But when someone is calling me the incoming call banner is not stable appears, it flashes and hides
+
+--- 
+
+when clicked accept in incoming call banner -
+Failed to execute 'setRemoteDescription' on 'RTCPeerConnection': Failed to parse SessionDescription. a=ssrc:2752782870 label:679bd3f6-0ac1-46cd-bd43-c1f8a433467b Invalid SDP line.
+
+we have solved it in previous commits, u can look at
+commit 0829e23be7235948a98eeef94bc48c96ccbc4c17
+Author: Shaon Majumder <smazoomder@gmail.com>
+Date:   Wed Apr 15 13:28:06 2026 +0600
+
+or more previous commit
+
+solve it
+
+---
+

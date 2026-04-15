@@ -498,21 +498,91 @@ p {
     color: var(--primary);
 }
 
+.cta-section {
+    display: flex;
+    justify-content: center;
+}
+
 .cta-card {
     position: relative;
+    width: min(760px, 100%);
     overflow: hidden;
-    padding: 58px;
-    border-radius: 40px;
-    background: linear-gradient(135deg, #182588, #1f2f99);
+    padding: 46px 44px 40px;
+    border-radius: 28px;
+    background: linear-gradient(180deg, #213094 0%, #1a2586 100%);
     color: #fff;
     text-align: center;
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 18px 42px rgba(18, 26, 134, 0.22);
+}
+
+.cta-card::before,
+.cta-card::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.22;
+}
+
+.cta-card::before {
+    width: 240px;
+    height: 240px;
+    right: -110px;
+    top: -130px;
+    background: radial-gradient(circle, rgba(91, 238, 255, 0.9), transparent 68%);
+}
+
+.cta-card::after {
+    width: 200px;
+    height: 200px;
+    left: -120px;
+    bottom: -120px;
+    background: radial-gradient(circle, rgba(93, 126, 255, 0.95), transparent 70%);
+}
+
+.cta-card h2 {
+    position: relative;
+    z-index: 1;
+    font-size: clamp(2.25rem, 4vw, 3.35rem);
+    line-height: 1.04;
 }
 
 .cta-card p {
-    max-width: 620px;
-    margin: 14px auto 30px;
-    color: rgba(255, 255, 255, 0.76);
+    position: relative;
+    z-index: 1;
+    max-width: 520px;
+    margin: 12px auto 2px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.98rem;
+}
+
+.cta-caption {
+    position: relative;
+    z-index: 1;
+    display: block;
+    margin-bottom: 26px;
+    color: rgba(255, 255, 255, 0.56);
+    font-size: 0.8rem;
+}
+
+.cta-actions {
+    position: relative;
+    z-index: 1;
+    justify-content: center;
+    gap: 12px;
+}
+
+.cta-actions .marketing-button {
+    min-height: 44px;
+    padding: 0 24px;
+    font-size: 0.9rem;
+    box-shadow: none;
+}
+
+.cta-actions .marketing-button--outline {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.92);
 }
 
 .marketing-footer {
@@ -1353,6 +1423,36 @@ p {
     padding: 6px 6px 16px;
 }
 
+.conversation-panel__hero {
+    display: grid;
+    gap: 6px;
+}
+
+.conversation-panel__actions {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.conversation-call-launch {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 999px;
+    background: var(--primary);
+    color: #fff;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    box-shadow: 0 12px 24px rgba(18, 26, 134, 0.14);
+}
+
+.conversation-call-launch:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
 .conversation-panel__header h1 {
     color: var(--primary);
     font-family: 'Manrope', sans-serif;
@@ -1367,6 +1467,10 @@ p {
     padding: 16px 18px;
     border-radius: 18px;
     background: rgba(139, 229, 244, 0.18);
+}
+
+.incoming-banner[hidden] {
+    display: none;
 }
 
 .incoming-banner span {
@@ -1526,6 +1630,10 @@ p {
     display: grid;
     gap: 18px;
     align-content: start;
+}
+
+.call-panel.is-hidden {
+    display: none;
 }
 
 .video-stage {
@@ -2035,6 +2143,12 @@ p {
     .dashboard-panel,
     .settings-card {
         padding: 22px;
+    }
+
+    .cta-card {
+        width: 100%;
+        padding: 34px 24px 28px;
+        border-radius: 24px;
     }
 
     .conversation-panel {

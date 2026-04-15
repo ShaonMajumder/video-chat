@@ -132,7 +132,8 @@
         <section class="cta-section">
             <div class="cta-card">
                 <h2>Stop Waiting. Start Doing.</h2>
-                <p>Experience the world's fastest local communication tool. Free for up to 10 users.</p>
+                <p>Experience the world's fastest local communication tool.</p>
+                <span class="cta-caption">Free for up to 10 users.</span>
                 <div class="cta-actions">
                     <a class="marketing-button marketing-button--cyan" href="{{ route('login') }}">Start Free Trial</a>
                     <a class="marketing-button marketing-button--outline" href="{{ route('login') }}">Enterprise Quote</a>

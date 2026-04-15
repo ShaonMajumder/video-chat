@@ -50,7 +50,19 @@ function buildAvatarMarkup(name = 'User') {
 }
 
 function appRouteForPeer(peerId) {
-    return `/app/chat/${peerId}`;
+    return new URL(`/chat/${peerId}`, window.location.origin).toString();
+}
+
+function appCallRouteForPeer(peerId) {
+    return new URL(`/chat/${peerId}?call=1`, window.location.origin).toString();
+}
+
+function appUrl(path = '/dashboard') {
+    return new URL(path, window.location.origin).toString();
+}
+
+function localPath(path = '/dashboard') {
+    return path.startsWith('/') ? path : `/${path}`;
 }
 
 function initLoginPage() {
@@ -73,7 +85,7 @@ function initLoginPage() {
                 password: formData.get('password'),
             });
 
-            window.location.href = result.redirect || '/app';
+            window.location.href = localPath(result.redirect || '/dashboard');
         } catch (error) {
             errorBox.hidden = false;
             errorBox.textContent = error.message;
@@ -133,6 +145,8 @@ function initAppPages() {
         localVideoEmptyCopy: document.getElementById('local-video-empty-copy'),
         remoteVideoEmpty: document.getElementById('remote-video-empty'),
         callStatus: document.getElementById('call-status'),
+        callPanel: document.getElementById('call-panel'),
+        callLaunch: document.getElementById('call-launch'),
         cameraToggle: document.getElementById('camera-toggle'),
         micToggle: document.getElementById('mic-toggle'),
         callToggle: document.getElementById('call-toggle'),
@@ -166,21 +180,28 @@ function initAppPages() {
         ringtoneTimer: null,
         audioContext: null,
         incomingCall: null,
+        incomingCallMisses: 0,
         signaling: {
             offerAt: null,
             answerAt: null,
             candidateCounts: {},
             endedAt: null,
+            localOfferSentAt: null,
         },
         media: {
             videoEnabled: false,
             audioEnabled: false,
         },
+        callUiVisible: false,
+        outgoingCallPending: false,
         secureContext: window.isSecureContext || ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname),
     };
 
     const query = new URLSearchParams(window.location.search);
+    const shouldAutostartCall = query.get('call') === '1';
     const insecureContextMessage = `Camera and mic are blocked on ${window.location.origin}. Open this app through HTTPS on your LAN IP or use localhost on this device.`;
+    const incomingOfferMaxAgeMs = 8_000;
+    const outgoingOfferRefreshMs = 3_000;
 
     function selectedPeer() {
         return state.contacts.find((contact) => contact.id === state.selectedPeerId) || null;
@@ -230,6 +251,78 @@ function initAppPages() {
         }
     }
 
+    function isFreshOffer(offer, peerId = null) {
+        if (!offer || !offer.updated_at) {
+            return false;
+        }
+
+        if (peerId !== null && offer.from !== peerId) {
+            return false;
+        }
+
+        const updatedAt = Date.parse(offer.updated_at);
+
+        if (Number.isNaN(updatedAt)) {
+            return false;
+        }
+
+        return (Date.now() - updatedAt) <= incomingOfferMaxAgeMs;
+    }
+
+    async function refreshOutgoingOfferIfNeeded() {
+        const peer = selectedPeer();
+
+        if (!state.outgoingCallPending || !state.peerConnection || !peer) {
+            return;
+        }
+
+        const localDescription = state.peerConnection.localDescription;
+
+        if (!localDescription) {
+            return;
+        }
+
+        const lastSentAt = state.signaling.localOfferSentAt ? Date.parse(state.signaling.localOfferSentAt) : 0;
+
+        if (!lastSentAt || Number.isNaN(lastSentAt) || (Date.now() - lastSentAt) < outgoingOfferRefreshMs) {
+            return;
+        }
+
+        try {
+            const result = await sendJson(urls.offer, 'POST', {
+                peer_id: peer.id,
+                sdp: sanitizeSessionDescription(localDescription),
+            });
+
+            state.signaling.offerAt = result.call?.offer?.updated_at || new Date().toISOString();
+            state.signaling.localOfferSentAt = state.signaling.offerAt;
+        } catch (error) {
+            window.log('offer refresh error', error.message);
+        }
+    }
+
+    function setCallUiVisible(visible) {
+        state.callUiVisible = visible;
+
+        if (els.callPanel) {
+            els.callPanel.classList.toggle('is-hidden', !visible);
+            els.callPanel.setAttribute('aria-hidden', visible ? 'false' : 'true');
+        }
+
+        if (els.callLaunch) {
+            els.callLaunch.hidden = visible;
+        }
+    }
+
+    function syncCallLaunchButton() {
+        if (!els.callLaunch) {
+            return;
+        }
+
+        const peer = selectedPeer();
+        els.callLaunch.disabled = !peer || !!state.peerConnection || !!state.incomingCall;
+    }
+
     function updatePeerText() {
         const peer = selectedPeer();
 
@@ -262,7 +355,7 @@ function initAppPages() {
 
         if (els.dashboardQuickCall) {
             const target = state.contacts[0];
-            els.dashboardQuickCall.href = target ? appRouteForPeer(target.id) : '/app/chat';
+            els.dashboardQuickCall.href = target ? appCallRouteForPeer(target.id) : appUrl('/chat');
         }
 
         if (els.onlineCountPill) {
@@ -306,8 +399,8 @@ function initAppPages() {
                     <div class="chat-card__meta">
                         <span class="chat-card__time">${unread ? 'NOW' : 'LIVE'}</span>
                         <div class="chat-card__actions">
-                            <a class="chat-card__button" href="${appRouteForPeer(contact.id)}"><span class="material-symbols-outlined">call</span></a>
-                            <a class="chat-card__button chat-card__button--video" href="${appRouteForPeer(contact.id)}"><span class="material-symbols-outlined">videocam</span></a>
+                            <a class="chat-card__button" href="${appCallRouteForPeer(contact.id)}"><span class="material-symbols-outlined">call</span></a>
+                            <a class="chat-card__button chat-card__button--video" href="${appCallRouteForPeer(contact.id)}"><span class="material-symbols-outlined">videocam</span></a>
                         </div>
                     </div>
                 `;
@@ -354,6 +447,8 @@ function initAppPages() {
             if (els.callToggle) {
                 els.callToggle.disabled = true;
             }
+            syncCallLaunchButton();
+            setCallUiVisible(false);
             updatePeerText();
             return;
         }
@@ -368,6 +463,7 @@ function initAppPages() {
         if (els.callToggle) {
             els.callToggle.disabled = false;
         }
+        syncCallLaunchButton();
 
         const date = document.createElement('div');
         date.className = 'conversation-date-separator';
@@ -469,6 +565,13 @@ function initAppPages() {
                 ? 'Preview unavailable'
                 : 'Receive-only until HTTPS or localhost is available.';
         }
+
+        if (els.callToggle) {
+            const callIcon = els.callToggle.querySelector('.material-symbols-outlined');
+            if (callIcon) {
+                callIcon.textContent = state.peerConnection ? 'call_end' : 'videocam';
+            }
+        }
     }
 
     function playRingBurst() {
@@ -521,10 +624,15 @@ function initAppPages() {
 
     function clearIncomingCall() {
         state.incomingCall = null;
+        state.incomingCallMisses = 0;
         if (els.incomingCallBanner) {
             els.incomingCallBanner.hidden = true;
         }
         stopRingtone();
+        if (!state.peerConnection && !state.outgoingCallPending) {
+            setCallUiVisible(false);
+        }
+        syncCallLaunchButton();
     }
 
     function setIncomingCall(peer, offer) {
@@ -535,6 +643,7 @@ function initAppPages() {
             offer,
             canReceiveOnly: !canCaptureLocalMedia(),
         };
+        state.incomingCallMisses = 0;
 
         if (els.incomingCallBanner) {
             els.incomingCallBanner.hidden = false;
@@ -548,6 +657,8 @@ function initAppPages() {
                 : 'Accept to join the live audio and video session.';
         }
         updateCallStatus('REC • 00:00');
+        setCallUiVisible(true);
+        syncCallLaunchButton();
         startRingtone();
     }
 
@@ -556,9 +667,90 @@ function initAppPages() {
             return description;
         }
 
+        const normalizedSdp = description.sdp.replace(/\r?\n/g, '\r\n');
+        const lines = normalizedSdp.split('\r\n');
+        const blockedCodecNames = new Set(['rtx', 'red', 'ulpfec', 'flexfec']);
+        const sanitizedLines = [];
+        let currentSection = null;
+
+        function flushSection() {
+            if (!currentSection) {
+                return;
+            }
+
+            const payloads = currentSection.mediaLineParts.slice(3);
+            const codecByPayload = new Map();
+
+            currentSection.lines.forEach((line) => {
+                const match = line.match(/^a=rtpmap:(\d+)\s+([^/\s]+)/i);
+
+                if (match) {
+                    codecByPayload.set(match[1], match[2].toLowerCase());
+                }
+            });
+
+            const blockedPayloads = new Set(
+                payloads.filter((payloadType) => blockedCodecNames.has(codecByPayload.get(payloadType)))
+            );
+
+            const allowedPayloads = payloads.filter((payloadType) => !blockedPayloads.has(payloadType));
+
+            sanitizedLines.push('m=' + [
+                currentSection.mediaLineParts[0],
+                currentSection.mediaLineParts[1],
+                currentSection.mediaLineParts[2],
+                ...allowedPayloads,
+            ].join(' '));
+
+            currentSection.lines.forEach((line) => {
+                if (line.startsWith('a=ssrc:') || line.startsWith('a=ssrc-group:')) {
+                    return;
+                }
+
+                const payloadMatch = line.match(/^a=(?:fmtp|rtpmap|rtcp-fb):(\d+)\b/i);
+
+                if (payloadMatch) {
+                    const payloadType = payloadMatch[1];
+
+                    if (!allowedPayloads.includes(payloadType)) {
+                        return;
+                    }
+
+                    if (/^a=fmtp:\d+\s+repair-window=\d+$/i.test(line)) {
+                        return;
+                    }
+                }
+
+                sanitizedLines.push(line);
+            });
+
+            currentSection = null;
+        }
+
+        for (const rawLine of lines) {
+            const line = rawLine.trimEnd();
+
+            if (line.startsWith('m=')) {
+                flushSection();
+                currentSection = {
+                    mediaLineParts: line.slice(2).trim().split(/\s+/),
+                    lines: [],
+                };
+                continue;
+            }
+
+            if (currentSection) {
+                currentSection.lines.push(line);
+            } else {
+                sanitizedLines.push(line);
+            }
+        }
+
+        flushSection();
+
         return {
             type: description.type,
-            sdp: description.sdp.replace(/\r?\n/g, '\r\n'),
+            sdp: `${sanitizedLines.join('\r\n')}\r\n`,
         };
     }
 
@@ -609,8 +801,12 @@ function initAppPages() {
             answerAt: null,
             candidateCounts: {},
             endedAt: null,
+            localOfferSentAt: null,
         };
+        state.outgoingCallPending = false;
         updateCallStatus('Idle');
+        setCallUiVisible(false);
+        syncCallLaunchButton();
         updateVideoState();
     }
 
@@ -634,7 +830,10 @@ function initAppPages() {
             if (els.remoteVideo) {
                 els.remoteVideo.srcObject = state.remoteStream;
             }
+            state.outgoingCallPending = false;
             updateCallStatus('REC • LIVE');
+            setCallUiVisible(true);
+            syncCallLaunchButton();
             updateVideoState();
         };
 
@@ -657,9 +856,12 @@ function initAppPages() {
             const connectionState = connection.connectionState;
 
             if (connectionState === 'connected') {
+                state.outgoingCallPending = false;
                 updateCallStatus('REC • LIVE');
+                setCallUiVisible(true);
             } else if (['connecting', 'new'].includes(connectionState)) {
                 updateCallStatus('CONNECTING');
+                setCallUiVisible(true);
             } else if (['disconnected', 'failed', 'closed'].includes(connectionState)) {
                 closePeerConnection(connectionState !== 'closed');
             }
@@ -753,6 +955,20 @@ function initAppPages() {
             return;
         }
 
+        const activeIncomingOffer = isFreshOffer(call.offer, peer.id) && !call.answer && !call.ended_at;
+
+        if (activeIncomingOffer) {
+            state.incomingCallMisses = 0;
+        }
+
+        if (!activeIncomingOffer && state.incomingCall?.peerId === peer.id && !state.peerConnection) {
+            state.incomingCallMisses += 1;
+
+            if (state.incomingCallMisses >= 2) {
+                clearIncomingCall();
+            }
+        }
+
         if (call.ended_at && call.ended_at !== state.signaling.endedAt) {
             state.signaling.endedAt = call.ended_at;
             clearIncomingCall();
@@ -760,7 +976,7 @@ function initAppPages() {
             return;
         }
 
-        if (call.offer && call.offer.from === peer.id && call.offer.updated_at !== state.signaling.offerAt) {
+        if (activeIncomingOffer && call.offer.updated_at !== state.signaling.offerAt) {
             if (!state.peerConnection && (!state.incomingCall || state.incomingCall.offer.updated_at !== call.offer.updated_at)) {
                 setIncomingCall(peer, call.offer);
                 return;
@@ -778,22 +994,32 @@ function initAppPages() {
     }
 
     async function detectIncomingCall() {
+        let foundIncoming = false;
+
         for (const peer of state.contacts) {
             try {
                 const call = await fetchCallState(peer.id);
 
                 if (
-                    call.offer &&
-                    call.offer.from === peer.id &&
+                    isFreshOffer(call.offer, peer.id) &&
                     !call.answer &&
                     !call.ended_at &&
                     (!state.incomingCall || state.incomingCall.offer.updated_at !== call.offer.updated_at)
                 ) {
+                    foundIncoming = true;
                     setIncomingCall(peer, call.offer);
                     return;
                 }
             } catch (error) {
                 window.log('incoming call detection error', error.message);
+            }
+        }
+
+        if (!foundIncoming && !state.peerConnection && state.incomingCall) {
+            state.incomingCallMisses += 1;
+
+            if (state.incomingCallMisses >= 2) {
+                clearIncomingCall();
             }
         }
     }
@@ -802,6 +1028,8 @@ function initAppPages() {
         const peer = selectedPeer();
 
         try {
+            await refreshOutgoingOfferIfNeeded();
+
             if (peer) {
                 const call = await fetchCallState(peer.id);
                 await handleCallState(call);
@@ -831,6 +1059,10 @@ function initAppPages() {
             return;
         }
 
+        setCallUiVisible(true);
+        state.outgoingCallPending = true;
+        syncCallLaunchButton();
+
         if (canCaptureLocalMedia()) {
             try {
                 await ensureLocalStream();
@@ -844,10 +1076,13 @@ function initAppPages() {
 
         const offer = await connection.createOffer();
         await connection.setLocalDescription(offer);
-        await sendJson(urls.offer, 'POST', {
+        const result = await sendJson(urls.offer, 'POST', {
             peer_id: peer.id,
             sdp: sanitizeSessionDescription(connection.localDescription ?? offer),
         });
+
+        state.signaling.offerAt = result.call?.offer?.updated_at || new Date().toISOString();
+        state.signaling.localOfferSentAt = state.signaling.offerAt;
 
         updateCallStatus('RINGING');
     }
@@ -874,8 +1109,10 @@ function initAppPages() {
 
         state.selectedPeerId = incoming.peerId;
         state.signaling.offerAt = incoming.offer.updated_at;
+        state.outgoingCallPending = false;
         clearIncomingCall();
         renderAll();
+        setCallUiVisible(true);
 
         const connection = await ensurePeerConnection();
         await syncLocalTracks();
@@ -948,10 +1185,12 @@ function initAppPages() {
     function selectPeer(peerId) {
         state.selectedPeerId = peerId;
         state.unread[peerId] = 0;
+        state.outgoingCallPending = false;
 
         if (pageKind === 'chat-call') {
             updatePeerText();
             renderConversation();
+            syncCallLaunchButton();
             updateMediaNotice(canCaptureLocalMedia() ? '' : 'This device can join calls in receive-only mode until camera/mic access is available over HTTPS or localhost.');
         }
     }
@@ -1090,14 +1329,18 @@ function initAppPages() {
             wireThemeToggles();
             populateDevices();
             updateVideoState();
+            syncCallLaunchButton();
 
             if (pageKind === 'chat-call' && state.selectedPeerId) {
                 selectPeer(state.selectedPeerId);
+                if (shouldAutostartCall) {
+                    startCall().catch((error) => updateMediaNotice(error.message));
+                }
             }
         } catch (error) {
             window.log('bootstrap error', error.message);
             if (page.startsWith('app-')) {
-                window.location.href = '/login';
+                window.location.href = appUrl('/login');
             }
         }
     }
@@ -1117,6 +1360,9 @@ function initAppPages() {
     if (els.callToggle) {
         els.callToggle.addEventListener('click', () => toggleCall().catch((error) => updateMediaNotice(error.message)));
     }
+    if (els.callLaunch) {
+        els.callLaunch.addEventListener('click', () => startCall().catch((error) => updateMediaNotice(error.message)));
+    }
     if (els.acceptCall) {
         els.acceptCall.addEventListener('click', () => acceptIncomingCall().catch((error) => updateMediaNotice(error.message)));
     }
@@ -1129,7 +1375,7 @@ function initAppPages() {
                 await sendJson(urls.logout, 'POST');
             } finally {
                 stopRingtone();
-                window.location.href = '/login';
+                window.location.href = appUrl('/login');
             }
         });
     }
