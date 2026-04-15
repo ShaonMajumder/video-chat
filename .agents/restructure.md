@@ -104,3 +104,15 @@ altough another user is logged in https://192.168.50.104:8080 still shows offlin
 even trying from same pc, still shows offline
 
 ---
+
+now even if one pc don't have mic and camera, still it will receive video and audio feed
+
+---
+
+no ringing mechanism when called
+
+---
+
+when tried to receive call : Failed to execute 'setRemoteDescription' on 'RTCPeerConnection': Failed to parse SessionDescription. a=ssrc:2269663669 label:b4c106ce-5455-4c63-b5f6-5205910e31ea Invalid SDP line.
+
+---

@@ -53,6 +53,17 @@
                     <h1 id="peer-name">Select a peer</h1>
                     <p id="peer-meta" class="muted-text">Choose someone from the roster to begin chat or video.</p>
                     <p id="media-notice" class="media-notice" hidden></p>
+                    <div id="incoming-call-banner" class="incoming-call-banner" hidden>
+                        <div class="incoming-call-copy">
+                            <p class="eyebrow">Incoming call</p>
+                            <strong id="incoming-call-title">Someone is calling</strong>
+                            <span id="incoming-call-text">Accept to join the live session.</span>
+                        </div>
+                        <div class="incoming-call-actions">
+                            <button id="decline-call" class="button-secondary incoming-decline" type="button">Decline</button>
+                            <button id="accept-call" class="button-primary" type="button">Accept</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="stage-actions">
                     <button id="camera-toggle" class="button-secondary" type="button">Camera on</button>

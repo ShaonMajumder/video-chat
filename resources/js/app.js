@@ -93,6 +93,11 @@ function initWorkspace() {
         peerName: document.getElementById('peer-name'),
         peerMeta: document.getElementById('peer-meta'),
         mediaNotice: document.getElementById('media-notice'),
+        incomingCallBanner: document.getElementById('incoming-call-banner'),
+        incomingCallTitle: document.getElementById('incoming-call-title'),
+        incomingCallText: document.getElementById('incoming-call-text'),
+        acceptCall: document.getElementById('accept-call'),
+        declineCall: document.getElementById('decline-call'),
         contactCount: document.getElementById('contact-count'),
         contactList: document.getElementById('contact-list'),
         callStatus: document.getElementById('call-status'),
@@ -124,6 +129,9 @@ function initWorkspace() {
         remoteStream: null,
         peerConnection: null,
         pollingTimer: null,
+        ringtoneTimer: null,
+        audioContext: null,
+        incomingCall: null,
         signaling: {
             offerAt: null,
             answerAt: null,
@@ -145,12 +153,104 @@ function initWorkspace() {
         els.callStatus.className = `status-pill ${tone}`.trim();
     }
 
+    function playRingBurst() {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+
+        if (!AudioContextClass) {
+            return;
+        }
+
+        if (!state.audioContext) {
+            state.audioContext = new AudioContextClass();
+        }
+
+        const context = state.audioContext;
+
+        if (context.state === 'suspended') {
+            context.resume().catch(() => {});
+        }
+
+        const now = context.currentTime;
+        const gain = context.createGain();
+        gain.connect(context.destination);
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(0.06, now + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.28);
+
+        [0, 0.34].forEach((offset) => {
+            const oscillator = context.createOscillator();
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(880, now + offset);
+            oscillator.connect(gain);
+            oscillator.start(now + offset);
+            oscillator.stop(now + offset + 0.24);
+        });
+    }
+
+    function stopRingtone() {
+        if (state.ringtoneTimer) {
+            clearInterval(state.ringtoneTimer);
+            state.ringtoneTimer = null;
+        }
+    }
+
+    function startRingtone() {
+        if (state.ringtoneTimer) {
+            return;
+        }
+
+        playRingBurst();
+        state.ringtoneTimer = window.setInterval(playRingBurst, 1800);
+    }
+
+    function updateIncomingCallUi() {
+        const incoming = state.incomingCall;
+
+        if (!els.incomingCallBanner) {
+            return;
+        }
+
+        if (!incoming) {
+            els.incomingCallBanner.hidden = true;
+            stopRingtone();
+            return;
+        }
+
+        els.incomingCallBanner.hidden = false;
+        els.incomingCallTitle.textContent = `${incoming.name} is calling`;
+        els.incomingCallText.textContent = incoming.canReceiveOnly
+            ? 'This device can join in receive-only mode even without local camera or mic.'
+            : 'Accept to join the live audio and video session.';
+        updateCallStatus('Incoming call', 'ringing');
+        startRingtone();
+    }
+
+    function clearIncomingCall() {
+        state.incomingCall = null;
+        updateIncomingCallUi();
+    }
+
+    function setIncomingCall(peer, offer) {
+        state.incomingCall = {
+            peerId: peer.id,
+            name: peer.name,
+            email: peer.email,
+            offer,
+            canReceiveOnly: !canCaptureLocalMedia(),
+        };
+        updateIncomingCallUi();
+    }
+
     function setPeerMeta(text) {
         els.peerMeta.textContent = text;
     }
 
     function canUseMedia() {
         return state.secureContext && !!navigator.mediaDevices?.getUserMedia;
+    }
+
+    function canCaptureLocalMedia() {
+        return canUseMedia();
     }
 
     function updateMediaNotice(message = '') {
@@ -226,7 +326,7 @@ function initWorkspace() {
         els.messageState.textContent = `Chatting with ${peer.name}`;
         els.messageInput.disabled = false;
         els.messageSubmit.disabled = false;
-        els.callToggle.disabled = !canUseMedia();
+        els.callToggle.disabled = false;
 
         const items = state.conversations[peer.id] || [];
 
@@ -260,14 +360,14 @@ function initWorkspace() {
         els.micToggle.disabled = !canUseMedia();
 
         if (!state.localStream && els.localVideoEmptyCopy) {
-            els.localVideoEmptyCopy.textContent = canUseMedia()
+            els.localVideoEmptyCopy.textContent = canCaptureLocalMedia()
                 ? 'Turn on camera when you are ready.'
-                : 'Camera preview is unavailable on insecure LAN HTTP. Use HTTPS on the LAN IP or localhost.';
+                : 'This device can still receive calls, but local camera preview needs HTTPS on the LAN IP or localhost.';
         }
     }
 
     async function ensureLocalStream() {
-        if (!canUseMedia()) {
+        if (!canCaptureLocalMedia()) {
             throw new Error(insecureContextMessage);
         }
 
@@ -322,6 +422,9 @@ function initWorkspace() {
 
         if (stream) {
             stream.getTracks().forEach((track) => connection.addTrack(track, stream));
+        } else {
+            connection.addTransceiver('audio', { direction: 'recvonly' });
+            connection.addTransceiver('video', { direction: 'recvonly' });
         }
 
         connection.ontrack = (event) => {
@@ -444,28 +547,22 @@ function initWorkspace() {
 
         if (call.ended_at && call.ended_at !== state.signaling.endedAt) {
             state.signaling.endedAt = call.ended_at;
+            clearIncomingCall();
             closePeerConnection();
             updateCallStatus('Idle', 'muted');
             return;
         }
 
         if (call.offer && call.offer.from === peer.id && call.offer.updated_at !== state.signaling.offerAt) {
-            state.signaling.offerAt = call.offer.updated_at;
-            await ensureLocalStream();
-            const connection = await ensurePeerConnection();
-            await syncLocalTracks();
-            await connection.setRemoteDescription(new RTCSessionDescription(call.offer.sdp));
-            const answer = await connection.createAnswer();
-            await connection.setLocalDescription(answer);
-            await sendJson(urls.answer, 'POST', {
-                peer_id: peer.id,
-                sdp: answer,
-            });
-            updateCallStatus('Answering', 'warn');
+            if (!state.peerConnection && (!state.incomingCall || state.incomingCall.offer.updated_at !== call.offer.updated_at)) {
+                setIncomingCall(peer, call.offer);
+                return;
+            }
         }
 
         if (call.answer && call.answer.from === peer.id && call.answer.updated_at !== state.signaling.answerAt && state.peerConnection) {
             state.signaling.answerAt = call.answer.updated_at;
+            clearIncomingCall();
             await state.peerConnection.setRemoteDescription(new RTCSessionDescription(call.answer.sdp));
             updateCallStatus('Connected', 'live');
         }
@@ -473,17 +570,55 @@ function initWorkspace() {
         await applyCandidates(call);
     }
 
+    async function fetchCallState(peerId) {
+        const url = `${urls.callState}?peer_id=${peerId}`;
+        const result = await sendJson(url);
+
+        return result.call || {};
+    }
+
+    async function detectIncomingCall() {
+        for (const peer of state.contacts) {
+            try {
+                const call = await fetchCallState(peer.id);
+
+                if (call.ended_at && state.incomingCall?.peerId === peer.id) {
+                    clearIncomingCall();
+                }
+
+                if (
+                    call.offer &&
+                    call.offer.from === peer.id &&
+                    !call.answer &&
+                    !call.ended_at &&
+                    (!state.incomingCall || state.incomingCall.offer.updated_at !== call.offer.updated_at)
+                ) {
+                    setIncomingCall(peer, call.offer);
+
+                    if (state.selectedPeerId !== peer.id) {
+                        setPeerMeta(`${peer.email} · calling now`);
+                    }
+
+                    return;
+                }
+            } catch (error) {
+                window.log('incoming call detection error', error.message);
+            }
+        }
+    }
+
     async function pollCallState() {
         const peer = selectedPeer();
 
-        if (!peer) {
-            return;
-        }
-
         try {
-            const url = `${urls.callState}?peer_id=${peer.id}`;
-            const result = await sendJson(url);
-            await handleCallState(result.call || {});
+            if (peer) {
+                const call = await fetchCallState(peer.id);
+                await handleCallState(call);
+            }
+
+            if (!state.peerConnection) {
+                await detectIncomingCall();
+            }
         } catch (error) {
             window.log('poll error', error.message);
         }
@@ -505,7 +640,14 @@ function initWorkspace() {
             return;
         }
 
-        await ensureLocalStream();
+        if (canCaptureLocalMedia()) {
+            try {
+                await ensureLocalStream();
+            } catch (error) {
+                window.log('local media unavailable, starting receive-only call', error.message);
+            }
+        }
+
         const connection = await ensurePeerConnection();
         await syncLocalTracks();
 
@@ -516,7 +658,7 @@ function initWorkspace() {
             sdp: offer,
         });
 
-        updateCallStatus('Calling', 'warn');
+        updateCallStatus('Ringing', 'ringing');
     }
 
     async function endCall() {
@@ -530,14 +672,57 @@ function initWorkspace() {
         }
 
         closePeerConnection();
+        clearIncomingCall();
         updateCallStatus('Idle', 'muted');
     }
 
-    async function toggleCall() {
-        if (!canUseMedia()) {
-            throw new Error(insecureContextMessage);
+    async function acceptIncomingCall() {
+        const incoming = state.incomingCall;
+
+        if (!incoming) {
+            return;
         }
 
+        if (state.selectedPeerId !== incoming.peerId) {
+            selectPeer(incoming.peerId);
+        }
+
+        state.signaling.offerAt = incoming.offer.updated_at;
+        clearIncomingCall();
+
+        const connection = await ensurePeerConnection();
+        await syncLocalTracks();
+        await connection.setRemoteDescription(new RTCSessionDescription(incoming.offer.sdp));
+        const answer = await connection.createAnswer();
+        await connection.setLocalDescription(answer);
+        await sendJson(urls.answer, 'POST', {
+            peer_id: incoming.peerId,
+            sdp: answer,
+        });
+        updateCallStatus('Answering', 'warn');
+    }
+
+    async function declineIncomingCall() {
+        const incoming = state.incomingCall;
+
+        if (!incoming) {
+            return;
+        }
+
+        try {
+            await sendJson(urls.endCall, 'POST', { peer_id: incoming.peerId });
+        } catch (error) {
+            window.log('decline call error', error.message);
+        }
+
+        clearIncomingCall();
+
+        if (!state.peerConnection) {
+            updateCallStatus('Idle', 'muted');
+        }
+    }
+
+    async function toggleCall() {
         if (state.peerConnection) {
             await endCall();
             return;
@@ -573,7 +758,10 @@ function initWorkspace() {
         renderContacts();
         renderMessages();
         updateCallStatus('Idle', 'muted');
-        updateMediaNotice(canUseMedia() ? '' : insecureContextMessage);
+        updateMediaNotice(canCaptureLocalMedia() ? '' : 'This device can join calls in receive-only mode until camera/mic access is available over HTTPS or localhost.');
+        if (state.incomingCall?.peerId === peerId) {
+            updateIncomingCallUi();
+        }
     }
 
     async function handleMessageSubmit(event) {
@@ -689,10 +877,13 @@ function initWorkspace() {
     els.cameraToggle.addEventListener('click', () => toggleCamera().catch((error) => setPeerMeta(error.message)));
     els.micToggle.addEventListener('click', () => toggleMic().catch((error) => setPeerMeta(error.message)));
     els.callToggle.addEventListener('click', () => toggleCall().catch((error) => setPeerMeta(error.message)));
+    els.acceptCall?.addEventListener('click', () => acceptIncomingCall().catch((error) => setPeerMeta(error.message)));
+    els.declineCall?.addEventListener('click', () => declineIncomingCall().catch((error) => setPeerMeta(error.message)));
     els.logoutButton.addEventListener('click', async () => {
         try {
             await sendJson(urls.logout, 'POST');
         } finally {
+            stopRingtone();
             window.location.href = '/login';
         }
     });
