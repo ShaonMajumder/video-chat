@@ -64,10 +64,11 @@ Link - https://www.youtube.com/watch?v=ZIC_A7jSB-E
 ---
 
 ## <a id="tech-stack"></a>🧰 Tech Stack
+Built on top of the latest stable Laravel 12 release, leveraging modern PHP 8.x features, WebSockets, JWT security, FilamentPHP and containerized deployment with Docker & CI/CD pipelines.
 
 | Area                | Technologies Used                                |
 |---------------------|------------------------------------------------|
-| **Frontend**        | Blade, JavaScript, Axios, Pusher.js              |
+| **Frontend**        | Blade, JavaScript, Axios, Pusher.js, FilamentPHP |
 | **Backend**         | Laravel (PHP), RESTful APIs, JWT Authentication |
 | **Real-Time Chat**  | Laravel WebSockets, Pusher Protocol             |
 | **Queue System**     | Laravel Queue, Redis                            |

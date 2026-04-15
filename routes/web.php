@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
+use App\Http\Middleware\AuthenticateWithCookie;
+use App\Http\Middleware\EncryptCookies;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +25,7 @@ Route::middleware([ 'throttle:global'])->group(function () {
     
     Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
     
-    Route::middleware(['auth.cookie'])->group(function () {
+    Route::middleware([EncryptCookies::class, AuthenticateWithCookie::class])->group(function () {
         Route::get('/', [ChatController::class, 'index']);
         Route::post('/send-message', [ChatController::class, 'sendMessage'])->name('chat.send')->middleware('throttle:chat');
     });

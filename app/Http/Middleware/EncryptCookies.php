@@ -14,4 +14,8 @@ class EncryptCookies extends Middleware
     protected $except = [
         'token'
     ];
+
+    // protected static $neverEncrypt = [
+    //     'token'
+    // ];
 }

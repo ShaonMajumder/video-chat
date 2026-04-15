@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Log;
 
+use App\Http\Middleware\AuthenticateWithCookie;
+
 /*
 |--------------------------------------------------------------------------
 | Broadcast Channels
@@ -22,6 +24,9 @@ use Illuminate\Support\Facades\Log;
 // Single Channel per User:
 // The current setup assumes each user subscribes to their own message-box.{userId} channel to receive messages. This is fine for one-on-one chats but may need adjustment for group chats or multiple concurrent conversations.
 // If users need to receive messages from multiple senders, you might need additional channels or a different naming convention (e.g., conversation.{conversationId}).
+Broadcast::routes([
+    'middleware' => [AuthenticateWithCookie::class],
+]);
 
 Broadcast::channel('message-box.{userId}', function ($user, $userId) {
     if (!$user) {
