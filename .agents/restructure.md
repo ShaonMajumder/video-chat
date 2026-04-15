@@ -142,4 +142,17 @@ Failed to execute 'setRemoteDescription' on 'RTCPeerConnection': Failed to parse
 
 ---
 
-Failed to execute 'setRemoteDescription' on 'RTCPeerConnection': Failed to parse SessionDescription. audio 9 UDP/TLS/RTP/SAVPF 111 103 9 0 8 105 13 110 113 126 Expects m line.
+antigravity : Failed to execute 'setRemoteDescription' on 'RTCPeerConnection': Failed to parse SessionDescription. audio 9 UDP/TLS/RTP/SAVPF 111 103 9 0 8 105 13 110 113 126 Expects m line.
+
+--- 
+
+Stich :  app name is VideoChat , update all ui. its a workspace or business app like google meet just focussed to integrate with other app to conduct team collaboration within Lan
+
+---
+
+Stich : give a available online page where I can find online users
+
+---
+
+Stich : public home page is not that conversion friendly for signup, comeup with something modern clean and exciting
+
