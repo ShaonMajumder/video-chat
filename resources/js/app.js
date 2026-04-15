@@ -1114,6 +1114,14 @@ function initAppPages() {
         renderAll();
         setCallUiVisible(true);
 
+        if (canCaptureLocalMedia() && !state.localStream) {
+            try {
+                await ensureLocalStream();
+            } catch (error) {
+                updateMediaNotice('Camera and microphone access was not granted. Joining in receive-only mode.');
+            }
+        }
+
         const connection = await ensurePeerConnection();
         await syncLocalTracks();
         await connection.setRemoteDescription(new RTCSessionDescription(sanitizeSessionDescription(incoming.offer.sdp)));

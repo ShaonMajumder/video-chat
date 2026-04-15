@@ -269,3 +269,7 @@ solve it
 
 ---
 
+when incoming calling, if camera and mic permission is not enabled ask for it
+
+---
+
