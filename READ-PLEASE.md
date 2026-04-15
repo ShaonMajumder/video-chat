@@ -1,0 +1,1 @@
+https://laravel.com/docs/12.x/rate-limiting
