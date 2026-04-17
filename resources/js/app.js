@@ -788,6 +788,23 @@ function initAppPages() {
         return stream;
     }
 
+    function stopLocalStream() {
+        if (!state.localStream) {
+            state.media.videoEnabled = false;
+            state.media.audioEnabled = false;
+            return;
+        }
+
+        state.localStream.getTracks().forEach((track) => track.stop());
+        state.localStream = null;
+        state.media.videoEnabled = false;
+        state.media.audioEnabled = false;
+
+        if (els.localVideo) {
+            els.localVideo.srcObject = null;
+        }
+    }
+
     function closePeerConnection(resetRemote = true) {
         if (state.peerConnection) {
             state.peerConnection.onicecandidate = null;
@@ -796,6 +813,8 @@ function initAppPages() {
             state.peerConnection.close();
             state.peerConnection = null;
         }
+
+        stopLocalStream();
 
         if (resetRemote) {
             state.remoteStream = null;

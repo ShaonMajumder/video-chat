@@ -275,13 +275,19 @@ when incoming calling, if camera and mic permission is not enabled ask for it
 
 go with better approach you mentioned with socket and fallback with polling. and describe after implementation what is the current architecture
 
-
 ---
+
 own view camera live feed shows preview unavailable altough we can see our live feed on the other device, and under the banner preview unavailable in this device. fix it.
 
 ---
 
-Call connecting is unreliable, 
+when call cut, camera and mic access is not released, even if we end the call, it still shows camera and mic on, fix it
+
+---
+
+---
+
+Call connecting is unreliable,
 analyze all gaps in video chat, both in ux, architecture, codebase, system
 when someone call we receive, its show connecting
 when someone call we have to accept the call 2 times, specially in mobile browser
@@ -289,6 +295,148 @@ find more cases, where bad user experience can cause
 
 analyze and suggest solutions
 
----
+: """
+Findings
 
-when call cut, camera and mic access is not released, even if we end the call, it still shows camera and mic on, fix it
+No STUN/TURN means call setup will fail or hang outside the easiest LAN cases.
+RTCPeerConnection is created with iceServers: [] in resources/js/app.js (line 826). That is a major system gap. On mobile networks, symmetric NATs, Wi‑Fi to cellular, or many browser/device pairs, users will get stuck on CONNECTING even though signaling succeeded.
+
+The “accept twice” problem is likely caused by the current accept flow clearing UI state before the answer path succeeds.
+acceptIncomingCall() clears the incoming call immediately, before getUserMedia, setRemoteDescription, createAnswer, and answer POST all complete: resources/js/app.js (line 1167).
+Inference: on mobile, permission prompts, slow resume, or temporary network delay can make the first accept attempt look like it did nothing, because the banner is cleared early and there is no locked “accepting…” state. If the offer is still present, the UI can surface again and users tap again.
+
+Incoming calls on non-call pages force a redirect instead of presenting a stable incoming-call UX.
+On active incoming offer, non-chat-call pages immediately do window.location.href = appRouteForPeer(peer.id): resources/js/app.js (line 988).
+This is bad UX on desktop and worse on mobile:
+
+it interrupts whatever the user was doing
+it creates a two-step mental flow: “incoming call detected” then “accept on another page”
+it increases the chance that socket/page state resets during navigation
+Fallback polling only runs on the chat/call page, so incoming calls can be missed when realtime is disconnected on other pages.
+shouldUsePollingFallback() only returns true for pageKind === 'chat-call': resources/js/app.js (line 1094).
+That means:
+
+on dashboard/settings/chat hub, if websocket drops, incoming calls may never surface
+your system currently has no reliable incoming-call path outside the call page when sockets are down
+Offer TTL is too aggressive for mobile and page-transition realities.
+OFFER_TTL_SECONDS = 8 in app/Http/Controllers/ChatController.php (line 15).
+Eight seconds is short when you include:
+
+page redirect
+browser permission prompt
+background tab wake-up
+mobile CPU/network lag
+This can easily create “call appeared, I accepted, then it disappeared / stayed connecting”.
+Call state is stored in file cache, which is not robust for signaling at scale or across instances.
+.env uses CACHE_DRIVER=file: .env (line 24).
+That is okay for a local demo, but poor for realtime signaling:
+
+no strong multi-instance behavior
+slower and less predictable than Redis
+harder to reason about race conditions and expiry
+There is no call session ID/versioning, so stale or out-of-order state can be applied.
+The pairwise cache key is just call:{low}:{high}: app/Http/Controllers/ChatController.php (line 200).
+The event payload broadcasts full state each time: app/Http/Controllers/ChatController.php (line 183).
+There is no explicit call_id, no monotonic revision, and no server-enforced state machine. That can produce racey behavior around:
+
+rapid redial
+duplicate answer/candidate events
+“end old call / start new call” overlap
+Local media tracks are not stopped on end, which hurts privacy, battery, and camera reliability.
+closePeerConnection() closes the peer connection but does not stop local tracks: resources/js/app.js (line 791).
+So camera/mic may remain active after hangup and can create:
+
+“camera still on” confusion
+battery drain
+next call/device-lock issues on mobile
+No explicit autoplay recovery for remote media on mobile browsers.
+Remote video is just autoplay playsinline: resources/views/app/chat-call.blade.php (line 78).
+There is no remoteVideo.play() retry after user gesture or connection state change.
+Inference: on mobile Safari/Chrome, audio/video can remain silent/blank until another interaction, which users interpret as “I need to accept again”.
+
+No busy-state, debounce, or timeout around accept/start/end actions.
+The accept button exists, but there is no disabling/loading state while processing: resources/views/app/chat-call.blade.php (line 60).
+That leads to:
+
+double taps
+duplicate requests
+confusing transitions
+no visible difference between “processing” and “broken”
+Incoming-call detection fallback scales poorly.
+When polling fallback is active and there is no peer connection, the code loops all contacts and fetches call state one by one: resources/js/app.js (line 1038).
+That becomes noisy and slow as contact count grows, and call discovery latency gets worse.
+
+Settings UX is misleading because device selection is display-only.
+Camera and microphone selectors are populated, but not used when acquiring media: resources/views/app/chat-call.blade.php (line 88), resources/js/app.js (line 765).
+That creates false expectation: the UI suggests device control that does not exist.
+
+Why users may feel they must accept twice
+
+A forced redirect happens first on non-call pages, then accept happens on the chat page.
+The first accept clears incoming-call state too early.
+There is no “Accepting…” lock/debounce.
+Mobile permission/autoplay behavior can make the first interaction only unlock media/browser restrictions, not visibly complete the call.
+Suggested solutions
+
+Add TURN/STUN immediately.
+Use a real iceServers list with at least public STUN and production TURN. This is the biggest reliability fix.
+
+Change accept flow to be transactional.
+Do not clear the incoming banner at the start.
+Use:
+
+incomingCall.status = "accepting"
+disable Accept/Decline buttons
+only clear banner after answer POST succeeds or remote description is applied
+restore banner with error if any step fails
+Replace forced redirect with a global incoming-call overlay.
+Show accept/decline on any page. Only navigate to the call page after user accepts. That removes one whole UX step.
+
+Keep a broader fallback path for incoming calls when sockets are down.
+If realtime is disconnected, non-call pages still need a lightweight incoming-call poll or dedicated server push fallback.
+
+Increase offer lifetime and add explicit call timeouts.
+Move offer TTL from 8s to something like 25-45s.
+Add separate UI timeouts:
+
+outgoing ringing timeout
+connecting timeout
+missed-call timeout
+Introduce a call_id and revision.
+Every new call should get a unique ID. Every state mutation should increment a revision. Frontend should ignore older state/events.
+
+Move signaling cache to Redis.
+Use Redis for call state and expiry, especially if you plan multi-user or multi-instance deployment.
+
+Stop local tracks on hangup and when leaving the call page.
+Call track.stop() on all local tracks when ending the session unless intentionally preserving preview.
+
+Add explicit remote media playback recovery.
+After remote stream attach, call video.play() and surface a “Tap to resume audio” fallback on mobile if autoplay is blocked.
+
+Add button state management and error UX.
+Use:
+
+Starting…
+Accepting…
+Ending…
+retryable error messages
+disabled controls during async operations
+Handle busy/concurrent call rules explicitly.
+If user is already in a call, reject new offers with busy status instead of silently overwriting UI state.
+
+Make settings real or remove them.
+Either wire chosen deviceId into getUserMedia constraints or remove those selectors until implemented.
+
+Recommended implementation order
+
+TURN/STUN
+Accept-flow fix with loading/debounce
+Global incoming-call overlay instead of redirect
+call_id + revisioned state machine
+Redis cache
+Autoplay/media recovery and local-track cleanup
+I did not runtime-test calls here. This analysis is from the current code paths and environment config.
+"""
+
+---
