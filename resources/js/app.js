@@ -195,6 +195,10 @@ function initAppPages() {
         callUiVisible: false,
         outgoingCallPending: false,
         secureContext: window.isSecureContext || ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname),
+        realtime: {
+            connected: false,
+            signalSubscribed: false,
+        },
     };
 
     const query = new URLSearchParams(window.location.search);
@@ -205,6 +209,10 @@ function initAppPages() {
 
     function selectedPeer() {
         return state.contacts.find((contact) => contact.id === state.selectedPeerId) || null;
+    }
+
+    function peerById(peerId) {
+        return state.contacts.find((contact) => contact.id === peerId) || null;
     }
 
     function ensureConversation(peerId) {
@@ -922,13 +930,8 @@ function initAppPages() {
         updateVideoState();
     }
 
-    async function applyCandidates(call) {
-        if (!call.candidates || !state.peerConnection) {
-            return;
-        }
-
-        const peer = selectedPeer();
-        if (!peer) {
+    async function applyCandidates(call, peer = selectedPeer()) {
+        if (!call.candidates || !state.peerConnection || !peer) {
             return;
         }
 
@@ -949,13 +952,13 @@ function initAppPages() {
         return result.call || {};
     }
 
-    async function handleCallState(call) {
-        const peer = selectedPeer();
+    async function handleCallState(call, peer = selectedPeer()) {
         if (!peer || !call) {
             return;
         }
 
         const activeIncomingOffer = isFreshOffer(call.offer, peer.id) && !call.answer && !call.ended_at;
+        const isSelectedPeer = peer.id === state.selectedPeerId;
 
         if (activeIncomingOffer) {
             state.incomingCallMisses = 0;
@@ -972,25 +975,64 @@ function initAppPages() {
         if (call.ended_at && call.ended_at !== state.signaling.endedAt) {
             state.signaling.endedAt = call.ended_at;
             clearIncomingCall();
-            closePeerConnection();
+
+            if (isSelectedPeer || state.incomingCall?.peerId === peer.id) {
+                closePeerConnection();
+            }
+
             return;
         }
 
         if (activeIncomingOffer && call.offer.updated_at !== state.signaling.offerAt) {
+            if (pageKind !== 'chat-call' && !state.peerConnection) {
+                window.location.href = appRouteForPeer(peer.id);
+                return;
+            }
+
             if (!state.peerConnection && (!state.incomingCall || state.incomingCall.offer.updated_at !== call.offer.updated_at)) {
                 setIncomingCall(peer, call.offer);
                 return;
             }
         }
 
-        if (call.answer && call.answer.from === peer.id && call.answer.updated_at !== state.signaling.answerAt && state.peerConnection) {
+        if (isSelectedPeer && call.answer && call.answer.from === peer.id && call.answer.updated_at !== state.signaling.answerAt && state.peerConnection) {
             state.signaling.answerAt = call.answer.updated_at;
             clearIncomingCall();
             await state.peerConnection.setRemoteDescription(new RTCSessionDescription(sanitizeSessionDescription(call.answer.sdp)));
             updateCallStatus('REC • LIVE');
         }
 
-        await applyCandidates(call);
+        if (isSelectedPeer) {
+            await applyCandidates(call, peer);
+        }
+    }
+
+    async function syncPeerCallState(peerId) {
+        const peer = peerById(peerId);
+
+        if (!peer) {
+            return;
+        }
+
+        const call = await fetchCallState(peerId);
+        await handleCallState(call, peer);
+    }
+
+    async function handleCallSignal(event) {
+        const participants = Array.isArray(event.participants) ? event.participants.map((id) => Number(id)) : [];
+        const peerId = participants.find((id) => id !== Number(state.currentUser?.id));
+
+        if (!peerId) {
+            return;
+        }
+
+        const peer = peerById(peerId);
+
+        if (!peer) {
+            return;
+        }
+
+        await handleCallState(event.call || {}, peer);
     }
 
     async function detectIncomingCall() {
@@ -1031,8 +1073,7 @@ function initAppPages() {
             await refreshOutgoingOfferIfNeeded();
 
             if (peer) {
-                const call = await fetchCallState(peer.id);
-                await handleCallState(call);
+                await syncPeerCallState(peer.id);
             }
 
             if (!state.peerConnection) {
@@ -1043,10 +1084,32 @@ function initAppPages() {
         }
     }
 
-    function startPolling() {
+    function stopPolling() {
         if (state.pollingTimer) {
             clearInterval(state.pollingTimer);
+            state.pollingTimer = null;
         }
+    }
+
+    function shouldUsePollingFallback() {
+        return pageKind === 'chat-call' && (!state.realtime.connected || !state.realtime.signalSubscribed);
+    }
+
+    function syncPollingMode() {
+        if (!shouldUsePollingFallback()) {
+            stopPolling();
+            return;
+        }
+
+        startPolling();
+    }
+
+    function startPolling() {
+        if (state.pollingTimer) {
+            return;
+        }
+
+        pollCallState();
 
         state.pollingTimer = window.setInterval(() => {
             pollCallState();
@@ -1200,12 +1263,51 @@ function initAppPages() {
             renderConversation();
             syncCallLaunchButton();
             updateMediaNotice(canCaptureLocalMedia() ? '' : 'This device can join calls in receive-only mode until camera/mic access is available over HTTPS or localhost.');
+
+            if (state.realtime.connected) {
+                syncPeerCallState(peerId).catch((error) => window.log('peer sync error', error.message));
+            }
         }
     }
 
     function wireRealtime() {
-        if (!window.Echo || !state.currentUser) {
+        if (!state.currentUser) {
             return;
+        }
+
+        if (!window.Echo) {
+            syncPollingMode();
+            return;
+        }
+
+        const connection = window.Echo.connector?.pusher?.connection;
+
+        if (connection) {
+            state.realtime.connected = connection.state === 'connected';
+
+            connection.bind('connected', () => {
+                state.realtime.connected = true;
+                syncPollingMode();
+
+                if (pageKind === 'chat-call') {
+                    pollCallState();
+                }
+            });
+
+            connection.bind('disconnected', () => {
+                state.realtime.connected = false;
+                syncPollingMode();
+            });
+
+            connection.bind('unavailable', () => {
+                state.realtime.connected = false;
+                syncPollingMode();
+            });
+
+            connection.bind('failed', () => {
+                state.realtime.connected = false;
+                syncPollingMode();
+            });
         }
 
         window.Echo.private(`message-box.${state.currentUser.id}`)
@@ -1254,6 +1356,28 @@ function initAppPages() {
             .error((error) => {
                 window.log('presence subscription error', error);
             });
+
+        window.Echo.private(`call-signaling.${state.currentUser.id}`)
+            .subscribed(() => {
+                state.realtime.signalSubscribed = true;
+                syncPollingMode();
+
+                if (pageKind === 'chat-call') {
+                    pollCallState();
+                }
+            })
+            .listen('.call.signal.updated', (event) => {
+                handleCallSignal(event).catch((error) => {
+                    window.log('call signal error', error.message);
+                });
+            })
+            .error((error) => {
+                state.realtime.signalSubscribed = false;
+                window.log('call signaling subscription error', error);
+                syncPollingMode();
+            });
+
+        syncPollingMode();
     }
 
     async function populateDevices() {
@@ -1333,7 +1457,6 @@ function initAppPages() {
 
             renderAll();
             wireRealtime();
-            startPolling();
             wireThemeToggles();
             populateDevices();
             updateVideoState();
@@ -1341,6 +1464,7 @@ function initAppPages() {
 
             if (pageKind === 'chat-call' && state.selectedPeerId) {
                 selectPeer(state.selectedPeerId);
+                pollCallState();
                 if (shouldAutostartCall) {
                     startCall().catch((error) => updateMediaNotice(error.message));
                 }

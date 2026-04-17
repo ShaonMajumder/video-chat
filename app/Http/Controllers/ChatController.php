@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CallSignalUpdated;
 use App\Events\NewMessage;
 use App\Models\User;
 use Illuminate\Support\Carbon;
@@ -179,6 +180,7 @@ class ChatController extends Controller
         $state['updated_at'] = now()->toIso8601String();
 
         Cache::put($key, $state, now()->addMinutes(self::CALL_CACHE_MINUTES));
+        broadcast(new CallSignalUpdated($state['participants'], $state));
 
         return response()->json(['call' => $state]);
     }

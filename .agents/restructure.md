@@ -83,17 +83,14 @@ Caddy with local TLS
 mkcert-based trusted LAN certificate
 The cleanest option for Windows + LAN is mkcert + Nginx/Caddy.
 
-
 ---
-
 
 in new pc : docker compose up --build -d
-failed to solve: process "/bin/sh -c apt-get update && apt-get install -y     nginx     git     unzip     curl     libpng-dev     libonig-dev     libxml2-dev     zip     libzip-dev     libssl-dev     redis-server     supervisor     dos2unix     && docker-php-ext-configure intl     && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip sockets intl" did not complete successfully: exit code: 1
-
+failed to solve: process "/bin/sh -c apt-get update && apt-get install -y nginx git unzip curl libpng-dev libonig-dev libxml2-dev zip libzip-dev libssl-dev redis-server supervisor dos2unix && docker-php-ext-configure intl && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip sockets intl" did not complete successfully: exit code: 1
 
 ---
 
-allow https on Lan http://192.168.0.104:8080/ and localhost:8080 
+allow https on Lan http://192.168.0.104:8080/ and localhost:8080
 
 ---
 
@@ -112,12 +109,12 @@ now even if one pc don't have mic and camera, still it will receive video and au
 no ringing mechanism when called
 
 ---
+
 when try to receive call-
 
 Failed to execute 'setRemoteDescription' on 'RTCPeerConnection': Failed to parse SessionDescription. a=fmtp:49 repair-window=10000000 Invalid SDP line.
 
 ---
-
 
 https://192.168.50.104:8080/api/call-state?peer_id=1
 Request Method:
@@ -144,9 +141,9 @@ Failed to execute 'setRemoteDescription' on 'RTCPeerConnection': Failed to parse
 
 antigravity : Failed to execute 'setRemoteDescription' on 'RTCPeerConnection': Failed to parse SessionDescription. audio 9 UDP/TLS/RTP/SAVPF 111 103 9 0 8 105 13 110 113 126 Expects m line.
 
---- 
+---
 
-Stich :  app name is VideoChat , update all ui. its a workspace or business app like google meet just focussed to integrate with other app to conduct team collaboration within Lan
+Stich : app name is VideoChat , update all ui. its a workspace or business app like google meet just focussed to integrate with other app to conduct team collaboration within Lan
 
 ---
 
@@ -165,8 +162,7 @@ Business Empowering and Energetic theme and color
 Modern, clean and simple and friendly user experience
 More is less ui
 
-
-Public home page have to be  conversion friendly for signup and exciting
+Public home page have to be conversion friendly for signup and exciting
 after login
 other pages can be settings, available online, user profile, user chat page for directly chat and call
 and suggest other pages as the ui have to be minimalistic, more is less
@@ -189,7 +185,7 @@ keep the existing functional feature working dont break them
 
 ---
 
-[unresolved] 
+[unresolved]
 
 According to new UI design done by SRS
 
@@ -253,7 +249,7 @@ but I want it only when some one is calling me, and with their name like - Alex 
 Now the incoming banner does not appear on page load - this is ok now
 But when someone is calling me the incoming call banner is not stable appears, it flashes and hides
 
---- 
+---
 
 when clicked accept in incoming call banner -
 Failed to execute 'setRemoteDescription' on 'RTCPeerConnection': Failed to parse SessionDescription. a=ssrc:2752782870 label:679bd3f6-0ac1-46cd-bd43-c1f8a433467b Invalid SDP line.
@@ -261,7 +257,7 @@ Failed to execute 'setRemoteDescription' on 'RTCPeerConnection': Failed to parse
 we have solved it in previous commits, u can look at
 commit 0829e23be7235948a98eeef94bc48c96ccbc4c17
 Author: Shaon Majumder <smazoomder@gmail.com>
-Date:   Wed Apr 15 13:28:06 2026 +0600
+Date: Wed Apr 15 13:28:06 2026 +0600
 
 or more previous commit
 
@@ -273,3 +269,19 @@ when incoming calling, if camera and mic permission is not enabled ask for it
 
 ---
 
+/api/call-state?peer_id= is it proper implementation continously polling for call state? or we can use socket for it?
+
+---
+
+go with better approach you mentioned with socket and fallback with polling. and describe after implementation what is the current architecture
+
+
+---
+
+Call connecting is unreliable, 
+analyze all gaps in video chat, both in ux, architecture, codebase, system
+when someone call we receive, its show connecting
+when someone call we have to accept the call 2 times, specially in mobile browser
+find more cases, where bad user experience can cause
+
+analyze and suggest solutions

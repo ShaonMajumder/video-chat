@@ -37,6 +37,12 @@ Broadcast::channel('message-box.{userId}', function ($user, $userId) {
     return $currentUser && (int) $currentUser->id === (int) $userId;
 });
 
+Broadcast::channel('call-signaling.{userId}', function ($user, $userId) {
+    $currentUser = resolveBroadcastUser($user);
+
+    return $currentUser && (int) $currentUser->id === (int) $userId;
+});
+
 Broadcast::channel('online', function ($user) {
     $currentUser = resolveBroadcastUser($user);
 
