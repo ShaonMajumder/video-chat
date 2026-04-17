@@ -1663,6 +1663,10 @@ p {
     color: rgba(0, 0, 0, 0.16);
 }
 
+.video-stage__placeholder[hidden] {
+    display: none;
+}
+
 .video-stage__placeholder .material-symbols-outlined {
     font-size: 140px;
 }
@@ -1744,6 +1748,10 @@ p {
     color: #fff;
     background: rgba(18, 20, 30, 0.8);
     text-align: center;
+}
+
+.self-video__placeholder[hidden] {
+    display: none;
 }
 
 .self-video__placeholder small {

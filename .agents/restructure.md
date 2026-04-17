@@ -277,6 +277,9 @@ go with better approach you mentioned with socket and fallback with polling. and
 
 
 ---
+own view camera live feed shows preview unavailable altough we can see our live feed on the other device, and under the banner preview unavailable in this device. fix it.
+
+---
 
 Call connecting is unreliable, 
 analyze all gaps in video chat, both in ux, architecture, codebase, system
@@ -285,3 +288,7 @@ when someone call we have to accept the call 2 times, specially in mobile browse
 find more cases, where bad user experience can cause
 
 analyze and suggest solutions
+
+---
+
+when call cut, camera and mic access is not released, even if we end the call, it still shows camera and mic on, fix it
