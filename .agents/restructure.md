@@ -285,6 +285,12 @@ when call cut, camera and mic access is not released, even if we end the call, i
 
 ---
 
+call is ongoing video is on, still shows connecting
+
+---
+
+without accepting , call screen came
+
 ---
 
 Call connecting is unreliable,

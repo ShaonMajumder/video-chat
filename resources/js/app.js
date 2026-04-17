@@ -665,7 +665,6 @@ function initAppPages() {
                 : 'Accept to join the live audio and video session.';
         }
         updateCallStatus('REC • 00:00');
-        setCallUiVisible(true);
         syncCallLaunchButton();
         startRingtone();
     }
@@ -882,7 +881,7 @@ function initAppPages() {
         connection.onconnectionstatechange = () => {
             const connectionState = connection.connectionState;
 
-            if (connectionState === 'connected') {
+            if (state.remoteStream || connectionState === 'connected') {
                 state.outgoingCallPending = false;
                 updateCallStatus('REC • LIVE');
                 setCallUiVisible(true);
