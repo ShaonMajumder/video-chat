@@ -1213,7 +1213,9 @@ function initAppPages() {
             sdp: sanitizeSessionDescription(connection.localDescription ?? answer),
         });
 
-        updateCallStatus('CONNECTING');
+        if (!state.remoteStream) {
+            updateCallStatus('CONNECTING');
+        }
     }
 
     async function declineIncomingCall() {
